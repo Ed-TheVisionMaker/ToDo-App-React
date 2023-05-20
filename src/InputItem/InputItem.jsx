@@ -1,4 +1,5 @@
 import React from "react";
+import TaskList from "../TaskList/TaskList";
 
 export default class InputItem extends React.Component {
   state = {
@@ -10,6 +11,10 @@ export default class InputItem extends React.Component {
     this.setState({ inputValue: e.target.value })
   }
 
+  handleBlur = (e) => {
+    e.target.value = "";
+}
+
   handleSubmit = (e) => {
     e.preventDefault();
     const newItem = {
@@ -19,21 +24,28 @@ export default class InputItem extends React.Component {
         complexity: 0,
         data: Date.now(),
         id: `${Math.random()} * ${Math.random()}`,
-        isOpen: false,
     }
-
     const newList = [...this.state.list, newItem];
-
     this.setState({ inputValue: "", list: newList });
-
   }
+
+  handleAmendTask = (itemAmended) => {
+    const newList = this.state.list.map(item => {
+      if (item.id === itemAmended.id) {
+        item.task = itemAmended.task;
+      }
+      return item
+    })
+    this.setState({ list: newList })
+  }
+
   render() {
-    console.log(this.state.inputValue, this.state.list)
     return (
       <>
         <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} placeholder="add to your list here" />
+          <input onChange={this.handleChange} onBlur={this.handleBlur} placeholder="add to your list here" />
         </form>
+        <TaskList list={this.state.list} handleAmendTask={this.handleAmendTask} />
       </>
     );
   }
