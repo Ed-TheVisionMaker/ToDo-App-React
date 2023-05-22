@@ -7,7 +7,7 @@ const TaskList = (props) => {
         <ul>
         {props.list.map(item => {
             return (
-                <TaskLine item={item} handleAmendTask={props.handleAmendTask} handleRemove={props.handleRemove}/>
+                <TaskLine item={item} handleAmendTask={props.handleAmendTask} handleRemove={props.handleRemove} handleIsDone={props.handleIsDone} />
             )
         })}
     </ul>

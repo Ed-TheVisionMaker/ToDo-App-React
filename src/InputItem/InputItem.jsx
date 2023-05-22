@@ -24,10 +24,10 @@ export default class InputItem extends React.Component {
       isDone: false,
       priority: 0,
       complexity: 0,
-      data: Date.now(),
-      // id: `${Math.random()} * ${Math.random()}`,
-      id: Math.random()
+      date: Date.now(),
+      id: `${Math.random()} * ${Math.random()}`,
     };
+
     const newList = [...this.state.list, newItem];
     this.setState({ inputValue: "", list: newList });
   };
@@ -47,6 +47,16 @@ export default class InputItem extends React.Component {
     this.setState({ list: newList });
   };
 
+  handleIsDone = (id) => {
+    const newList = this.state.list.map((item) => {
+      if (item.id === id) {
+        item.isDone = !item.isDone;
+      }
+      return item;
+    });
+    this.setState({ list: newList });
+  };
+
   render() {
     return (
       <>
@@ -61,6 +71,7 @@ export default class InputItem extends React.Component {
           list={this.state.list}
           handleAmendTask={this.handleAmendTask}
           handleRemove={this.handleRemove}
+          handleIsDone={this.handleIsDone}
         />
       </>
     );

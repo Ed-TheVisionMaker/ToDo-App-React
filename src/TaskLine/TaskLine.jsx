@@ -1,6 +1,8 @@
 import React from "react";
 
+import Checkbox from "../Checkbox/Checkbox";
 import RemoveItem from "../RemoveItem/RemoveItem";
+
 
 class TaskLine extends React.Component {
   state = {
@@ -31,10 +33,11 @@ class TaskLine extends React.Component {
   };
 
   render() {
-    const { complexity, id, priority, task } = this.props.item;
+    const { complexity, id, isDone, priority, task } = this.props.item;
     const isOpen = this.state.isOpen;
     return (
       <>
+        <Checkbox id={id} isDone={isDone} handleIsDone={this.props.handleIsDone} />
         <li key={id}>
           {isOpen && (
             <input
