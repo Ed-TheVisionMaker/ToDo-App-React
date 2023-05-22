@@ -1,5 +1,7 @@
 import React from "react";
 
+import RemoveItem from "../RemoveItem/RemoveItem";
+
 class TaskLine extends React.Component {
   state = {
     inputValue: "",
@@ -47,6 +49,7 @@ class TaskLine extends React.Component {
             </span>
           )}
         </li>
+        <RemoveItem id={id} handleChange={this.props.handleChange}/>
       </>
     );
   }

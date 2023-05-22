@@ -41,8 +41,9 @@ export default class InputItem extends React.Component {
     this.setState({ list: newList })
   }
 
-  handleRemove = () => {
-
+  handleRemove = (id) => {
+    const newList = this.state.list.filter(item => item.id !== id);
+    this.setState({ list: newList });
   }
 
   render() {
@@ -51,8 +52,7 @@ export default class InputItem extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} onBlur={this.handleBlur} placeholder="add to your list here" />
         </form>
-        <TaskList list={this.state.list} handleAmendTask={this.handleAmendTask} />
-        <RemoveItem list={this.state.list} handleRemove={this.handleRemove} />
+        <TaskList list={this.state.list} handleAmendTask={this.handleAmendTask} handleRemove={this.handleRemove} />
       </>
     );
   }
