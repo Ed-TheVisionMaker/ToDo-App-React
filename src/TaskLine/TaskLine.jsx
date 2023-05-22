@@ -45,11 +45,11 @@ class TaskLine extends React.Component {
           )}
           {!isOpen && (
             <span onClick={this.handleClick}>
-              {this.state.inputValue}
+              {task}
             </span>
           )}
         </li>
-        <RemoveItem id={id} handleChange={this.props.handleChange}/>
+        <RemoveItem id={id} handleChange={this.props.handleChange} handleRemove={this.props.handleRemove}/>
       </>
     );
   }
