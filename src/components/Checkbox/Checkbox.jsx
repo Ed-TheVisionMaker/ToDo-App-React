@@ -6,19 +6,25 @@ const Checkbox = (props) => {
 
   const StyledCheckbox = styled.button`
     position: relative;
+
+    box-sizing: border-box;
     width: 20px;
     height: 20px;
-    border: 1px solid pink;
+
+    margin-right: 20px;
   `;
 
   const StyledCheckboxSVG = styled.svg`
     position: absolute;
     top: 0;
     left: 0;
+
+    box-sizing: border-box;
     width: 20px;
     height: 20px;
+
     color: black;
-    border: 1px solid blue;
+    background-color: white;
   `;
 
   return (

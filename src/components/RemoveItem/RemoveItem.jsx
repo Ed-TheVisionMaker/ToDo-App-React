@@ -2,15 +2,24 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledRemoveButton = styled.button`
-  background-color: white;
+  position: relative;
+
   width: 20px;
   height: 20px;
+
+  margin-left: 20px;
+  
   border: 1px solid white;
 `;
 
 const StyledRemoveSVG = styled.svg`
+  position: absolute;
+  top: 0;
+  left: 0;
+
   width: 20px;
   height: 20px;
+
   border: 1px solid white;
 `;
 

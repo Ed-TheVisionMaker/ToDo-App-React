@@ -12,9 +12,6 @@ const GlobalStyle = createGlobalStyle`
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -28,7 +25,6 @@ body {
 button {
   font-family: inherit;
   cursor: pointer;  
-  transition: border-color 0.25s;
 }
 `;
 

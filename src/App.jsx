@@ -6,22 +6,26 @@ import InputItem from "./components/InputItem/InputItem";
 
 
 const Container = styled.div`
+  min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  margin: 0 auto;
 `
 
 // change to functional component
 function App() {
-  return;
+  return (
   <>
     <GlobalStyle />
     <Container>
     <InputItem />
     </Container>
-  </>;
+  </>
+  );
+  
 }
 
-export default App;
+export default App

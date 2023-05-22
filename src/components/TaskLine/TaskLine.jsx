@@ -6,6 +6,7 @@ import RemoveItem from "../RemoveItem/RemoveItem";
 
 const StyledListItem = styled.li`
   display: flex;
+  align-items: center;
 `
 
 const StyledItemSpan = styled.span `
