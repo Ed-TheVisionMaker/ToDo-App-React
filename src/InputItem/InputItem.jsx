@@ -1,5 +1,7 @@
 import React from "react";
+
 import TaskList from "../TaskList/TaskList";
+import RemoveItem from "../RemoveItem/RemoveItem";
 
 export default class InputItem extends React.Component {
   state = {
@@ -39,6 +41,10 @@ export default class InputItem extends React.Component {
     this.setState({ list: newList })
   }
 
+  handleRemove = () => {
+
+  }
+
   render() {
     return (
       <>
@@ -46,6 +52,7 @@ export default class InputItem extends React.Component {
           <input onChange={this.handleChange} onBlur={this.handleBlur} placeholder="add to your list here" />
         </form>
         <TaskList list={this.state.list} handleAmendTask={this.handleAmendTask} />
+        <RemoveItem list={this.state.list} handleRemove={this.handleRemove} />
       </>
     );
   }
