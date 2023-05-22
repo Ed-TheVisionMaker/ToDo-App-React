@@ -1,13 +1,13 @@
 import React from "react";
+import styled from "styled-components";
 
 import InputItem from "./InputItem/InputItem";
 
-// chnage to functional component
-export default class App extends React.Component {
-  render() {
-    return (
-      <InputItem />
-    )
-  }
-};
+// change to functional component
+function App() {
+  return (
+    <InputItem />
+  )
+}
 
+export default App

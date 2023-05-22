@@ -1,19 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledCheckbox = styled.button`
-  width: 20px;
-  height: 20px;
-`;
-
-const StyledCheckboxSVG = styled.svg`
-  width: 20px;
-  height: 20px;
-  background-color: white;
-`;
-
 const Checkbox = (props) => {
   const isDone = props.isDone;
+
+  const StyledCheckbox = styled.button`
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 1px solid pink;
+  `;
+
+  const StyledCheckboxSVG = styled.svg`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    color: black;
+    border: 1px solid blue;
+  `;
+
   return (
     <StyledCheckbox onClick={() => props.handleIsDone(props.id)}>
       {isDone && (
