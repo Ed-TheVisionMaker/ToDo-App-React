@@ -1,8 +1,16 @@
 import React from "react";
+import styled from "styled-components";
 
 import Checkbox from "../Checkbox/Checkbox";
 import RemoveItem from "../RemoveItem/RemoveItem";
 
+const StyledListItem = styled.li`
+  display: flex;
+`
+
+const StyledItemSpan = styled.span `
+  min-width: 150px;
+`
 
 class TaskLine extends React.Component {
   state = {
@@ -37,8 +45,8 @@ class TaskLine extends React.Component {
     const isOpen = this.state.isOpen;
     return (
       <>
+        <StyledListItem key={id}>
         <Checkbox id={id} isDone={isDone} handleIsDone={this.props.handleIsDone} />
-        <li key={id}>
           {isOpen && (
             <input
               onBlur={this.handleClick}
@@ -47,12 +55,12 @@ class TaskLine extends React.Component {
             />
           )}
           {!isOpen && (
-            <span onClick={this.handleClick}>
+            <StyledItemSpan onClick={this.handleClick}>
               {task}
-            </span>
+            </StyledItemSpan>
           )}
-        </li>
         <RemoveItem id={id} handleChange={this.props.handleChange} handleRemove={this.props.handleRemove}/>
+        </StyledListItem>
       </>
     );
   }
