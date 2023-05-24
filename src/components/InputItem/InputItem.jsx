@@ -68,7 +68,7 @@ export default class InputItem extends React.Component {
   }
 
   render() {
-    console.log(this.state.list);
+    // console.log(this.state.list);
     return (
       <>
         <form onSubmit={this.handleSubmit}>

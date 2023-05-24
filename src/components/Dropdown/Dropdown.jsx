@@ -10,9 +10,9 @@ const DdWrapperStyled = styled.div`
 `;
 
 const DdHeaderButtonStyled = styled.button`
-position: absolute; 
-top: 0;
-left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
 
 const DdHeaderTitleStyled = styled.div``;
@@ -43,7 +43,7 @@ export default class Dd extends React.Component {
       { value: 9, id: `${Math.random()} * ${Math.random()}` },
       { value: 10, id: `${Math.random()} * ${Math.random()}` },
     ],
-    prioritySelected: 0,
+    prioritySelected: null,
   };
 
   toggleList = () => {
@@ -53,11 +53,12 @@ export default class Dd extends React.Component {
   };
 
   selectItem = (taskId, priorityItem) => {
-    this.props.handlePriority(taskId, priorityItem)
+    this.props.handlePriority(taskId, priorityItem);
     this.setState({ prioritySelected: priorityItem.value, isListOpen: false });
   };
 
   render() {
+    console.log(this.state.prioritySelected, "prioritySelected in dropdwon");
     const isListOpen = this.state.isListOpen;
     const isPriority = this.state.priority;
     const taskId = this.props.id;
@@ -65,13 +66,16 @@ export default class Dd extends React.Component {
       <DdWrapperStyled>
         <DdHeaderButtonStyled onClick={this.toggleList}>
           <DdHeaderTitleStyled>
-            {this.state.prioritySelected}
+            {this.state.prioritySelected ? this.state.prioritySelected : 0}
           </DdHeaderTitleStyled>
         </DdHeaderButtonStyled>
         {isListOpen && (
           <DdListStyled>
             {isPriority.map((priorityItem) => (
-              <DdListButton key={priorityItem.id} onClick={() => this.selectItem(taskId, priorityItem)}>
+              <DdListButton
+                key={priorityItem.id}
+                onClick={() => this.selectItem(taskId, priorityItem)}
+              >
                 {priorityItem.value}
               </DdListButton>
             ))}
