@@ -26,6 +26,11 @@ button {
   font-family: inherit;
   cursor: pointer;  
 }
+
+h3 {
+  margin: 0;
+  padding: 0;
+}
 `;
 
 export default GlobalStyle
