@@ -57,18 +57,29 @@ export default class InputItem extends React.Component {
     this.setState({ list: newList });
   };
 
-  handlePriority = (taskId, dropDownItem) => {
+  handleTaskValues = (taskId, dropDownItem, category) => {
     const newList = this.state.list.map((item) => {
-      if(item.id === taskId ) {
+      if(item.id === taskId && category === "priority") {
         item.priority = dropDownItem.value;
+      }
+      if(item.id === taskId && category === "complexity") {
+        item.complexity = dropDownItem.value;
       }
       return item;
     });
     this.setState({ list: newList })
   }
 
+  handleSort = (criteria) => {
+    this.state.list.sort((item) => {
+
+    })
+
+  }
+
+
   render() {
-    // console.log(this.state.list);
+    console.log(this.state.list);
     return (
       <>
         <form onSubmit={this.handleSubmit}>
@@ -83,7 +94,7 @@ export default class InputItem extends React.Component {
           handleAmendTask={this.handleAmendTask}
           handleRemove={this.handleRemove}
           handleIsDone={this.handleIsDone}
-          handlePriority={this.handlePriority}
+          handleTaskValues={this.handleTaskValues}
         />
       </>
     );

@@ -10,7 +10,7 @@ const DdWrapperStyled = styled.div`
 `;
 
 const DdHeaderButtonStyled = styled.button`
-  position: absolute;
+//   position: absolute;
   top: 0;
   left: 0;
 `;
@@ -67,10 +67,10 @@ export default class Dd extends React.Component {
     }));
   };
 
-  selectItem = (taskId, dropDownItem) => {
-    this.props.handlePriority(taskId, dropDownItem);
-    if(this.state.category === "priority") this.setState({ prioritySelected: dropDownItem.value, isListOpen: false });
-    if(this.state.category === "complexity") this.setState({ complexitySelected: dropDownItem.value, isListOpen: false });
+  selectItem = (taskId, dropDownItem, category) => {
+    this.props.handleTaskValues(taskId, dropDownItem, category);
+    if(category === "priority") this.setState({ prioritySelected: dropDownItem.value, isListOpen: false });
+    if(category === "complexity") this.setState({ complexitySelected: dropDownItem.value, isListOpen: false });
   };
 
   componentDidMount() {
@@ -79,7 +79,6 @@ export default class Dd extends React.Component {
   }
 
   render() {
-    console.log(this.state, "check category  dropdwon");
     const isListOpen = this.state.isListOpen;
     const priorityItems = this.state.priority;
     const complexityItems = this.state.complexity;
@@ -93,24 +92,24 @@ export default class Dd extends React.Component {
             {category === "complexity" && (this.state.complexitySelected ? this.state.complexitySelected : 0)}
           </DdHeaderTitleStyled>
         </DdHeaderButtonStyled>
-        {isListOpen && category === "priority" (
+        {isListOpen && category === "priority" && (
           <DdListStyled>
             {priorityItems.map((priorityItem) => (
               <DdListButton
                 key={priorityItem.id}
-                onClick={() => this.selectItem(taskId, priorityItem)}
+                onClick={() => this.selectItem(taskId, priorityItem, category)}
               >
                 {priorityItem.value}
               </DdListButton>
             ))}
           </DdListStyled>
         )};
-                {isListOpen && category === "complexity" (
+                {isListOpen && category === "complexity" && (
           <DdListStyled>
             {complexityItems.map((complexityItem) => (
               <DdListButton
                 key={complexityItem.id}
-                onClick={() => this.selectItem(taskId, complexityItem)}
+                onClick={() => this.selectItem(taskId, complexityItem, category)}
               >
                 {complexityItem.value}
               </DdListButton>

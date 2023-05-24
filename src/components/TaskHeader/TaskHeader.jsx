@@ -24,13 +24,32 @@ const TaskPriority = styled.h3`
 
 `
 
-const TaskHeader = () => {
+const TaskComplexity = styled.h3`
+
+`
+
+const TaskValueContainer = styled.div`
+
+`
+
+const SortButton = styled.button`
+
+`
+
+const TaskHeader = (props) => {
     return (
         <TaskHeaderWrapper>
                 <TaskDone>Done</TaskDone>
                 <TaskItem>Task</TaskItem>
                 <TaskDelete>Delete</TaskDelete>
+                <TaskValueContainer>
                 <TaskPriority>Priority</TaskPriority>
+                <SortButton></SortButton>
+                </TaskValueContainer>
+                <TaskValueContainer>
+                <TaskComplexity>Complexity</TaskComplexity>
+                <SortButton></SortButton>
+                </TaskValueContainer>
         </TaskHeaderWrapper>
     )
 }

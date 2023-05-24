@@ -15,7 +15,7 @@ const TaskList = (props) => {
               handleAmendTask={props.handleAmendTask}
               handleRemove={props.handleRemove}
               handleIsDone={props.handleIsDone}
-              handlePriority={props.handlePriority}
+              handleTaskValues={props.handleTaskValues}
             />
           );
         })}
