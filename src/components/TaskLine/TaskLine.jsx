@@ -62,7 +62,7 @@ class TaskLine extends React.Component {
             </StyledItemSpan>
           )}
         <RemoveItem id={id} handleChange={this.props.handleChange} handleRemove={this.props.handleRemove}/>
-        <Dropdown />
+        <Dropdown handlePriority={this.props.handlePriority} id={id}/>
         </StyledListItem>
       </>
     );

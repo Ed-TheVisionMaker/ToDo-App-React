@@ -52,13 +52,15 @@ export default class Dd extends React.Component {
     }));
   };
 
-  selectItem = (item) => {
-    this.setState({ prioritySelected: item.value, isListOpen: false });
+  selectItem = (taskId, priorityItem) => {
+    this.props.handlePriority(taskId, priorityItem)
+    this.setState({ prioritySelected: priorityItem.value, isListOpen: false });
   };
 
   render() {
     const isListOpen = this.state.isListOpen;
     const isPriority = this.state.priority;
+    const taskId = this.props.id;
     return (
       <DdWrapperStyled>
         <DdHeaderButtonStyled onClick={this.toggleList}>
@@ -68,9 +70,9 @@ export default class Dd extends React.Component {
         </DdHeaderButtonStyled>
         {isListOpen && (
           <DdListStyled>
-            {isPriority.map((item) => (
-              <DdListButton key={item.id} onClick={() => this.selectItem(item)}>
-                {item.value}
+            {isPriority.map((priorityItem) => (
+              <DdListButton key={priorityItem.id} onClick={() => this.selectItem(taskId, priorityItem)}>
+                {priorityItem.value}
               </DdListButton>
             ))}
           </DdListStyled>

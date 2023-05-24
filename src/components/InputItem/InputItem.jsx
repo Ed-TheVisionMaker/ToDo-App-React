@@ -57,12 +57,18 @@ export default class InputItem extends React.Component {
     this.setState({ list: newList });
   };
 
-  handlePriority = (item, value) => {
-    
-
+  handlePriority = (taskId, priorityItem) => {
+    const newList = this.state.list.map((item) => {
+      if(item.id === taskId ) {
+        item.priority = priorityItem.value;
+      }
+      return item;
+    });
+    this.setState({ list: newList })
   }
 
   render() {
+    console.log(this.state.list);
     return (
       <>
         <form onSubmit={this.handleSubmit}>
@@ -77,6 +83,7 @@ export default class InputItem extends React.Component {
           handleAmendTask={this.handleAmendTask}
           handleRemove={this.handleRemove}
           handleIsDone={this.handleIsDone}
+          handlePriority={this.handlePriority}
         />
       </>
     );
