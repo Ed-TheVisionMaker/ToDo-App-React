@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Checkbox from "../Checkbox/Checkbox";
 import RemoveItem from "../RemoveItem/RemoveItem";
+import Dropdown from "../Dropdown/Dropdown";
 
 const StyledListItem = styled.li`
   display: flex;
@@ -61,6 +62,7 @@ class TaskLine extends React.Component {
             </StyledItemSpan>
           )}
         <RemoveItem id={id} handleChange={this.props.handleChange} handleRemove={this.props.handleRemove}/>
+        <Dropdown />
         </StyledListItem>
       </>
     );

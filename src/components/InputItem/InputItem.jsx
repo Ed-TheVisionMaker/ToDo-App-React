@@ -57,6 +57,11 @@ export default class InputItem extends React.Component {
     this.setState({ list: newList });
   };
 
+  handlePriority = (item, value) => {
+    
+
+  }
+
   render() {
     return (
       <>
