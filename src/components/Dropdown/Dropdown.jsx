@@ -44,21 +44,21 @@ export default class Dd extends React.Component {
       { value: 10, id: `${Math.random()} * ${Math.random()}` },
     ],
     complexity: [
-        { value: 0, id: `${Math.random()} * ${Math.random()}` },
-        { value: 1, id: `${Math.random()} * ${Math.random()}` },
-        { value: 2, id: `${Math.random()} * ${Math.random()}` },
-        { value: 3, id: `${Math.random()} * ${Math.random()}` },
-        { value: 4, id: `${Math.random()} * ${Math.random()}` },
-        { value: 5, id: `${Math.random()} * ${Math.random()}` },
-        { value: 6, id: `${Math.random()} * ${Math.random()}` },
-        { value: 7, id: `${Math.random()} * ${Math.random()}` },
-        { value: 8, id: `${Math.random()} * ${Math.random()}` },
-        { value: 9, id: `${Math.random()} * ${Math.random()}` },
-        { value: 10, id: `${Math.random()} * ${Math.random()}` },
-      ],
-      prioritySelected: null,
-      complexitySelected: null,
-    category: null
+      { value: 0, id: `${Math.random()} * ${Math.random()}` },
+      { value: 1, id: `${Math.random()} * ${Math.random()}` },
+      { value: 2, id: `${Math.random()} * ${Math.random()}` },
+      { value: 3, id: `${Math.random()} * ${Math.random()}` },
+      { value: 4, id: `${Math.random()} * ${Math.random()}` },
+      { value: 5, id: `${Math.random()} * ${Math.random()}` },
+      { value: 6, id: `${Math.random()} * ${Math.random()}` },
+      { value: 7, id: `${Math.random()} * ${Math.random()}` },
+      { value: 8, id: `${Math.random()} * ${Math.random()}` },
+      { value: 9, id: `${Math.random()} * ${Math.random()}` },
+      { value: 10, id: `${Math.random()} * ${Math.random()}` },
+    ],
+    prioritySelected: null,
+    complexitySelected: null,
+    category: null,
   };
 
   toggleList = () => {
@@ -67,29 +67,33 @@ export default class Dd extends React.Component {
     }));
   };
 
-  selectItem = (taskId, priorityItem) => {
-    this.props.handlePriority(taskId, priorityItem);
-    this.setState({ prioritySelected: priorityItem.value, isListOpen: false });
+  selectItem = (taskId, dropDownItem) => {
+    this.props.handlePriority(taskId, dropDownItem);
+    if(this.state.category === "priority") this.setState({ prioritySelected: dropDownItem.value, isListOpen: false });
+    if(this.state.category === "complexity") this.setState({ complexitySelected: dropDownItem.value, isListOpen: false });
   };
 
   componentDidMount() {
-    const category = this.props.category
-    this.setState({ category: category })
+    const category = this.props.category;
+    this.setState({ category: category });
   }
 
   render() {
     console.log(this.state, "check category  dropdwon");
     const isListOpen = this.state.isListOpen;
     const priorityItems = this.state.priority;
+    const complexityItems = this.state.complexity;
+    const category = this.state.category;
     const taskId = this.props.id;
     return (
       <DdWrapperStyled>
         <DdHeaderButtonStyled onClick={this.toggleList}>
           <DdHeaderTitleStyled>
-            {this.state.prioritySelected ? this.state.prioritySelected : 0}
+            {category === "priority" && (this.state.prioritySelected ? this.state.prioritySelected : 0)}
+            {category === "complexity" && (this.state.complexitySelected ? this.state.complexitySelected : 0)}
           </DdHeaderTitleStyled>
         </DdHeaderButtonStyled>
-        {isListOpen && (
+        {isListOpen && category === "priority" (
           <DdListStyled>
             {priorityItems.map((priorityItem) => (
               <DdListButton
@@ -97,6 +101,18 @@ export default class Dd extends React.Component {
                 onClick={() => this.selectItem(taskId, priorityItem)}
               >
                 {priorityItem.value}
+              </DdListButton>
+            ))}
+          </DdListStyled>
+        )};
+                {isListOpen && category === "complexity" (
+          <DdListStyled>
+            {complexityItems.map((complexityItem) => (
+              <DdListButton
+                key={complexityItem.id}
+                onClick={() => this.selectItem(taskId, complexityItem)}
+              >
+                {complexityItem.value}
               </DdListButton>
             ))}
           </DdListStyled>

@@ -57,10 +57,10 @@ export default class InputItem extends React.Component {
     this.setState({ list: newList });
   };
 
-  handlePriority = (taskId, priorityItem) => {
+  handlePriority = (taskId, dropDownItem) => {
     const newList = this.state.list.map((item) => {
       if(item.id === taskId ) {
-        item.priority = priorityItem.value;
+        item.priority = dropDownItem.value;
       }
       return item;
     });
