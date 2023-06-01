@@ -1,5 +1,4 @@
 import React from "react";
-import Dropdown from "react-dropdown";
 import styled from "styled-components";
 
 // https://blog.logrocket.com/customize-reusable-react-dropdown-menu-component/
@@ -10,9 +9,6 @@ const DdWrapperStyled = styled.div`
 `;
 
 const DdHeaderButtonStyled = styled.button`
-//   position: absolute;
-  top: 0;
-  left: 0;
 `;
 
 const DdHeaderTitleStyled = styled.div``;
@@ -103,7 +99,7 @@ export default class Dd extends React.Component {
               </DdListButton>
             ))}
           </DdListStyled>
-        )};
+        )}
                 {isListOpen && category === "complexity" && (
           <DdListStyled>
             {complexityItems.map((complexityItem) => (

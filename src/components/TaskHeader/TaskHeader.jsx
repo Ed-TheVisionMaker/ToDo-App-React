@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import SortButton from "../SortButton/SortButton";
+
 const TaskHeaderWrapper = styled.div`
 display: flex;
 font-size: 12px;
@@ -32,10 +34,6 @@ const TaskValueContainer = styled.div`
 
 `
 
-const SortButton = styled.button`
-
-`
-
 const TaskHeader = (props) => {
     return (
         <TaskHeaderWrapper>
@@ -44,11 +42,11 @@ const TaskHeader = (props) => {
                 <TaskDelete>Delete</TaskDelete>
                 <TaskValueContainer>
                 <TaskPriority>Priority</TaskPriority>
-                <SortButton></SortButton>
+                <SortButton list={props.list} handleSort={props.handleSort} category={"priority"} ></SortButton>
                 </TaskValueContainer>
                 <TaskValueContainer>
                 <TaskComplexity>Complexity</TaskComplexity>
-                <SortButton></SortButton>
+                <SortButton list={props.list} handleSort={props.handleSort} category={"complexity"} ></SortButton>
                 </TaskValueContainer>
         </TaskHeaderWrapper>
     )

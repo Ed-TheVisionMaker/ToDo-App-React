@@ -7,6 +7,7 @@ export default class InputItem extends React.Component {
   state = {
     inputValue: "",
     list: [],
+    sortCategory: "default",
   };
 
   handleChange = (e) => {
@@ -70,16 +71,39 @@ export default class InputItem extends React.Component {
     this.setState({ list: newList })
   }
 
-  handleSort = (criteria) => {
-    this.state.list.sort((item) => {
-
+  handleSort = (sortCategory, category) => {
+    const sortedList = this.state.list.sort((a, b) => {
+      if(category === "priority") {
+        if(sortCategory === "default") {
+          return a.date - b.date;
+        }
+        if(sortCategory === "ascending") {
+           return a.priority - b.priority;
+        } 
+        if(sortCategory === "descending") {
+          return b.priority - a.priority;
+        }
+      }
+      
+      if(category === "complexity") {
+        if(sortCategory === "default") {
+          return a.date - b.date;
+        }
+        if(sortCategory === "ascending") {
+          return a.priority - b.priority;
+        }
+        if(sortCategory === "descending") {
+          return  b.priority - a.priority;
+        }
+      }
     })
-
+    console.log(sortedList, "sorted List in input items")
+    this.setState({ list: sortedList })
   }
 
 
   render() {
-    console.log(this.state.list);
+    // console.log(this.state.list);
     return (
       <>
         <form onSubmit={this.handleSubmit}>
@@ -95,6 +119,7 @@ export default class InputItem extends React.Component {
           handleRemove={this.handleRemove}
           handleIsDone={this.handleIsDone}
           handleTaskValues={this.handleTaskValues}
+          handleSort={this.handleSort}
         />
       </>
     );
