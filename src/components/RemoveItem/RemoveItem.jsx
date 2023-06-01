@@ -4,12 +4,16 @@ import styled from "styled-components";
 const StyledRemoveButton = styled.button`
   position: relative;
 
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 
-  margin-left: 20px;
+  margin-left: 30px;
+  margin-right: 65px;
+  padding: 5px;
+  border-radius: 10px;
+  border: 0;
   
-  border: 1px solid white;
+  background-color: transparent;
 `;
 
 const StyledRemoveSVG = styled.svg`
@@ -17,10 +21,10 @@ const StyledRemoveSVG = styled.svg`
   top: 0;
   left: 0;
 
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 
-  border: 1px solid white;
+  border-radius: 10px;
 `;
 
 const RemoveItem = (props) => {

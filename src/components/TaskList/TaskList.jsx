@@ -5,8 +5,6 @@ import TaskLine from "../TaskLine/TaskLine";
 import TaskHeader from "../TaskHeader/TaskHeader";
 
 const TodoContainer = styled.div`
-  width: 600px;
-  border: 1px solid white;
 `;
 
 const TaskListContainer = styled.div`
@@ -17,21 +15,19 @@ const TaskListContainer = styled.div`
 `;
 
 const ListUnordered = styled.ul`
-  width: inherit;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
 
   list-style-type: none;
-
-  border: 1px solid blue;
-
+  font-size: 16px;
 `;
 
 const TaskList = (props) => {
   return (
     <TodoContainer>
-      <TaskHeader list={props.list} handleSort={props.handleSort} />
+      {props.list.length && <TaskHeader list={props.list} handleSort={props.handleSort} />}
       <TaskListContainer>
         <ListUnordered>
           {props.list.map((item) => {

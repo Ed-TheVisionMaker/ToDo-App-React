@@ -1,7 +1,32 @@
 import React from "react";
+import styled from "styled-components";
 
 import TaskList from "../TaskList/TaskList";
 import RemoveItem from "../RemoveItem/RemoveItem";
+
+const InputContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+
+  margin-bottom: 50px; 
+`;
+
+
+const TaskInput = styled.input`
+  width: 350px;
+
+  padding: 5px 10px;
+  font-size: 18px;
+`
+
+const SearchInput = styled.input`
+  width: 200px;
+
+  padding: 5px 10px;
+  font-size: 18px;
+`
 
 export default class InputItem extends React.Component {
   state = {
@@ -61,68 +86,69 @@ export default class InputItem extends React.Component {
 
   handleTaskValues = (taskId, dropDownItem, category) => {
     const newList = this.state.list.map((item) => {
-      if(item.id === taskId && category === "priority") {
+      if (item.id === taskId && category === "priority") {
         item.priority = dropDownItem.value;
       }
-      if(item.id === taskId && category === "complexity") {
+      if (item.id === taskId && category === "complexity") {
         item.complexity = dropDownItem.value;
       }
       return item;
     });
-    this.setState({ list: newList })
-  }
+    this.setState({ list: newList });
+  };
 
   handleSort = (sortCategory, category, toggleList) => {
     const sortedList = this.state.list.sort((a, b) => {
-      if(category === "priority") {
-        if(sortCategory === "default") {
+      if (category === "priority") {
+        if (sortCategory === "default") {
           return a.date - b.date;
         }
-        if(sortCategory === "ascending") {
-           return a.priority - b.priority;
-        } 
-        if(sortCategory === "descending") {
+        if (sortCategory === "ascending") {
+          return a.priority - b.priority;
+        }
+        if (sortCategory === "descending") {
           return b.priority - a.priority;
         }
       }
-      
-      if(category === "complexity") {
-        if(sortCategory === "default") {
+
+      if (category === "complexity") {
+        if (sortCategory === "default") {
           return a.date - b.date;
         }
-        if(sortCategory === "ascending") {
+        if (sortCategory === "ascending") {
           return a.priority - b.priority;
         }
-        if(sortCategory === "descending") {
-          return  b.priority - a.priority;
+        if (sortCategory === "descending") {
+          return b.priority - a.priority;
         }
       }
-    })
+    });
     toggleList();
-    console.log(sortedList, "sorted List in input items")
-    this.setState({ list: sortedList })
-  }
+    console.log(sortedList, "sorted List in input items");
+    this.setState({ list: sortedList });
+  };
 
   handleSearch = (e) => {
-    this.setState({ searchValue: e.target.value })
-  }
-
+    this.setState({ searchValue: e.target.value });
+  };
 
   render() {
-    const { list, searchValue } = this.state
+    const { list, searchValue } = this.state;
     const searchedItems = list.filter((item) => {
-      return item.task.includes(searchValue)
-    })
+      return item.task.includes(searchValue);
+    });
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            onChange={this.handleChange}
-            onBlur={this.handleBlur}
-            placeholder="add to your list here"
-          />
-        </form>
-        <input onChange={this.handleSearch} placeholder="search list" />
+        <InputContainer>
+          <form onSubmit={this.handleSubmit}>
+            <TaskInput
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              placeholder="add item"
+            />
+          </form>
+          {this.state.list.length && <SearchInput onChange={this.handleSearch} placeholder={"search list"} />}
+        </InputContainer>
         <TaskList
           list={searchedItems}
           handleAmendTask={this.handleAmendTask}

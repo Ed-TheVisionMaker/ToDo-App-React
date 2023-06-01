@@ -15,11 +15,14 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-  margin: 0;
   display: flex;
+  justify-content: center;
   place-items: center;
+
   min-width: 320px;
   min-height: 100vh;
+
+  margin: 0;
 }
 
 button {
@@ -39,4 +42,4 @@ ul {
 
 `;
 
-export default GlobalStyle
+export default GlobalStyle;

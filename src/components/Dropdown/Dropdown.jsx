@@ -6,22 +6,50 @@ import styled from "styled-components";
 
 const DdWrapperStyled = styled.div`
   position: relative;
+
+  margin-left: 10px;
+  margin-right: 10px;
+
 `;
 
 const DdHeaderButtonStyled = styled.button`
+  width: 25px;
+  height: 25px;
+
 `;
 
-const DdHeaderTitleStyled = styled.div``;
+const DdHeaderTitleStyled = styled.div`
+`;
 
 const DdListStyled = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 0;
+  top: 3px;
   left: 0;
+
+  height: 60px;
+  overflow: scroll;
+  scrollbar-width: thin;
+
+  border-radius: 5px;
+
+  color: black;
+  background-color: white;
 `;
 
-const DdListButton = styled.button``;
+const DdListButton = styled.button`
+  width: 25px;
+  height: 25px;
+
+  color: black;
+  background-color: white;
+  border: 0;
+
+  &:hover {
+    background-color: grey;
+  }
+`;
 
 export default class Dd extends React.Component {
   state = {
@@ -66,8 +94,10 @@ export default class Dd extends React.Component {
   selectItem = (taskId, dropDownItem, category) => {
     this.props.handleTaskValues(taskId, dropDownItem, category);
     const value = dropDownItem.value;
-    if(category === "priority") this.setState({ priorityValue: value, isListOpen: false });
-    if(category === "complexity") this.setState({ complexityValue: value, isListOpen: false });
+    if (category === "priority")
+      this.setState({ priorityValue: value, isListOpen: false });
+    if (category === "complexity")
+      this.setState({ complexityValue: value, isListOpen: false });
   };
 
   componentDidMount() {
@@ -81,13 +111,15 @@ export default class Dd extends React.Component {
     const complexityItems = this.state.complexity;
     const category = this.state.category;
     const taskId = this.props.id;
-    console.log(this.state, "dropdown component")
+    console.log(this.state, "dropdown component");
     return (
       <DdWrapperStyled>
         <DdHeaderButtonStyled onClick={this.toggleList}>
           <DdHeaderTitleStyled>
-            {category === "priority" && (this.state.priorityValue ? this.state.priorityValue : 0)}
-            {category === "complexity" && (this.state.complexityValue ? this.state.complexityValue : 0)}
+            {category === "priority" &&
+              (this.state.priorityValue ? this.state.priorityValue : 0)}
+            {category === "complexity" &&
+              (this.state.complexityValue ? this.state.complexityValue : 0)}
           </DdHeaderTitleStyled>
         </DdHeaderButtonStyled>
         {isListOpen && category === "priority" && (
@@ -102,12 +134,14 @@ export default class Dd extends React.Component {
             ))}
           </DdListStyled>
         )}
-                {isListOpen && category === "complexity" && (
+        {isListOpen && category === "complexity" && (
           <DdListStyled>
             {complexityItems.map((complexityItem) => (
               <DdListButton
                 key={complexityItem.id}
-                onClick={() => this.selectItem(taskId, complexityItem, category)}
+                onClick={() =>
+                  this.selectItem(taskId, complexityItem, category)
+                }
               >
                 {complexityItem.value}
               </DdListButton>

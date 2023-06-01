@@ -8,22 +8,26 @@ const Checkbox = (props) => {
     position: relative;
 
     box-sizing: border-box;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
+
+    margin-left: 35px;
+    margin-right: 70px;
 
   `;
 
   const StyledCheckboxSVG = styled.svg`
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -2px;
+    left: -2px;
 
     box-sizing: border-box;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
 
     color: black;
     background-color: white;
+    border-radius: 5px;
   `;
 
   return (

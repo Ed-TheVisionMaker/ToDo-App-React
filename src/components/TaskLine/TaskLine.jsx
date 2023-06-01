@@ -8,19 +8,37 @@ import Dropdown from "../Dropdown/Dropdown";
 const StyledListItem = styled.li`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+
+  font-size: 18px;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+`;
+
+const TextContainer = styled.div`
+  width: 400px;
+
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 5px 0 5px 10px;
 `
+
 const StyledInput = styled.input`
-  // max-width: 150ch;
+  width: 190px;
+
+  font-size: 18px;
+  color: black;
+  background-color: white;
 
   margin-right: 100px;
+  border-radius: 5px;
+`;
 
-  background-color: blue;
-`
-const StyledItemSpan = styled.span `
-  width: 150px;
+const StyledItemSpan = styled.span`
+  // width: 190px;
 
-`
+  margin-right: 100px;
+`;
 
 class TaskLine extends React.Component {
   state = {
@@ -41,12 +59,12 @@ class TaskLine extends React.Component {
     const isOpen = this.state.isOpen;
     const itemAmended = this.props.item;
     const newTask = this.state.inputValue;
-    
-    if(!isOpen) this.setState({ isOpen: true });
-    if(isOpen) {
-        this.setState({ isOpen: false });
-        itemAmended.task = newTask;
-        this.props.handleAmendTask(itemAmended)
+
+    if (!isOpen) this.setState({ isOpen: true });
+    if (isOpen) {
+      this.setState({ isOpen: false });
+      itemAmended.task = newTask;
+      this.props.handleAmendTask(itemAmended);
     }
   };
 
@@ -56,7 +74,12 @@ class TaskLine extends React.Component {
     return (
       <>
         <StyledListItem key={id}>
-        <Checkbox id={id} isDone={isDone} handleIsDone={this.props.handleIsDone} />
+          <Checkbox
+            id={id}
+            isDone={isDone}
+            handleIsDone={this.props.handleIsDone}
+          />
+          <TextContainer>
           {isOpen && (
             <StyledInput
               onBlur={this.handleClick}
@@ -65,13 +88,20 @@ class TaskLine extends React.Component {
             />
           )}
           {!isOpen && (
-            <StyledItemSpan onClick={this.handleClick}>
-              {task}
-            </StyledItemSpan>
+            <StyledItemSpan onClick={this.handleClick}>{task}</StyledItemSpan>
           )}
-        <RemoveItem id={id} handleChange={this.props.handleChange} handleRemove={this.props.handleRemove}/>
-        <Dropdown handleTaskValues={this.props.handleTaskValues} id={id} category={"priority"}/>
-        {/* <Dropdown handleTaskValues={this.props.handleTaskValues} id={id} category={"complexity"}/> */}
+          </TextContainer>
+          <RemoveItem
+            id={id}
+            handleChange={this.props.handleChange}
+            handleRemove={this.props.handleRemove}
+          />
+          <Dropdown
+            handleTaskValues={this.props.handleTaskValues}
+            id={id}
+            category={"priority"}
+          />
+          <Dropdown handleTaskValues={this.props.handleTaskValues} id={id} category={"complexity"}/>
         </StyledListItem>
       </>
     );

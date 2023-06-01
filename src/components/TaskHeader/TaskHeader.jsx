@@ -5,17 +5,18 @@ import SortButton from "../SortButton/SortButton";
 
 const TaskHeaderWrapper = styled.div`
 display: flex;
-justify-content: space-between;
-font-size: 12px;
+font-size: 18px;
 
 
 `
 const TaskDone = styled.h3`
+margin-left: 20px;
+margin-right: 70px;
 
 `
 
 const TaskItem = styled.h3`
-margin-right: 130px;
+margin-right: 360px;
 
 `
 
@@ -33,6 +34,10 @@ const TaskComplexity = styled.h3`
 `
 
 const TaskValueContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
 
 `
 
