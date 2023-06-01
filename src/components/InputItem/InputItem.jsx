@@ -71,7 +71,7 @@ export default class InputItem extends React.Component {
     this.setState({ list: newList })
   }
 
-  handleSort = (sortCategory, category) => {
+  handleSort = (sortCategory, category, toggleList) => {
     const sortedList = this.state.list.sort((a, b) => {
       if(category === "priority") {
         if(sortCategory === "default") {
@@ -97,6 +97,7 @@ export default class InputItem extends React.Component {
         }
       }
     })
+    toggleList();
     console.log(sortedList, "sorted List in input items")
     this.setState({ list: sortedList })
   }

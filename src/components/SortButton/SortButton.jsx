@@ -44,16 +44,17 @@ export default class SortButton extends React.Component {
   render () {
     const isListOpen = this.state.isListOpen;
     const category = this.state.category;
+    const toggleList = this.toggleList;
     return (
       <DdWrapperStyled>
           <DdHeaderButtonStyled>
-              <DdHeaderButtonStyled onClick={this.toggleList} >Sort</DdHeaderButtonStyled>
+              <DdHeaderButtonStyled onClick={toggleList} >Sort</DdHeaderButtonStyled>
           </DdHeaderButtonStyled>
           {isListOpen && (
             <DdListStyled>
-              <DdListButton onClick={() => this.props.handleSort("default", category)} >Default</DdListButton>
-              <DdListButton onClick={() => this.props.handleSort("ascending", category)} >Asc</DdListButton>
-              <DdListButton onClick={() => this.props.handleSort("descending", category)} >Desc</DdListButton>
+              <DdListButton onClick={() => this.props.handleSort("default", category, toggleList)} >Default</DdListButton>
+              <DdListButton onClick={() => this.props.handleSort("ascending", category, toggleList)} >Asc</DdListButton>
+              <DdListButton onClick={() => this.props.handleSort("descending", category, toggleList)} >Desc</DdListButton>
           </DdListStyled>
           )}   
       </DdWrapperStyled>

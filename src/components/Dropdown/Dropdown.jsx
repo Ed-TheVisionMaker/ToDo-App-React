@@ -25,7 +25,6 @@ const DdListButton = styled.button``;
 
 export default class Dd extends React.Component {
   state = {
-    isListOpen: false,
     priority: [
       { value: 0, id: `${Math.random()} * ${Math.random()}` },
       { value: 1, id: `${Math.random()} * ${Math.random()}` },
@@ -52,8 +51,9 @@ export default class Dd extends React.Component {
       { value: 9, id: `${Math.random()} * ${Math.random()}` },
       { value: 10, id: `${Math.random()} * ${Math.random()}` },
     ],
-    prioritySelected: null,
-    complexitySelected: null,
+    isListOpen: false,
+    priorityValue: null,
+    complexityValue: null,
     category: null,
   };
 
@@ -65,8 +65,9 @@ export default class Dd extends React.Component {
 
   selectItem = (taskId, dropDownItem, category) => {
     this.props.handleTaskValues(taskId, dropDownItem, category);
-    if(category === "priority") this.setState({ prioritySelected: dropDownItem.value, isListOpen: false });
-    if(category === "complexity") this.setState({ complexitySelected: dropDownItem.value, isListOpen: false });
+    const value = dropDownItem.value;
+    if(category === "priority") this.setState({ priorityValue: value, isListOpen: false });
+    if(category === "complexity") this.setState({ complexityValue: value, isListOpen: false });
   };
 
   componentDidMount() {
@@ -80,12 +81,13 @@ export default class Dd extends React.Component {
     const complexityItems = this.state.complexity;
     const category = this.state.category;
     const taskId = this.props.id;
+    console.log(this.state, "dropdown component")
     return (
       <DdWrapperStyled>
         <DdHeaderButtonStyled onClick={this.toggleList}>
           <DdHeaderTitleStyled>
-            {category === "priority" && (this.state.prioritySelected ? this.state.prioritySelected : 0)}
-            {category === "complexity" && (this.state.complexitySelected ? this.state.complexitySelected : 0)}
+            {category === "priority" && (this.state.priorityValue ? this.state.priorityValue : 0)}
+            {category === "complexity" && (this.state.complexityValue ? this.state.complexityValue : 0)}
           </DdHeaderTitleStyled>
         </DdHeaderButtonStyled>
         {isListOpen && category === "priority" && (

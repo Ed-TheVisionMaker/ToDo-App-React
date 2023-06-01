@@ -71,7 +71,7 @@ class TaskLine extends React.Component {
           )}
         <RemoveItem id={id} handleChange={this.props.handleChange} handleRemove={this.props.handleRemove}/>
         <Dropdown handleTaskValues={this.props.handleTaskValues} id={id} category={"priority"}/>
-        <Dropdown handleTaskValues={this.props.handleTaskValues} id={id} category={"complexity"}/>
+        {/* <Dropdown handleTaskValues={this.props.handleTaskValues} id={id} category={"complexity"}/> */}
         </StyledListItem>
       </>
     );
