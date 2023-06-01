@@ -31,6 +31,12 @@ h3 {
   margin: 0;
   padding: 0;
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
 `;
 
 export default GlobalStyle

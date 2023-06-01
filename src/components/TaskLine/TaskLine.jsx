@@ -8,10 +8,18 @@ import Dropdown from "../Dropdown/Dropdown";
 const StyledListItem = styled.li`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `
+const StyledInput = styled.input`
+  // max-width: 150ch;
 
+  margin-right: 100px;
+
+  background-color: blue;
+`
 const StyledItemSpan = styled.span `
-  min-width: 150px;
+  width: 150px;
+
 `
 
 class TaskLine extends React.Component {
@@ -50,7 +58,7 @@ class TaskLine extends React.Component {
         <StyledListItem key={id}>
         <Checkbox id={id} isDone={isDone} handleIsDone={this.props.handleIsDone} />
           {isOpen && (
-            <input
+            <StyledInput
               onBlur={this.handleClick}
               defaultValue={task}
               onChange={this.handleChange}

@@ -5,7 +5,9 @@ import SortButton from "../SortButton/SortButton";
 
 const TaskHeaderWrapper = styled.div`
 display: flex;
+justify-content: space-between;
 font-size: 12px;
+
 
 `
 const TaskDone = styled.h3`

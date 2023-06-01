@@ -11,28 +11,41 @@ const TodoContainer = styled.div`
 
 const TaskListContainer = styled.div`
   width: inherit;
+
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+`;
+
+const ListUnordered = styled.ul`
+  width: inherit;
+
+  display: flex;
+  flex-direction: column;
+
+  list-style-type: none;
+
+  border: 1px solid blue;
+
 `;
 
 const TaskList = (props) => {
   return (
     <TodoContainer>
+      <TaskHeader list={props.list} handleSort={props.handleSort} />
       <TaskListContainer>
-        <TaskHeader list={props.list} handleSort={props.handleSort} />
-        <ul>
+        <ListUnordered>
           {props.list.map((item) => {
             return (
-              <TaskLine
-                item={item}
-                handleAmendTask={props.handleAmendTask}
-                handleRemove={props.handleRemove}
-                handleIsDone={props.handleIsDone}
-                handleTaskValues={props.handleTaskValues}
-              />
+                <TaskLine
+                  item={item}
+                  handleAmendTask={props.handleAmendTask}
+                  handleRemove={props.handleRemove}
+                  handleIsDone={props.handleIsDone}
+                  handleTaskValues={props.handleTaskValues}
+                />
             );
           })}
-        </ul>
+        </ListUnordered>
       </TaskListContainer>
     </TodoContainer>
   );

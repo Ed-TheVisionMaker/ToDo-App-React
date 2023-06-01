@@ -11,7 +11,6 @@ const Checkbox = (props) => {
     width: 20px;
     height: 20px;
 
-    margin-right: 20px;
   `;
 
   const StyledCheckboxSVG = styled.svg`
