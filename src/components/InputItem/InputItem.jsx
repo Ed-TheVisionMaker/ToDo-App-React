@@ -6,6 +6,7 @@ import RemoveItem from "../RemoveItem/RemoveItem";
 export default class InputItem extends React.Component {
   state = {
     inputValue: "",
+    searchValue: "",
     list: [],
     sortCategory: "default",
   };
@@ -102,9 +103,16 @@ export default class InputItem extends React.Component {
     this.setState({ list: sortedList })
   }
 
+  handleSearch = (e) => {
+    this.setState({ searchValue: e.target.value })
+  }
+
 
   render() {
-    // console.log(this.state.list);
+    const { list, searchValue } = this.state
+    const searchedItems = list.filter((item) => {
+      return item.task.includes(searchValue)
+    })
     return (
       <>
         <form onSubmit={this.handleSubmit}>
@@ -114,8 +122,9 @@ export default class InputItem extends React.Component {
             placeholder="add to your list here"
           />
         </form>
+        <input onChange={this.handleSearch} placeholder="search list" />
         <TaskList
-          list={this.state.list}
+          list={searchedItems}
           handleAmendTask={this.handleAmendTask}
           handleRemove={this.handleRemove}
           handleIsDone={this.handleIsDone}
