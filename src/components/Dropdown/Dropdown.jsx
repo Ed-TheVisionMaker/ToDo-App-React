@@ -82,10 +82,12 @@ export default class Dd extends React.Component {
       { value: 10, id: `${Math.random()} * ${Math.random()}` },
     ],
     isListOpen: false,
-    priorityValue: null,
-    complexityValue: null,
+    priorityValue: this.props.priority || null,
+    complexityValue: this.props.complexity || null,
     category: null,
   };
+
+  // create an array and then map over the numbers. Use props for values.
 
   toggleList = () => {
     this.setState((prevState) => ({
@@ -105,6 +107,8 @@ export default class Dd extends React.Component {
   componentDidMount() {
     const category = this.props.category;
     this.setState({ category: category });
+  }componentWillUnmount(){
+    console.log('unmounting')
   }
 
   render() {
