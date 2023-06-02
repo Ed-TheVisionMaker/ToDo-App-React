@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import TaskList from "../TaskList/TaskList";
 import SearchItems from "../SearchItems/SearchItems";
+import PowerMode from "../PowerMode/PowerMode";
+import PowerTask from "../PowerTask/PowerTask";
 
 const InputContainer = styled.div`
   width: 100%;
@@ -20,13 +22,13 @@ const TaskInput = styled.input`
   font-size: 18px;
 `;
 
-
 export default class InputItem extends React.Component {
   state = {
+    list: [],
     inputValue: "",
     searchValue: "",
-    list: [],
     sortCategory: "default",
+    powerModeActive: false,
   };
 
   handleChange = (e) => {
@@ -44,6 +46,7 @@ export default class InputItem extends React.Component {
       isDone: false,
       priority: 0,
       complexity: 0,
+      powerValue: 0,
       date: Date.now(),
       id: `${Math.random()} * ${Math.random()}`,
     };
@@ -57,8 +60,7 @@ export default class InputItem extends React.Component {
       if (id === "inputTask" && !itemAmended) {
         this.handleSubmit(e);
         e.target.value = "";
-      }
-      else if ((id = "inputAmend")) {
+      } else if ((id = "inputAmend")) {
         const newList = this.state.list.map((item) => {
           if (item.id === itemAmended.id) {
             item.task = itemAmended.task;
@@ -66,7 +68,7 @@ export default class InputItem extends React.Component {
           return item;
         });
         this.setState({ list: newList });
-        e.target.blur()
+        e.target.blur();
       }
     }
   };
@@ -100,9 +102,11 @@ export default class InputItem extends React.Component {
     const newList = this.state.list.map((item) => {
       if (item.id === taskId && category === "priority") {
         item.priority = dropDownItem.value;
+        item.powerValue = item.priority + item.complexity;
       }
       if (item.id === taskId && category === "complexity") {
         item.complexity = dropDownItem.value;
+        item.powerValue = item.complexity + item.priority;
       }
       return item;
     });
@@ -140,22 +144,39 @@ export default class InputItem extends React.Component {
   };
 
   handleSearch = (e) => {
-    console.log(e.target.value, "in handle search")
     this.setState({ searchValue: e.target.value });
   };
 
   handleClear = () => {
-    this.setState({ searchValue: "" })
+    this.setState({ searchValue: "" });
   };
 
+  handlePowerSort = () => {
+    const sortedList = this.state.list.sort((a, b) => b.powerValue - a.powerValue);
+    this.setState({ list: sortedList });
+  };
+
+  handleShowPowerTask = () => {
+    // const powerTask = this.state.list[0].task
+    this.setState({ powerModeActive: true })
+  }
+
+  handlePowerFinished = () => {
+    this.setState({ powerModeActive: false })
+  }
+
   render() {
-    const { list, searchValue } = this.state;
+    const { list, powerModeActive, searchValue } = this.state;
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
     });
     return (
       <>
+      {powerModeActive && <PowerTask list={list} handlePowerFinished={this.handlePowerFinished} />}
+        {!powerModeActive &&
+        <>
         <InputContainer>
+          {(this.state.list.length > 0 || this.state.searchValue) && <PowerMode handlePowerSort={this.handlePowerSort} handleShowPowerTask={this.handleShowPowerTask}/>}
           <form onSubmit={this.handleSubmit}>
             <TaskInput
               id={"inputTask"}
@@ -166,13 +187,14 @@ export default class InputItem extends React.Component {
             />
           </form>
           {/* show difference for just .length and with > than */}
-          {/* {this.state.list.length > 0 && (
-            <SearchInput
-              onChange={this.handleSearch}
-              placeholder={"search list"}
+          {(this.state.list.length > 0 || this.state.searchValue) && (
+            <SearchItems
+              list={list}
+              searchValue={searchValue}
+              handleSearch={this.handleSearch}
+              handleClear={this.handleClear}
             />
-          )} */}
-          {(this.state.list.length > 0 || this.state.searchValue) && (<SearchItems list={list} searchValue={searchValue} handleSearch={this.handleSearch} handleClear={this.handleClear} />)}
+          )}
         </InputContainer>
         <TaskList
           list={searchedItems}
@@ -183,6 +205,7 @@ export default class InputItem extends React.Component {
           handleSort={this.handleSort}
           handlePressEnter={this.handlePressEnter}
         />
+        </>}
       </>
     );
   }
