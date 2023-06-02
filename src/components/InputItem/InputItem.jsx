@@ -172,7 +172,7 @@ export default class InputItem extends React.Component {
               placeholder={"search list"}
             />
           )} */}
-          <SearchItems list={list} handleSearch={this.handleSearch} handleClear={this.handleClear} />
+          {(this.state.list.length > 0 || this.state.searchValue) && (<SearchItems list={list} searchValue={searchValue} handleSearch={this.handleSearch} handleClear={this.handleClear} />)}
         </InputContainer>
         <TaskList
           list={searchedItems}

@@ -8,11 +8,13 @@ const SearchContainer = styled.div`
 const SearchInput = styled.input`
   width: 200px;
 
+  margin-left: 30px;
   padding: 5px 10px;
   font-size: 18px;
 `;
 
 const ClearButton = styled.button`
+  margin-left: 10px;
   padding: 5px;
 `;
 
@@ -21,8 +23,8 @@ const ClearButton = styled.button`
 const SearchItems = (props) => {
     return (
     <SearchContainer>
-        {/* <SearchInput onChange={(e) => props.handleSearchValue(e)} placeholder={"search list"} /> */}
-        {/* <ClearButton onClick={() => props.handleClear()}>Clear</ClearButton> */}
+        <SearchInput onChange={(e) => props.handleSearch(e)} placeholder={"search list"} value={props.searchValue} />
+        <ClearButton onClick={() => props.handleClear()}>Clear</ClearButton>
       </SearchContainer>
     );
 };
