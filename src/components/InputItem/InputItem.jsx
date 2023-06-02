@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import TaskList from "../TaskList/TaskList";
-import RemoveItem from "../RemoveItem/RemoveItem";
+import SearchItems from "../SearchItems/SearchItems";
 
 const InputContainer = styled.div`
   width: 100%;
@@ -20,12 +20,6 @@ const TaskInput = styled.input`
   font-size: 18px;
 `;
 
-const SearchInput = styled.input`
-  width: 200px;
-
-  padding: 5px 10px;
-  font-size: 18px;
-`;
 
 export default class InputItem extends React.Component {
   state = {
@@ -66,8 +60,6 @@ export default class InputItem extends React.Component {
       }
       else if ((id = "inputAmend")) {
         const newList = this.state.list.map((item) => {
-        // console.log(itemAmended, "itemamended", item, "item")
-
           if (item.id === itemAmended.id) {
             item.task = itemAmended.task;
           }
@@ -148,12 +140,16 @@ export default class InputItem extends React.Component {
   };
 
   handleSearch = (e) => {
+    console.log(e.target.value, "in handle search")
     this.setState({ searchValue: e.target.value });
+  };
+
+  handleClear = () => {
+    this.setState({ searchValue: "" })
   };
 
   render() {
     const { list, searchValue } = this.state;
-    console.log(this.state, "inputItem");
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
     });
@@ -170,12 +166,13 @@ export default class InputItem extends React.Component {
             />
           </form>
           {/* show difference for just .length and with > than */}
-          {this.state.list.length > 0 && (
+          {/* {this.state.list.length > 0 && (
             <SearchInput
               onChange={this.handleSearch}
               placeholder={"search list"}
             />
-          )}
+          )} */}
+          <SearchItems list={list} handleSearch={this.handleSearch} handleClear={this.handleClear} />
         </InputContainer>
         <TaskList
           list={searchedItems}
