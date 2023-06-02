@@ -24,7 +24,7 @@ const TextContainer = styled.div`
 `
 
 const StyledInput = styled.input`
-  width: 190px;
+  width: 290px;
 
   font-size: 18px;
   color: black;
@@ -35,7 +35,7 @@ const StyledInput = styled.input`
 `;
 
 const StyledItemSpan = styled.span`
-  // width: 190px;
+  width: 100%;
 
   margin-right: 100px;
 `;
@@ -69,6 +69,7 @@ class TaskLine extends React.Component {
   };
 
   render() {
+    const item = this.props.item;
     const { complexity, id, isDone, priority, task } = this.props.item;
     const isOpen = this.state.isOpen;
     return (
@@ -82,9 +83,11 @@ class TaskLine extends React.Component {
           <TextContainer>
           {isOpen && (
             <StyledInput
+            id={"inputAmend"}
               onBlur={this.handleClick}
               defaultValue={task}
               onChange={this.handleChange}
+              onKeyPress={(e) => this.props.handlePressEnter(e,"inputAmend", item )}
             />
           )}
           {!isOpen && (

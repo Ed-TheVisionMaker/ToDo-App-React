@@ -111,7 +111,6 @@ export default class Dd extends React.Component {
     const complexityItems = this.state.complexity;
     const category = this.state.category;
     const taskId = this.props.id;
-    console.log(this.state, "dropdown component");
     return (
       <DdWrapperStyled>
         <DdHeaderButtonStyled onClick={this.toggleList}>

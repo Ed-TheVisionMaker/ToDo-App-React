@@ -10,23 +10,22 @@ const InputContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
 
-  margin-bottom: 50px; 
+  margin-bottom: 50px;
 `;
-
 
 const TaskInput = styled.input`
   width: 350px;
 
   padding: 5px 10px;
   font-size: 18px;
-`
+`;
 
 const SearchInput = styled.input`
   width: 200px;
 
   padding: 5px 10px;
   font-size: 18px;
-`
+`;
 
 export default class InputItem extends React.Component {
   state = {
@@ -57,6 +56,27 @@ export default class InputItem extends React.Component {
 
     const newList = [...this.state.list, newItem];
     this.setState({ inputValue: "", list: newList });
+  };
+
+  handlePressEnter = (e, id, itemAmended) => {
+    if (e.key === "Enter") {
+      if (id === "inputTask" && !itemAmended) {
+        this.handleSubmit(e);
+        e.target.value = "";
+      }
+      else if ((id = "inputAmend")) {
+        const newList = this.state.list.map((item) => {
+        // console.log(itemAmended, "itemamended", item, "item")
+
+          if (item.id === itemAmended.id) {
+            item.task = itemAmended.task;
+          }
+          return item;
+        });
+        this.setState({ list: newList });
+        e.target.blur()
+      }
+    }
   };
 
   handleAmendTask = (itemAmended) => {
@@ -124,7 +144,6 @@ export default class InputItem extends React.Component {
       }
     });
     toggleList();
-    console.log(sortedList, "sorted List in input items");
     this.setState({ list: sortedList });
   };
 
@@ -134,6 +153,7 @@ export default class InputItem extends React.Component {
 
   render() {
     const { list, searchValue } = this.state;
+    console.log(this.state, "inputItem");
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
     });
@@ -142,12 +162,20 @@ export default class InputItem extends React.Component {
         <InputContainer>
           <form onSubmit={this.handleSubmit}>
             <TaskInput
+              id={"inputTask"}
               onChange={this.handleChange}
+              onKeyPress={(e) => this.handlePressEnter(e, "inputTask")}
               onBlur={this.handleBlur}
               placeholder="add item"
             />
           </form>
-          {this.state.list.length && <SearchInput onChange={this.handleSearch} placeholder={"search list"} />}
+          {/* show difference for just .length and with > than */}
+          {this.state.list.length > 0 && (
+            <SearchInput
+              onChange={this.handleSearch}
+              placeholder={"search list"}
+            />
+          )}
         </InputContainer>
         <TaskList
           list={searchedItems}
@@ -156,6 +184,7 @@ export default class InputItem extends React.Component {
           handleIsDone={this.handleIsDone}
           handleTaskValues={this.handleTaskValues}
           handleSort={this.handleSort}
+          handlePressEnter={this.handlePressEnter}
         />
       </>
     );

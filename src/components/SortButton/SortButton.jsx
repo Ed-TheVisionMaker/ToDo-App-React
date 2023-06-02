@@ -21,6 +21,7 @@ const DdHeaderTitleStyled = styled.div``;
 const DdListStyled = styled.div`
   position: absolute;
   top: 25px;
+  left: 20px;
   z-index: 1;
 
   display: flex;
@@ -28,7 +29,8 @@ const DdListStyled = styled.div`
 
   
   border-radius: 10px;
-  border: 0;
+  border: 1px solid grey;
+  box-shadow: 1px 1px 2px grey;
 
   background-color: white;
 `;

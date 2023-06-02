@@ -27,7 +27,7 @@ const ListUnordered = styled.ul`
 const TaskList = (props) => {
   return (
     <TodoContainer>
-      {props.list.length && <TaskHeader list={props.list} handleSort={props.handleSort} />}
+      {props.list.length > 0 && <TaskHeader list={props.list} handleSort={props.handleSort} />}
       <TaskListContainer>
         <ListUnordered>
           {props.list.map((item) => {
@@ -38,6 +38,7 @@ const TaskList = (props) => {
                   handleRemove={props.handleRemove}
                   handleIsDone={props.handleIsDone}
                   handleTaskValues={props.handleTaskValues}
+                  handlePressEnter={props.handlePressEnter}
                 />
             );
           })}
