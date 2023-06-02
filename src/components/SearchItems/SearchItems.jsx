@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const SearchContainer = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const SearchInput = styled.input`
@@ -14,6 +15,7 @@ const SearchInput = styled.input`
 `;
 
 const ClearButton = styled.button`
+  height: 30px;
   margin-left: 10px;
   padding: 5px;
 `;

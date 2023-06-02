@@ -11,17 +11,17 @@ const DdWrapperStyled = styled.div`
 `;
 
 const DdHeaderButtonStyled = styled.button`
-  padding: 2px 5px;
+  padding: 5px 10px;
   border-radius: 5px;
-  border: 0;
+  border: 1px solid var(--white);
 `;
 
 const DdHeaderTitleStyled = styled.div``;
 
 const DdListStyled = styled.div`
   position: absolute;
-  top: 25px;
-  left: 20px;
+  top: 32px;
+  left: -7px;
   z-index: 1;
 
   display: flex;
@@ -29,7 +29,6 @@ const DdListStyled = styled.div`
 
   
   border-radius: 10px;
-  border: 1px solid grey;
   box-shadow: 1px 1px 2px grey;
 
   background-color: white;
@@ -40,12 +39,11 @@ const DdListButton = styled.button`
   color: black;
   background-color: white;
   border: 0;
-  border-radius: 5px;
-  padding: 3px;
+  border-radius: 10px;
+  padding: 5px 8px;
 
   &:hover {
     background-color: grey;
-    border-radius: 0;
   }
 `;
 
@@ -76,9 +74,9 @@ export default class SortButton extends React.Component {
     const toggleList = this.toggleList;
     return (
       <DdWrapperStyled>
-        <DdHeaderButtonStyled>
+        <DdHeaderTitleStyled>
           <DdHeaderButtonStyled onClick={toggleList}>Sort</DdHeaderButtonStyled>
-        </DdHeaderButtonStyled>
+        </DdHeaderTitleStyled>
         {isListOpen && (
           <DdListStyled>
             <DdListButton
@@ -117,13 +115,13 @@ export default class SortButton extends React.Component {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 class="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"
                 />
               </DdListSVG>

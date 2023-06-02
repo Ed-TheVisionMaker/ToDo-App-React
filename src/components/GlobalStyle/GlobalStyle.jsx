@@ -6,8 +6,10 @@ const GlobalStyle = createGlobalStyle`
   line-height: 1.5;
   font-weight: 400;
 
+  --white: rgba(255, 255, 255, 0.87);
+
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--white);
   background-color: #242424;
 
   font-synthesis: none;

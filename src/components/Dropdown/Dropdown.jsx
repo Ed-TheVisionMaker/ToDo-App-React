@@ -25,10 +25,11 @@ const DdListStyled = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 3px;
-  left: 0;
+  top: 30px;
+  left: -2.5px;
+  z-index: 1;
 
-  height: 60px;
+  height: 80px;
   overflow: scroll;
   scrollbar-width: thin;
 
@@ -39,11 +40,12 @@ const DdListStyled = styled.div`
 `;
 
 const DdListButton = styled.button`
-  width: 25px;
+  width: 30px;
   height: 25px;
 
-  color: black;
-  background-color: white;
+  color: #242424;
+  background-color: var(--white);
+  border-radius: 5px;
   border: 0;
 
   &:hover {
