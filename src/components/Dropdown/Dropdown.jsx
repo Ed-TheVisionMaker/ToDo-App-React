@@ -107,15 +107,14 @@ export default class Dd extends React.Component {
   componentDidMount() {
     const category = this.props.category;
     this.setState({ category: category });
-  }componentWillUnmount(){
-    console.log('unmounting')
   }
 
   render() {
+    console.log(this.props, "props in dropdown")
     const isListOpen = this.state.isListOpen;
-    const priorityItems = this.state.priority;
-    const complexityItems = this.state.complexity;
-    const category = this.state.category;
+    const priorityItems = this.props.priority;
+    const complexityItems = this.props.complexity;
+    const category = this.props.category;
     const taskId = this.props.id;
     return (
       <DdWrapperStyled>
