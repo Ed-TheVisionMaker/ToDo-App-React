@@ -98,14 +98,15 @@ export default class InputItem extends React.Component {
     this.setState({ list: newList });
   };
 
-  handleTaskValues = (taskId, dropDownItem, category) => {
+  handleTaskValues = (taskId, n, category) => {
+    console.log("handleTVs triggered Input item", this.state.list)
     const newList = this.state.list.map((item) => {
       if (item.id === taskId && category === "priority") {
-        item.priority = dropDownItem.value;
+        item.priority = n;
         item.powerValue = item.priority + item.complexity;
       }
       if (item.id === taskId && category === "complexity") {
-        item.complexity = dropDownItem.value;
+        item.complexity = n;
         item.powerValue = item.complexity + item.priority;
       }
       return item;
@@ -186,7 +187,6 @@ export default class InputItem extends React.Component {
               placeholder="add item"
             />
           </form>
-          {/* show difference for just .length and with > than */}
           {(this.state.list.length > 0 || this.state.searchValue) && (
             <SearchItems
               list={list}
