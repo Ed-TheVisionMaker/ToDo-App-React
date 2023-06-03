@@ -6,13 +6,30 @@ import SearchItems from "../SearchItems/SearchItems";
 import PowerMode from "../PowerMode/PowerMode";
 import PowerTask from "../PowerTask/PowerTask";
 
-const InputContainer = styled.div`
+const TodoContainer = styled.div`
   width: 100%;
+`;
 
+const UserInputContainer = styled.div`
   display: flex;
-  justify-content: space-evenly;
 
   margin-bottom: 50px;
+`
+
+const PowerModeContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  width: 30%;
+`;
+
+const ItemInputSearchContainer = styled.div`
+  width: 70%;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
 `;
 
 const TaskInput = styled.input`
@@ -22,7 +39,7 @@ const TaskInput = styled.input`
   font-size: 18px;
 `;
 
-export default class InputItem extends React.Component {
+export default class UserInputs extends React.Component {
   state = {
     list: [],
     inputValue: "",
@@ -99,7 +116,6 @@ export default class InputItem extends React.Component {
   };
 
   handleTaskValues = (taskId, n, category) => {
-    console.log("handleTVs triggered Input item", this.state.list)
     const newList = this.state.list.map((item) => {
       if (item.id === taskId && category === "priority") {
         item.priority = n;
@@ -153,18 +169,19 @@ export default class InputItem extends React.Component {
   };
 
   handlePowerSort = () => {
-    const sortedList = this.state.list.sort((a, b) => b.powerValue - a.powerValue);
+    const sortedList = this.state.list.sort(
+      (a, b) => b.powerValue - a.powerValue
+    );
     this.setState({ list: sortedList });
   };
 
   handleShowPowerTask = () => {
-    // const powerTask = this.state.list[0].task
-    this.setState({ powerModeActive: true })
-  }
+    this.setState({ powerModeActive: true });
+  };
 
   handlePowerFinished = () => {
-    this.setState({ powerModeActive: false })
-  }
+    this.setState({ powerModeActive: false });
+  };
 
   render() {
     const { list, powerModeActive, searchValue } = this.state;
@@ -173,39 +190,54 @@ export default class InputItem extends React.Component {
     });
     return (
       <>
-      {powerModeActive && <PowerTask list={list} handlePowerFinished={this.handlePowerFinished} />}
-        {!powerModeActive &&
-        <>
-        <InputContainer>
-          {(this.state.list.length > 0 || this.state.searchValue) && <PowerMode handlePowerSort={this.handlePowerSort} handleShowPowerTask={this.handleShowPowerTask}/>}
-          <form onSubmit={this.handleSubmit}>
-            <TaskInput
-              id={"inputTask"}
-              onChange={this.handleChange}
-              onKeyPress={(e) => this.handlePressEnter(e, "inputTask")}
-              onBlur={this.handleBlur}
-              placeholder="add item"
+        {powerModeActive && (
+          <PowerTask
+            list={list}
+            handlePowerFinished={this.handlePowerFinished}
+          />
+        )}
+        {!powerModeActive && (
+          <TodoContainer>
+            <UserInputContainer>
+            <PowerModeContainer>
+              {(this.state.list.length > 0 || this.state.searchValue) && (
+                <PowerMode
+                  handlePowerSort={this.handlePowerSort}
+                  handleShowPowerTask={this.handleShowPowerTask}
+                />
+              )}
+            </PowerModeContainer>
+            <ItemInputSearchContainer>
+              <form onSubmit={this.handleSubmit}>
+                <TaskInput
+                  id={"inputTask"}
+                  onChange={this.handleChange}
+                  onKeyPress={(e) => this.handlePressEnter(e, "inputTask")}
+                  onBlur={this.handleBlur}
+                  placeholder="add item"
+                />
+              </form>
+              {(this.state.list.length > 0 || this.state.searchValue) && (
+                <SearchItems
+                  list={list}
+                  searchValue={searchValue}
+                  handleSearch={this.handleSearch}
+                  handleClear={this.handleClear}
+                />
+              )}
+            </ItemInputSearchContainer>
+            </UserInputContainer>
+            <TaskList
+              list={searchedItems}
+              handleAmendTask={this.handleAmendTask}
+              handleRemove={this.handleRemove}
+              handleIsDone={this.handleIsDone}
+              handleTaskValues={this.handleTaskValues}
+              handleSort={this.handleSort}
+              handlePressEnter={this.handlePressEnter}
             />
-          </form>
-          {(this.state.list.length > 0 || this.state.searchValue) && (
-            <SearchItems
-              list={list}
-              searchValue={searchValue}
-              handleSearch={this.handleSearch}
-              handleClear={this.handleClear}
-            />
-          )}
-        </InputContainer>
-        <TaskList
-          list={searchedItems}
-          handleAmendTask={this.handleAmendTask}
-          handleRemove={this.handleRemove}
-          handleIsDone={this.handleIsDone}
-          handleTaskValues={this.handleTaskValues}
-          handleSort={this.handleSort}
-          handlePressEnter={this.handlePressEnter}
-        />
-        </>}
+            </TodoContainer>
+        )}
       </>
     );
   }

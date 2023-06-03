@@ -5,7 +5,7 @@ const DdListStyled = styled.ul`
   display: flex;
   flex-direction: column;
 
-  // position: relative;
+  position: relative;
 
   list-style-type: none;
 
@@ -23,6 +23,7 @@ const DdListValue = styled.li`
   display: flex;
   justify-content: center;
 
+  position: absolute;
 
   width: 100%;
 

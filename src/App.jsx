@@ -3,10 +3,11 @@ import styled from "styled-components";
 import GlobalStyle from "./components/GlobalStyle/GlobalStyle";
 
 import Header from "./components/Header/Header";
-import InputItem from "./components/InputItem/InputItem";
+import UserInputs from "./components/UserInputs/UserInputs";
 
 const Container = styled.div`
   min-height: 100vh;
+  width: 1000px;
 
   display: flex;
   flex-direction: column;
@@ -23,7 +24,7 @@ function App() {
       <GlobalStyle />
       <Container>
         <Header />
-        <InputItem />
+        <UserInputs />
       </Container>
     </>
   );

@@ -5,6 +5,32 @@ import Checkbox from "../Checkbox/Checkbox";
 import RemoveItem from "../RemoveItem/RemoveItem";
 import Dropdown from "../Dropdown/Dropdown";
 
+const ItemContainerOne = styled.div`
+  display: flex;
+  align-items: center;
+
+  width: 70%;
+
+`;
+
+const ItemContainerTwo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 15%;
+
+`;
+
+const ItemContainerThree = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 15%;
+
+`;
+
 const StyledListItem = styled.li`
   display: flex;
   align-items: center;
@@ -70,49 +96,57 @@ class TaskLine extends React.Component {
 
   render() {
     const item = this.props.item;
-    const { complexity, id, isDone, priority, task } = this.props.item;
+    const {  id, isDone, task } = this.props.item;
     const isOpen = this.state.isOpen;
     return (
       <>
         <StyledListItem key={id}>
-          <Checkbox
-            id={id}
-            isDone={isDone}
-            handleIsDone={this.props.handleIsDone}
-          />
-          <TextContainer>
-            {isOpen && (
-              <StyledInput
-                id={"inputAmend"}
-                onBlur={this.handleClick}
-                defaultValue={task}
-                onChange={this.handleChange}
-                onKeyPress={(e) =>
-                  this.props.handlePressEnter(e, "inputAmend", item)
-                }
-              />
-            )}
-            {!isOpen && (
-              <StyledItemSpan onClick={this.handleClick}>{task}</StyledItemSpan>
-            )}
-          </TextContainer>
-          <RemoveItem
-            id={id}
-            handleChange={this.props.handleChange}
-            handleRemove={this.props.handleRemove}
-          />
-          <Dropdown
-            item={item}
-            handleTaskValues={this.props.handleTaskValues}
-            id={id}
-            category={"priority"}
-          />
-          <Dropdown
-            item={item}
-            handleTaskValues={this.props.handleTaskValues}
-            id={id}
-            category={"complexity"}
-          />
+          <ItemContainerOne>
+            <Checkbox
+              id={id}
+              isDone={isDone}
+              handleIsDone={this.props.handleIsDone}
+            />
+            <TextContainer>
+              {isOpen && (
+                <StyledInput
+                  id={"inputAmend"}
+                  onBlur={this.handleClick}
+                  defaultValue={task}
+                  onChange={this.handleChange}
+                  onKeyPress={(e) =>
+                    this.props.handlePressEnter(e, "inputAmend", item)
+                  }
+                />
+              )}
+              {!isOpen && (
+                <StyledItemSpan onClick={this.handleClick}>
+                  {task}
+                </StyledItemSpan>
+              )}
+            </TextContainer>
+            <RemoveItem
+              id={id}
+              handleChange={this.props.handleChange}
+              handleRemove={this.props.handleRemove}
+            />
+          </ItemContainerOne>
+          <ItemContainerTwo>
+            <Dropdown
+              item={item}
+              handleTaskValues={this.props.handleTaskValues}
+              id={id}
+              category={"priority"}
+            />
+          </ItemContainerTwo>
+          <ItemContainerThree>
+            <Dropdown
+              item={item}
+              handleTaskValues={this.props.handleTaskValues}
+              id={id}
+              category={"complexity"}
+            />
+          </ItemContainerThree>
         </StyledListItem>
       </>
     );
