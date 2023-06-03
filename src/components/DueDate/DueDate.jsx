@@ -4,9 +4,24 @@ import styled from "styled-components";
 import CalendarDisplay from "../CalendarDisplay/CalendarDisplay";
 
 const DueDateContainer = styled.div`
-    position: relative;
+  position: relative;
 
-`
+  color: var(--white)
+`;
+
+const DueDateText = styled.div`
+  font-size: 20px;
+  padding: 5px 10px;
+
+  border: 1px solid transparent;
+
+  &:hover {
+    color: #797979;
+    border: 1px solid #797979;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+`;
 
 export default class DueDate extends React.Component {
   state = {
@@ -23,8 +38,16 @@ export default class DueDate extends React.Component {
     const dueDate = this.props.dueDate;
     return (
       <DueDateContainer>
-        <div onClick={() => this.handleClick()}>{dueDate || "Due Date"}</div>
-        {showCalendar && <CalendarDisplay id={id} handleDateChange={this.props.handleDateChange} handleClick={this.handleClick} />}
+        <DueDateText onClick={() => this.handleClick()}>
+          {dueDate || "Due Date"}
+        </DueDateText>
+        {showCalendar && (
+          <CalendarDisplay
+            id={id}
+            handleDateChange={this.props.handleDateChange}
+            handleClick={this.handleClick}
+          />
+        )}
       </DueDateContainer>
     );
   }

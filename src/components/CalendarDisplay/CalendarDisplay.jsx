@@ -16,14 +16,9 @@ const CalendarContainer = styled.div`
   .react-calendar__month-view__days__day--neighboringMonth {
     opacity: 0.4;
   }
-
 `;
 
-
 export default class CalendarDisplay extends React.Component {
-    componentDidMount = (props) => {
-        console.log(props, "componentDM, calendar Display")
-    }
   render() {
     const id = this.props.id;
     const handleClick = this.props.handleClick;

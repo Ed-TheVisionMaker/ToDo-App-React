@@ -10,8 +10,7 @@ const ItemContainerOne = styled.div`
   display: flex;
   align-items: center;
 
-  width: 70%;
-
+  width: 55%;
 `;
 
 const ItemContainerTwo = styled.div`
@@ -20,7 +19,6 @@ const ItemContainerTwo = styled.div`
   align-items: center;
 
   width: 15%;
-
 `;
 
 const ItemContainerThree = styled.div`
@@ -29,7 +27,14 @@ const ItemContainerThree = styled.div`
   align-items: center;
 
   width: 15%;
+`;
 
+const ItemContainerFour = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 15%;
 `;
 
 const StyledListItem = styled.li`
@@ -97,7 +102,7 @@ class TaskLine extends React.Component {
 
   render() {
     const item = this.props.item;
-    const {  dueDate, id, isDone, task } = this.props.item;
+    const { dueDate, id, isDone, task } = this.props.item;
     const isOpen = this.state.isOpen;
     return (
       <>
@@ -131,14 +136,12 @@ class TaskLine extends React.Component {
               handleChange={this.props.handleChange}
               handleRemove={this.props.handleRemove}
             />
-            <DueDate dueDate={dueDate} id={id} handleDateChange={this.props.handleDateChange} />
           </ItemContainerOne>
           <ItemContainerTwo>
-            <Dropdown
-              item={item}
-              handleTaskValues={this.props.handleTaskValues}
+            <DueDate
+              dueDate={dueDate}
               id={id}
-              category={"priority"}
+              handleDateChange={this.props.handleDateChange}
             />
           </ItemContainerTwo>
           <ItemContainerThree>
@@ -146,9 +149,17 @@ class TaskLine extends React.Component {
               item={item}
               handleTaskValues={this.props.handleTaskValues}
               id={id}
-              category={"complexity"}
+              category={"priority"}
             />
           </ItemContainerThree>
+          <ItemContainerFour>
+            <Dropdown
+              item={item}
+              handleTaskValues={this.props.handleTaskValues}
+              id={id}
+              category={"complexity"}
+            />
+          </ItemContainerFour>
         </StyledListItem>
       </>
     );

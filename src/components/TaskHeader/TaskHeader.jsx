@@ -10,9 +10,8 @@ const TaskHeaderWrapper = styled.div`
 
 const HeaderContainerOne = styled.div`
   display: flex;
-  
-  width: 70%;
 
+  width: 55%;
 `;
 
 const HeaderContainerTwo = styled.div`
@@ -31,10 +30,20 @@ const HeaderContainerThree = styled.div`
   width: 15%;
 `;
 
+const HeaderContainerFour = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 15%;
+`;
+
 const TaskDone = styled.h3`
   margin-left: 20px;
   margin-right: 70px;
 `;
+
+const TaskDueDate = styled.h3``;
 
 const TaskItem = styled.h3`
   margin-right: 360px;
@@ -62,23 +71,25 @@ const TaskHeader = (props) => {
         <TaskDone>Done</TaskDone>
         <TaskItem>Task</TaskItem>
       </HeaderContainerOne>
-
       <HeaderContainerTwo>
+        <TaskDueDate>Due</TaskDueDate>
+      </HeaderContainerTwo>
+      <HeaderContainerThree>
         <TaskPriority>Priority</TaskPriority>
         <SortButton
           list={props.list}
           handleSort={props.handleSort}
           category={"priority"}
         ></SortButton>
-      </HeaderContainerTwo>
-      <HeaderContainerThree>
+      </HeaderContainerThree>
+      <HeaderContainerFour>
         <TaskComplexity>Complexity</TaskComplexity>
         <SortButton
           list={props.list}
           handleSort={props.handleSort}
           category={"complexity"}
         ></SortButton>
-      </HeaderContainerThree>
+      </HeaderContainerFour>
     </TaskHeaderWrapper>
   );
 };
