@@ -68,6 +68,7 @@ export default class UserInputs extends React.Component {
       powerValue: 0,
       date: Date.now(),
       id: `${Math.random()} * ${Math.random()}`,
+      checkList: [],
     };
 
     const newList = [...this.state.list, newItem];
