@@ -1,19 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 
+const DdButton = styled.button`
+  font-size: 16px;
+
+  padding: 5px 10px;
+`
+
+
+const DdListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+  
+  // width: 100%
+
+  padding-left: 15px;
+  margin-top: 3px;
+`
+
 const DdListStyled = styled.ul`
   display: flex;
   flex-direction: column;
 
-  position: relative;
-
   list-style-type: none;
 
   height: 80px;
+  // width: 100%;
   overflow: scroll;
   scrollbar-width: thin;
 
   border-radius: 5px;
+
 
   color: black;
   background-color: white;
@@ -23,12 +42,12 @@ const DdListValue = styled.li`
   display: flex;
   justify-content: center;
 
-  position: absolute;
-
-  width: 100%;
+  // width: 100%;
+  padding: 0 5px;
 
   color: #242424;
   background-color: var(--white);
+
   border-radius: 5px;
   border: 0;
 
@@ -61,13 +80,15 @@ export default class Dropdown extends React.Component {
   render() {
     const {id, item, category} = this.props
     const listOpen = this.state.listOpen
-    console.log(item, "item", category)
     return (
       <div>
-        <button onClick={() => this.handleOpen() }>{item[category]}</button>
-       {listOpen && ( <DdListStyled>
+        <DdButton onClick={() => this.handleOpen() }>{item[category]}</DdButton>
+        <DdListContainer>
+        {listOpen && ( <DdListStyled>
         {this.makeNumbersArray(10).map((n) => <DdListValue key={n} onClick={() => this.handleOpen(id, n, category)} >{n}</DdListValue>)}
       </DdListStyled>)}
+        </DdListContainer>
+
       </div>
     )
   }
