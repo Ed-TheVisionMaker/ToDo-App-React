@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Checkbox from "../Checkbox/Checkbox";
 import RemoveItem from "../RemoveItem/RemoveItem";
 import Dropdown from "../Dropdown/Dropdown";
+import DueDate from "../DueDate/DueDate";
 
 const ItemContainerOne = styled.div`
   display: flex;
@@ -130,6 +131,7 @@ class TaskLine extends React.Component {
               handleChange={this.props.handleChange}
               handleRemove={this.props.handleRemove}
             />
+            <DueDate id={id} handleDateChange={this.props.handleDateChange} />
           </ItemContainerOne>
           <ItemContainerTwo>
             <Dropdown

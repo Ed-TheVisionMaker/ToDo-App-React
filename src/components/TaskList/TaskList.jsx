@@ -43,6 +43,7 @@ const TaskList = (props) => {
                 handleIsDone={props.handleIsDone}
                 handleTaskValues={props.handleTaskValues}
                 handlePressEnter={props.handlePressEnter}
+                handleDateChange={props.handleDateChange}
               />
             );
           })}
