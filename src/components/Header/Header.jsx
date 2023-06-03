@@ -8,7 +8,7 @@ const HeaderStyling = styled.h2`
 
 const Header = () => {
     return (
-        <HeaderStyling>The Essentialist's List</HeaderStyling>
+        <HeaderStyling>EssentiaList</HeaderStyling>
     )
 }
 

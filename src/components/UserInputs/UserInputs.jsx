@@ -5,6 +5,7 @@ import TaskList from "../TaskList/TaskList";
 import SearchItems from "../SearchItems/SearchItems";
 import PowerMode from "../PowerMode/PowerMode";
 import PowerTask from "../PowerTask/PowerTask";
+import Mode from "../Mode/Mode";
 
 const TodoContainer = styled.div`
   width: 100%;
@@ -46,6 +47,7 @@ export default class UserInputs extends React.Component {
     searchValue: "",
     sortCategory: "default",
     powerModeActive: false,
+    mode: "simple"
   };
 
   handleChange = (e) => {
@@ -183,8 +185,14 @@ export default class UserInputs extends React.Component {
     this.setState({ powerModeActive: false });
   };
 
+  handleMode = () => {
+    const mode = this.state.mode;
+    if(mode === "simple") this.setState({ mode: "detailed" })
+    if(mode === "detailed") this.setState({ mode: "simple" })
+  }
+
   render() {
-    const { list, powerModeActive, searchValue } = this.state;
+    const { list, mode, powerModeActive, searchValue } = this.state;
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
     });
@@ -238,6 +246,7 @@ export default class UserInputs extends React.Component {
             />
             </TodoContainer>
         )}
+        <Mode handleMode={this.handleMode} mode={mode} />
       </>
     );
   }

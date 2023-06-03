@@ -54,7 +54,6 @@ const DdListSVG = styled.svg`
 export default class SortButton extends React.Component {
   state = {
     isListOpen: false,
-    category: null,
   };
 
   toggleList = () => {
@@ -70,7 +69,7 @@ export default class SortButton extends React.Component {
 
   render() {
     const isListOpen = this.state.isListOpen;
-    const category = this.state.category;
+    const category = this.props.category;
     const toggleList = this.toggleList;
     return (
       <DdWrapperStyled>
