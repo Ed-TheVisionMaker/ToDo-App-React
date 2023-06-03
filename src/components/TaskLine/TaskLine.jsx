@@ -21,7 +21,7 @@ const TextContainer = styled.div`
   border-radius: 5px;
   border: 1px solid white;
   padding: 5px 0 5px 10px;
-`
+`;
 
 const StyledInput = styled.input`
   width: 290px;
@@ -81,18 +81,20 @@ class TaskLine extends React.Component {
             handleIsDone={this.props.handleIsDone}
           />
           <TextContainer>
-          {isOpen && (
-            <StyledInput
-            id={"inputAmend"}
-              onBlur={this.handleClick}
-              defaultValue={task}
-              onChange={this.handleChange}
-              onKeyPress={(e) => this.props.handlePressEnter(e,"inputAmend", item )}
-            />
-          )}
-          {!isOpen && (
-            <StyledItemSpan onClick={this.handleClick}>{task}</StyledItemSpan>
-          )}
+            {isOpen && (
+              <StyledInput
+                id={"inputAmend"}
+                onBlur={this.handleClick}
+                defaultValue={task}
+                onChange={this.handleChange}
+                onKeyPress={(e) =>
+                  this.props.handlePressEnter(e, "inputAmend", item)
+                }
+              />
+            )}
+            {!isOpen && (
+              <StyledItemSpan onClick={this.handleClick}>{task}</StyledItemSpan>
+            )}
           </TextContainer>
           <RemoveItem
             id={id}
@@ -100,11 +102,17 @@ class TaskLine extends React.Component {
             handleRemove={this.props.handleRemove}
           />
           <Dropdown
+            item={item}
             handleTaskValues={this.props.handleTaskValues}
             id={id}
             category={"priority"}
           />
-          <Dropdown handleTaskValues={this.props.handleTaskValues} id={id} category={"complexity"}/>
+          <Dropdown
+            item={item}
+            handleTaskValues={this.props.handleTaskValues}
+            id={id}
+            category={"complexity"}
+          />
         </StyledListItem>
       </>
     );
