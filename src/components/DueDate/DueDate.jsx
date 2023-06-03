@@ -3,6 +3,11 @@ import styled from "styled-components";
 
 import CalendarDisplay from "../CalendarDisplay/CalendarDisplay";
 
+const DueDateContainer = styled.div`
+    position: relative;
+
+`
+
 export default class DueDate extends React.Component {
   state = {
     showCalendar: false,
@@ -15,11 +20,12 @@ export default class DueDate extends React.Component {
   render() {
     const showCalendar = this.state.showCalendar;
     const id = this.props.id;
+    const dueDate = this.props.dueDate;
     return (
-      <div>
-        <div onClick={() => this.handleClick()}>DueDate</div>
-        {showCalendar && <CalendarDisplay id={id} handleDateChange={this.props.handleDateChange} />}
-      </div>
+      <DueDateContainer>
+        <div onClick={() => this.handleClick()}>{dueDate || "Due Date"}</div>
+        {showCalendar && <CalendarDisplay id={id} handleDateChange={this.props.handleDateChange} handleClick={this.handleClick} />}
+      </DueDateContainer>
     );
   }
 }

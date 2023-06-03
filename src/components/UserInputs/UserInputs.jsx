@@ -192,18 +192,23 @@ export default class UserInputs extends React.Component {
     if (mode === "detailed") this.setState({ mode: "simple" });
   };
 
-  handleDateChange = (id, date) => {
+  handleDateChange = (id, date, handleClick) => {
+    const monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const day = date.getDate();
+    const month = monthArray[date.getMonth()];
+    const year = date.getFullYear().toString().substring(2);
+    const displayDate = day + "/" + month + "/" + year;
     const newList = this.state.list.map((item) => {
       if (item.id === id) {
-        item.dueDate = date;
+        item.dueDate = displayDate;
       }
       return item;
     });
     this.setState({ list: newList });
+    handleClick();
   };
 
   render() {
-    console.log(this.state, "dueDate userInput")
     const { list, mode, powerModeActive, searchValue } = this.state;
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
