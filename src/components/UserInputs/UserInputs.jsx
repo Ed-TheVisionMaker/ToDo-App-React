@@ -75,23 +75,6 @@ export default class UserInputs extends React.Component {
     this.setState({ inputValue: "", list: newList });
   };
 
-  handlePressEnter = (e, id, itemAmended) => {
-    if (e.key === "Enter") {
-      if (id === "inputTask" && !itemAmended) {
-        this.handleSubmit(e);
-        e.target.value = "";
-      } else if ((id = "inputAmend")) {
-        const newList = this.state.list.map((item) => {
-          if (item.id === itemAmended.id) {
-            item.task = itemAmended.task;
-          }
-          return item;
-        });
-        this.setState({ list: newList });
-        e.target.blur();
-      }
-    }
-  };
 
   handleAmendTask = (itemAmended) => {
     const newList = this.state.list.map((item) => {
@@ -237,9 +220,9 @@ export default class UserInputs extends React.Component {
                   <TaskInput
                     id={"inputTask"}
                     onChange={this.handleChange}
-                    onKeyPress={(e) => this.handlePressEnter(e, "inputTask")}
                     onBlur={this.handleBlur}
                     placeholder="add item"
+                    value={this.state.inputValue}
                   />
                 </form>
                 {(this.state.list.length > 0 || this.state.searchValue) && (
