@@ -132,7 +132,10 @@ class TaskLine extends React.Component {
                   {task}
                 </StyledItemSpan>
               )}
-              <CheckListAdd handleChecklistSubmit={this.props.handleChecklistSubmit} item={item} />
+              <CheckListAdd
+                handleChecklistSubmit={this.props.handleChecklistSubmit}
+                item={item}
+              />
             </TextContainer>
             <RemoveItem
               id={id}
@@ -164,7 +167,12 @@ class TaskLine extends React.Component {
             />
           </ItemContainerFour>
         </StyledListItem>
-        <Checklist item={item} handleAmendCheckTask={this.props.handleAmendCheckTask} handleRemoveCheckItem={this.props.handleRemoveCheckItem} />
+        <Checklist
+          item={item}
+          handleAmendCheckTask={this.props.handleAmendCheckTask}
+          handleRemoveCheckItem={this.props.handleRemoveCheckItem}
+          handleChecklistIsDone={this.props.handleChecklistIsDone}
+        />
       </>
     );
   }

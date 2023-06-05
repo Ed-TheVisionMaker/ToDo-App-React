@@ -233,7 +233,21 @@ export default class UserInputs extends React.Component {
       return item
     })
     this.setState({ list: newList });
-  }
+  };
+
+  handleChecklistIsDone = (id) => {
+    const newList = this.state.list.map((item) => {
+      const newChecklist = item.checklist.map((checklistItem) => {
+        if(checklistItem.id === id) {
+          checklistItem.isDone = !checklistItem.isDone;
+        }
+        return checklistItem
+      })
+      item.checklist = newChecklist;
+      return item;
+    });
+    this.setState({ list: newList });
+  };
 
   render() {
     // console.log(this.state.list, "state list in UserInput")
@@ -292,6 +306,7 @@ export default class UserInputs extends React.Component {
               handleChecklistSubmit={this.handleChecklistSubmit}
               handleAmendCheckTask={this.handleAmendCheckTask}
               handleRemoveCheckItem={this.handleRemoveCheckItem}
+              handleChecklistIsDone={this.handleChecklistIsDone}
               
             />
           </TodoContainer>

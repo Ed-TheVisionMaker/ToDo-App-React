@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const ChecklistCheckbox = (props) => {
-  const isDone = props.isDone;
+  const {id, isDone} = props.checklistItem;
 
   const CheckListCheckButton = styled.button`
     position: relative;
@@ -30,9 +30,9 @@ const ChecklistCheckbox = (props) => {
     border-radius: 5px;
   `;
   return (
-    <CheckListCheckButton>
+    <CheckListCheckButton onClick={() => props.handleChecklistIsDone(id)}>
       {isDone && (
-        <CheckListCheckSvg
+        <CheckListCheckSvg 
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
