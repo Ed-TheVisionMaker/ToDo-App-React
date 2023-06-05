@@ -1,29 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 
-import ChecklistCheckbox from "../ChecklistCheckbox/ChecklistCheckbox";
-import ChecklistText from "../ChecklistInput/ChecklistInput";
-import ChecklistRemoveItem from "../ChecklistRemoveItem/ChecklistRemoveItem";
+import ChecklistLine from "../CheckListLine/CheckListLine";
 
-export default class Checklist extends React.Component {
-  state = {
-    checkListOpen: false,
-  };
-
-  toggleOpen = () => {
-    this.setState((prevState) => ({ checkListOpen: !prevState.checkListOpen }));
-  };
-  render() {
+const Checklist = (props) => {
     return (
-      this.props.item.checklist.map((checklistItem) => {
-        return (
-          <div>
-          {/* <ChecklistCheckbox /> */}
-          <ChecklistText />
-          <ChecklistRemoveItem />
-        </div>
-        )
-      })
+     <ul>
+        {props.item.checklist.map((checklistItem) => {
+          return (
+            <li>
+            <ChecklistLine key={checklistItem.id} checklistItem={checklistItem} handleAmendCheckTask={props.handleAmendCheckTask} />
+            </li> 
+          );
+        })}
+      </ul>
     );
-  }
 }
+
+export default Checklist;

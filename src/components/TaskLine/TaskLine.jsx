@@ -5,7 +5,7 @@ import Checkbox from "../Checkbox/Checkbox";
 import RemoveItem from "../RemoveItem/RemoveItem";
 import Dropdown from "../Dropdown/Dropdown";
 import DueDate from "../DueDate/DueDate";
-import Checklist from "../ChecklistCheckbox/ChecklistCheckbox";
+import Checklist from "../CheckList/CheckList";
 import CheckListAdd from "../CheckListAdd/CheckListAdd";
 
 const ItemContainerOne = styled.div`
@@ -164,7 +164,7 @@ class TaskLine extends React.Component {
             />
           </ItemContainerFour>
         </StyledListItem>
-        <Checklist item={item} />
+        <Checklist item={item} handleAmendCheckTask={this.props.handleAmendCheckTask} />
       </>
     );
   }

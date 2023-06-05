@@ -4,7 +4,7 @@ import styled from "styled-components";
 const ChecklistCheckbox = (props) => {
   const isDone = props.isDone;
 
-  const StyledCheckbox = styled.button`
+  const CheckListCheckButton = styled.button`
     position: relative;
 
     box-sizing: border-box;
@@ -16,7 +16,7 @@ const ChecklistCheckbox = (props) => {
 
   `;
 
-  const StyledCheckboxSVG = styled.svg`
+  const CheckListCheckSvg = styled.svg`
     position: absolute;
     top: -2px;
     left: -2px;
@@ -29,11 +29,10 @@ const ChecklistCheckbox = (props) => {
     background-color: white;
     border-radius: 5px;
   `;
-
   return (
-    <StyledCheckbox onClick={() => props.handleIsDone(props.id)}>
+    <CheckListCheckButton>
       {isDone && (
-        <StyledCheckboxSVG
+        <CheckListCheckSvg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -45,9 +44,9 @@ const ChecklistCheckbox = (props) => {
             strokeLinejoin="round"
             d="M4.5 12.75l6 6 9-13.5"
           />
-        </StyledCheckboxSVG>
+        </CheckListCheckSvg>
       )}
-    </StyledCheckbox>
+    </CheckListCheckButton>
   );
 };
 
