@@ -46,6 +46,7 @@ const TaskList = (props) => {
                 handleDateChange={props.handleDateChange}
                 handleChecklistSubmit={props.handleChecklistSubmit}
                 handleAmendCheckTask={props.handleAmendCheckTask}
+                handleRemoveCheckItem={props.handleRemoveCheckItem}
               />
             );
           })}

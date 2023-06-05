@@ -9,7 +9,7 @@ const Checklist = (props) => {
         {props.item.checklist.map((checklistItem) => {
           return (
             <li>
-            <ChecklistLine key={checklistItem.id} checklistItem={checklistItem} handleAmendCheckTask={props.handleAmendCheckTask} />
+            <ChecklistLine key={checklistItem.id} checklistItem={checklistItem} handleAmendCheckTask={props.handleAmendCheckTask} handleRemoveCheckItem={props.handleRemoveCheckItem} />
             </li> 
           );
         })}

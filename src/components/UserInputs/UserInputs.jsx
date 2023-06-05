@@ -226,8 +226,17 @@ export default class UserInputs extends React.Component {
     this.setState({ list: newList });
   };
 
+  handleRemoveCheckItem = (id) => {
+    const newList = this.state.list.map((item) => {
+      const newChecklist = item.checklist.filter((checkItem) => checkItem.id !== id)
+      item.checklist = newChecklist;
+      return item
+    })
+    this.setState({ list: newList });
+  }
+
   render() {
-    console.log(this.state.list, "state list in UserInput")
+    // console.log(this.state.list, "state list in UserInput")
     const { list, mode, powerModeActive, searchValue } = this.state;
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
@@ -282,6 +291,7 @@ export default class UserInputs extends React.Component {
               handleDateChange={this.handleDateChange}
               handleChecklistSubmit={this.handleChecklistSubmit}
               handleAmendCheckTask={this.handleAmendCheckTask}
+              handleRemoveCheckItem={this.handleRemoveCheckItem}
               
             />
           </TodoContainer>

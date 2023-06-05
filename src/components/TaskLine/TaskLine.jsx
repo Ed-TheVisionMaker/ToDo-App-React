@@ -164,7 +164,7 @@ class TaskLine extends React.Component {
             />
           </ItemContainerFour>
         </StyledListItem>
-        <Checklist item={item} handleAmendCheckTask={this.props.handleAmendCheckTask} />
+        <Checklist item={item} handleAmendCheckTask={this.props.handleAmendCheckTask} handleRemoveCheckItem={this.props.handleRemoveCheckItem} />
       </>
     );
   }

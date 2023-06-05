@@ -20,7 +20,7 @@ export default class ChecklistLine extends React.Component {
           checklistItem={checklistItem}
           handleAmendCheckTask={this.props.handleAmendCheckTask}
         />
-        {/* <ChecklistRemoveItem id={id} /> */}
+        <ChecklistRemoveItem id={id} handleRemoveCheckItem={this.props.handleRemoveCheckItem} />
       </>
     );
   }
