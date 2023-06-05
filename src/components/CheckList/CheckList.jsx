@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 import ChecklistCheckbox from "../ChecklistCheckbox/ChecklistCheckbox";
-import ChecklistText from "../ChecklistText/ChecklistText";
+import ChecklistText from "../ChecklistInput/ChecklistInput";
 import ChecklistRemoveItem from "../ChecklistRemoveItem/ChecklistRemoveItem";
 
-export default class CheckList extends React.Component {
+export default class Checklist extends React.Component {
   state = {
     checkListOpen: false,
   };
@@ -15,11 +15,15 @@ export default class CheckList extends React.Component {
   };
   render() {
     return (
-      <div>
-        <ChecklistCheckbox />
-        <ChecklistText />
-        <ChecklistRemoveItem />
-      </div>
+      this.props.item.checklist.map((checklistItem) => {
+        return (
+          <div>
+          {/* <ChecklistCheckbox /> */}
+          <ChecklistText />
+          <ChecklistRemoveItem />
+        </div>
+        )
+      })
     );
   }
 }

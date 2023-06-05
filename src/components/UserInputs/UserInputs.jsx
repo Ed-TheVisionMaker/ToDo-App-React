@@ -68,7 +68,7 @@ export default class UserInputs extends React.Component {
       date: Date.now(),
       dueDate: null,
       id: `${Math.random()} * ${Math.random()}`,
-      checkList: [],
+      checklist: [],
     };
 
     const newList = [...this.state.list, newItem];
@@ -191,8 +191,31 @@ export default class UserInputs extends React.Component {
     handleClick();
   };
 
+  handleChecklistSubmit = (item) => {
+    const newCheckItem = {
+      checkTask: "test",
+      isDone: false,
+      date: Date.now(),
+      id: `${Math.random()} * ${Math.random()}`,
+    };
+
+    const newChecklist = [...item.checklist, newCheckItem]
+
+    console.log( item, "item", item.checklist, "itemChecklist", newCheckItem, "newcheckitem")
+
+    const newList = this.state.list.map((listItem) => {
+      if(listItem.id === item.id) {
+        listItem.checklist = newChecklist;
+      }
+      return listItem;
+    })
+    this.setState({ list: newList });
+
+  }
+
   render() {
     const { list, mode, powerModeActive, searchValue } = this.state;
+    console.log(list, "list UserInputs")
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
     });
@@ -244,6 +267,7 @@ export default class UserInputs extends React.Component {
               handleSort={this.handleSort}
               handlePressEnter={this.handlePressEnter}
               handleDateChange={this.handleDateChange}
+              handleChecklistSubmit={this.handleChecklistSubmit}
             />
           </TodoContainer>
         )}

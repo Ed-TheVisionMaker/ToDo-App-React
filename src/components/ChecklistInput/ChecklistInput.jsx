@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export default class ChecklistText extends React.Component {
+export default class ChecklistInput extends React.Component {
     state = {
         isOpen: false,
     }
