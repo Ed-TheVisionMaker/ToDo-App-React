@@ -68,6 +68,7 @@ export default class UserInputs extends React.Component {
       date: Date.now(),
       dueDate: null,
       id: `${Math.random()} * ${Math.random()}`,
+      progress: null,
       checklist: [],
     };
 
@@ -191,7 +192,7 @@ export default class UserInputs extends React.Component {
     handleClick();
   };
 
-  handleChecklistSubmit = (item) => {
+  handleChecklistNewItem = (item) => {
     const newCheckItem = {
       checkTask: "test",
       isDone: false,
@@ -209,6 +210,22 @@ export default class UserInputs extends React.Component {
     })
     this.setState({ list: newList });
   };
+
+  handleChecklistSubmit = (e, taskItem, checklistId) => {
+    e.preventDefault();
+    const newList = this.state.list.map((item) => {
+      if(item.id === taskItem.id) {
+        const newChecklist = item.checklist.map((checklistItem) => {
+          if(checklistItem.id === checklistId) {
+            checkTask = e.target.value
+          }
+        })
+        return newChecklist;
+      }
+    })
+    return newList;
+    this.setState({ list: newList })
+  }
 
   handleAmendCheckTask = (checkItemAmended) => {
     // is this slow for performance? better to pass the item so only have to map the checklist?
@@ -243,6 +260,8 @@ export default class UserInputs extends React.Component {
         return checklistItem
       })
       item.checklist = newChecklist;
+      item.progress = (newChecklist.filter(el => el.isDone).length / newChecklist.length) * 100;
+
       return item;
     });
     this.setState({ list: newList });
@@ -283,30 +302,19 @@ export default class UserInputs extends React.Component {
                     value={this.state.inputValue}
                   />
                 </form>
-                {(this.state.list.length > 0 || this.state.searchValue) && (
+        
                   <SearchItems
-                    list={list}
+          
                     searchValue={searchValue}
                     handleSearch={this.handleSearch}
                     handleClear={this.handleClear}
                   />
-                )}
+                
               </ItemInputSearchContainer>
             </UserInputContainer>
             <TaskList
               list={searchedItems}
-              handleAmendTask={this.handleAmendTask}
-              handleRemove={this.handleRemove}
-              handleIsDone={this.handleIsDone}
-              handleTaskValues={this.handleTaskValues}
-              handleSort={this.handleSort}
-              handlePressEnter={this.handlePressEnter}
-              handleDateChange={this.handleDateChange}
-              handleChecklistSubmit={this.handleChecklistSubmit}
-              handleAmendCheckTask={this.handleAmendCheckTask}
-              handleRemoveCheckItem={this.handleRemoveCheckItem}
-              handleChecklistIsDone={this.handleChecklistIsDone}
-              
+              {...this}
             />
           </TodoContainer>
         )}

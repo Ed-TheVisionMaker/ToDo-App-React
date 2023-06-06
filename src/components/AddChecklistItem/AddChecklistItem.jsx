@@ -17,7 +17,7 @@ export default class AddChecklistItem extends React.Component {
   render() {
     const item = this.props.item;
     return (
-      <AddToChecklist onClick={() => this.props.handleChecklistSubmit(item)}>
+      <AddToChecklist onClick={() => this.props.handleChecklistNewItem(item)}>
         Add item
       </AddToChecklist>
     );

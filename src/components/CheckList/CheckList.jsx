@@ -36,7 +36,7 @@ const Checklist = (props) => {
   return (
     <ChecklistContainer>
       <AddChecklistItem
-        handleChecklistSubmit={props.handleChecklistSubmit}
+        handleChecklistNewItem={props.handleChecklistNewItem}
         item={props.item}
       />
       <ChecklistList>
@@ -46,15 +46,12 @@ const Checklist = (props) => {
               <ChecklistLine
                 checklistItem={checklistItem}
                 {...props}
-                // handleAmendCheckTask={props.handleAmendCheckTask}
-                // handleRemoveCheckItem={props.handleRemoveCheckItem}
-                // handleChecklistIsDone={props.handleChecklistIsDone}
               />
             </ChecklistItem>
           );
         })}
       </ChecklistList>
-      <CloseChecklist handleChecklistClose={this.props.handleChecklistClose} />
+      <CloseChecklist handleChecklistClose={props.handleChecklistClose} />
     </ChecklistContainer>
   );
 };

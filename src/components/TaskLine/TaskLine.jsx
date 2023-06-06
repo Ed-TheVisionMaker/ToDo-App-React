@@ -54,7 +54,7 @@ const TextContainer = styled.div`
 
   border-radius: 5px;
   border: 1px solid white;
-  padding: 5px 0 5px 10px;
+  padding: 5px 10px;
 `;
 
 const StyledInput = styled.input`
@@ -110,9 +110,8 @@ class TaskLine extends React.Component {
 
   render() {
     const item = this.props.item;
-    const { dueDate, id, isDone, task } = this.props.item;
+    const { checklist, dueDate, id, isDone, progress, task } = this.props.item;
     const isOpen = this.state.isOpen;
-    // const showChecklist = this.state.showChecklist;
     return (
       <>
         <StyledListItem key={id}>
@@ -123,7 +122,7 @@ class TaskLine extends React.Component {
               handleIsDone={this.props.handleIsDone}
             />
             <TextContainer>
-              <ProgressBar item={item} />
+              <ProgressBar checklist={checklist} progress={progress} />
               {isOpen && (
                 <StyledInput
                   id={"inputAmend"}
@@ -172,14 +171,6 @@ class TaskLine extends React.Component {
             />
           </ItemContainerFour>
         </StyledListItem>
-        {/* {showChecklist && <Checklist
-          item={item}
-          handleAmendCheckTask={this.props.handleAmendCheckTask}
-          handleRemoveCheckItem={this.props.handleRemoveCheckItem}
-          handleChecklistIsDone={this.props.handleChecklistIsDone}
-          handleChecklistSubmit={this.props.handleChecklistSubmit}
-          handleChecklistClick={this.handleChecklistClick}
-        />} */}
       </>
     );
   }

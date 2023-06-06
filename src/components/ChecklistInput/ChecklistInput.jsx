@@ -27,47 +27,48 @@ const StyledItemSpan = styled.span`
 `;
 
 export default class ChecklistInput extends React.Component {
-    state = {
-        inputValue: "",
-        isOpen: false,
+  state = {
+    inputValue: "",
+    isOpen: false,
+  };
+
+  handleChange = (e) => {
+    this.setState({ inputValue: e.target.value });
+  };
+
+  handleClick = () => {
+    const isOpen = this.state.isOpen;
+    const checkItemAmended = this.props.checklistItem;
+    const newTask = this.state.inputValue;
+
+    if (!isOpen) this.setState({ isOpen: true });
+    if (isOpen) {
+      this.setState({ isOpen: false });
+      checkItemAmended.checkTask = newTask;
+      this.props.handleAmendCheckTask(checkItemAmended);
     }
+  };
 
-    handleChange = (e) => {
-      this.setState({ inputValue: e.target.value })
-
-    }
-
-    handleClick = () => {
-      const isOpen = this.state.isOpen;
-      const checkItemAmended = this.props.checklistItem;
-      const newTask = this.state.inputValue;
-  
-      if (!isOpen) this.setState({ isOpen: true });
-      if (isOpen) {
-        this.setState({ isOpen: false });
-        checkItemAmended.checkTask = newTask;
-        this.props.handleAmendCheckTask(checkItemAmended); 
-      }
-    };
-
-    render() {
-        const isOpen = this.state.isOpen;
-        const checkTask = this.props.checklistItem.checkTask;
-        return (
-            <TextContainer>
-            {isOpen && (
-              <StyledInput
-                defaultValue={checkTask}
-                onChange={this.handleChange}
-                onBlur={this.handleClick}
-                />
-            )}
-            {!isOpen && (
-              <StyledItemSpan onClick={this.handleClick}>
-                {checkTask}
-              </StyledItemSpan>
-            )}
-          </TextContainer>
-        )
-    }
+  render() {
+    const isOpen = this.state.isOpen;
+    const checkTask = this.props.checklistItem.checkTask;
+    return (
+      <TextContainer>
+        {isOpen && (
+          <Form>
+            <StyledInput
+              defaultValue={checkTask}
+              onChange={this.handleChange}
+              onBlur={this.handleClick}
+            />
+          </Form>
+        )}
+        {!isOpen && (
+          <StyledItemSpan onClick={this.handleClick}>
+            {checkTask}
+          </StyledItemSpan>
+        )}
+      </TextContainer>
+    );
+  }
 }
