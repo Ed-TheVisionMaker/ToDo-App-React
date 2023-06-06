@@ -5,9 +5,8 @@ import Checkbox from "../Checkbox/Checkbox";
 import RemoveItem from "../RemoveItem/RemoveItem";
 import Dropdown from "../Dropdown/Dropdown";
 import DueDate from "../DueDate/DueDate";
-import Checklist from "../CheckList/CheckList";
-import CheckListAdd from "../AddChecklistItem/AddChecklistItem";
 import ChecklistShow from "../ChecklistShow/ChecklistShow";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 const ItemContainerOne = styled.div`
   display: flex;
@@ -124,6 +123,7 @@ class TaskLine extends React.Component {
               handleIsDone={this.props.handleIsDone}
             />
             <TextContainer>
+              <ProgressBar item={item} />
               {isOpen && (
                 <StyledInput
                   id={"inputAmend"}

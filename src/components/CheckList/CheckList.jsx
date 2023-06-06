@@ -7,7 +7,7 @@ import CloseChecklist from "../CloseChecklist/CloseChecklist";
 
 const ChecklistContainer = styled.div`
   position: relative;
-  
+
   display: flex;
   justify-content: center;
 
@@ -45,15 +45,16 @@ const Checklist = (props) => {
             <ChecklistItem key={checklistItem.id}>
               <ChecklistLine
                 checklistItem={checklistItem}
-                handleAmendCheckTask={props.handleAmendCheckTask}
-                handleRemoveCheckItem={props.handleRemoveCheckItem}
-                handleChecklistIsDone={props.handleChecklistIsDone}
+                {...props}
+                // handleAmendCheckTask={props.handleAmendCheckTask}
+                // handleRemoveCheckItem={props.handleRemoveCheckItem}
+                // handleChecklistIsDone={props.handleChecklistIsDone}
               />
             </ChecklistItem>
           );
         })}
       </ChecklistList>
-      <CloseChecklist handleChecklistClick={props.handleChecklistClick} />
+      <CloseChecklist handleChecklistClose={this.props.handleChecklistClose} />
     </ChecklistContainer>
   );
 };

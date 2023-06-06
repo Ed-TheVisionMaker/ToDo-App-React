@@ -60,6 +60,10 @@ export default class TaskList extends React.Component {
     }));
   };
 
+  handleChecklistClose = () => {
+    this.setState({ showModal: false })
+  }
+
   render() {
     const showModal = this.state.showModal;
     const list = this.props.list;
@@ -90,11 +94,13 @@ export default class TaskList extends React.Component {
           <CheckListModalWrapper>
             <Checklist
               item={list[indexOfItem]}
-              handleAmendCheckTask={this.props.handleAmendCheckTask}
-              handleRemoveCheckItem={this.props.handleRemoveCheckItem}
-              handleChecklistIsDone={this.props.handleChecklistIsDone}
-              handleChecklistSubmit={this.props.handleChecklistSubmit}
-              handleChecklistClick={this.handleChecklistClick}
+              handleChecklistClose={this.handleChecklistClose}
+              {...this.props}
+              // handleAmendCheckTask={this.props.handleAmendCheckTask}
+              // handleRemoveCheckItem={this.props.handleRemoveCheckItem}
+              // handleChecklistIsDone={this.props.handleChecklistIsDone}
+              // handleChecklistSubmit={this.props.handleChecklistSubmit}
+              // handleChecklistClick={this.handleChecklistClick}
             />
           </CheckListModalWrapper>
         )}

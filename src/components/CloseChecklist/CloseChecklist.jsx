@@ -17,7 +17,7 @@ const RemoveSVG = styled.svg`
 `;
 
 const CloseChecklist = (props) => {
-  return <CloseButton onClick={() => props.handleChecklistClick()}>Close</CloseButton>;
+  return <CloseButton onClick={() => props.handleChecklistClose()}>Close</CloseButton>;
 };
 
 export default CloseChecklist;
