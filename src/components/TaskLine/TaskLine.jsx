@@ -6,13 +6,14 @@ import RemoveItem from "../RemoveItem/RemoveItem";
 import Dropdown from "../Dropdown/Dropdown";
 import DueDate from "../DueDate/DueDate";
 import Checklist from "../CheckList/CheckList";
-import CheckListAdd from "../CheckListAdd/CheckListAdd";
+import CheckListAdd from "../AddChecklistItem/AddChecklistItem";
+import ChecklistShow from "../ChecklistShow/ChecklistShow";
 
 const ItemContainerOne = styled.div`
   display: flex;
   align-items: center;
 
-  width: 55%;
+  width: 70%;
 `;
 
 const ItemContainerTwo = styled.div`
@@ -20,7 +21,7 @@ const ItemContainerTwo = styled.div`
   flex-direction: column;
   align-items: center;
 
-  width: 15%;
+  width: 10%;
 `;
 
 const ItemContainerThree = styled.div`
@@ -64,20 +65,26 @@ const StyledInput = styled.input`
   color: black;
   background-color: white;
 
+  box-sizing: border-box;
   margin-right: 100px;
+  margin-bottom: 10px;
   border-radius: 5px;
 `;
 
 const StyledItemSpan = styled.span`
-  width: 100%;
+  display: block;
+  width: 290px;
 
   margin-right: 100px;
+  margin-bottom: 10px;
+
 `;
 
 class TaskLine extends React.Component {
   state = {
     inputValue: "",
     isOpen: false,
+    showChecklist: false,
   };
 
   componentDidMount() {
@@ -102,10 +109,15 @@ class TaskLine extends React.Component {
     }
   };
 
+  handleChecklistClick = () => {
+    this.setState((prevState) => ({ showChecklist: !prevState.showChecklist }));
+  }
+
   render() {
     const item = this.props.item;
     const { dueDate, id, isDone, task } = this.props.item;
     const isOpen = this.state.isOpen;
+    const showChecklist = this.state.showChecklist;
     return (
       <>
         <StyledListItem key={id}>
@@ -132,10 +144,7 @@ class TaskLine extends React.Component {
                   {task}
                 </StyledItemSpan>
               )}
-              <CheckListAdd
-                handleChecklistSubmit={this.props.handleChecklistSubmit}
-                item={item}
-              />
+              <ChecklistShow item={item} handleChecklistClick={this.handleChecklistClick} />
             </TextContainer>
             <RemoveItem
               id={id}
@@ -167,12 +176,14 @@ class TaskLine extends React.Component {
             />
           </ItemContainerFour>
         </StyledListItem>
-        <Checklist
+        {showChecklist && <Checklist
           item={item}
           handleAmendCheckTask={this.props.handleAmendCheckTask}
           handleRemoveCheckItem={this.props.handleRemoveCheckItem}
           handleChecklistIsDone={this.props.handleChecklistIsDone}
-        />
+          handleChecklistSubmit={this.props.handleChecklistSubmit}
+          handleChecklistClick={this.handleChecklistClick}
+        />}
       </>
     );
   }

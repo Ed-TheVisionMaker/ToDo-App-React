@@ -8,7 +8,6 @@ const StyledRemoveButton = styled.button`
   height: 30px;
 
   margin-left: 30px;
-  margin-right: 65px;
   padding: 5px;
   border-radius: 10px;
   border: 0;

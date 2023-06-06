@@ -212,7 +212,6 @@ export default class UserInputs extends React.Component {
 
   handleAmendCheckTask = (checkItemAmended) => {
     // is this slow for performance? better to pass the item so only have to map the checklist?
-    console.log(checkItemAmended, "checkItem amended Userinput")
     const newList = this.state.list.map((item) => {
       item.checklist.map((checklistItem) => {
         if (checklistItem.id === checkItemAmended.id) {

@@ -10,7 +10,10 @@ const DueDateContainer = styled.div`
 `;
 
 const DueDateText = styled.div`
-  font-size: 20px;
+  display: flex;
+  text-align: center;
+
+  font-size: 18px;
   padding: 5px 10px;
 
   border: 1px solid transparent;
@@ -39,7 +42,7 @@ export default class DueDate extends React.Component {
     return (
       <DueDateContainer>
         <DueDateText onClick={() => this.handleClick()}>
-          {dueDate || "Due Date"}
+          {dueDate || "Date"}
         </DueDateText>
         {showCalendar && (
           <CalendarDisplay

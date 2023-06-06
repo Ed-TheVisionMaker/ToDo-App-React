@@ -11,7 +11,7 @@ const TaskHeaderWrapper = styled.div`
 const HeaderContainerOne = styled.div`
   display: flex;
 
-  width: 55%;
+  width: 70%;
 `;
 
 const HeaderContainerTwo = styled.div`
@@ -19,7 +19,7 @@ const HeaderContainerTwo = styled.div`
   flex-direction: column;
   align-items: center;
 
-  width: 15%;
+  width: 10%;
 `;
 
 const HeaderContainerThree = styled.div`

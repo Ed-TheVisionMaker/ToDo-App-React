@@ -11,8 +11,7 @@ const ChecklistCheckbox = (props) => {
     width: 25px;
     height: 25px;
 
-    margin-left: 35px;
-    margin-right: 70px;
+    margin-right: 20px;
 
   `;
 
