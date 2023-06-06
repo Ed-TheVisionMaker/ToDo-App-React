@@ -76,7 +76,6 @@ export default class UserInputs extends React.Component {
     this.setState({ inputValue: "", list: newList });
   };
 
-
   handleAmendTask = (itemAmended) => {
     const newList = this.state.list.map((item) => {
       if (item.id === itemAmended.id) {
@@ -177,7 +176,20 @@ export default class UserInputs extends React.Component {
   };
 
   handleDateChange = (id, date, handleClick) => {
-    const monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const monthArray = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
     const day = date.getDate();
     const month = monthArray[date.getMonth()];
     const year = date.getFullYear().toString().substring(2);
@@ -194,38 +206,55 @@ export default class UserInputs extends React.Component {
 
   handleChecklistNewItem = (item) => {
     const newCheckItem = {
-      checkTask: "test",
+      checkTask: "",
       isDone: false,
       date: Date.now(),
       id: `${Math.random()} * ${Math.random()}`,
     };
 
-    const newChecklist = [...item.checklist, newCheckItem]
+    const newChecklist = [...item.checklist, newCheckItem];
 
     const newList = this.state.list.map((listItem) => {
-      if(listItem.id === item.id) {
+      if (listItem.id === item.id) {
         listItem.checklist = newChecklist;
       }
       return listItem;
-    })
+    });
     this.setState({ list: newList });
   };
 
-  handleChecklistSubmit = (e, taskItem, checklistId) => {
+
+  //FIXME
+  // submit is re-rendering - is it because it is called? Have to change how the values is submitted
+  // item[indexofTaskItem] is undefined
+
+  handleChecklistSubmit = (e, value, indexOfTaskItem, checklistAmended) => {
+    // console.log(e, "a", value, "b", indexOfTaskItem, "c", checklistAmended, "d")
+    // how do you change the state for a nested object?
+
+    // const newChecklist = this.state.item[indexOfTaskItem].checklist.map(
+    //   (checklistItem) => {
+    //     if (checklistItem.id === checklistAmended.id) {
+    //       checklistItem.checkTask = value;
+    //     }
+    //     return checklistItem;
+    //   });
+      // this.setState({ list[indexOfTaskItem] : newChecklist})
+
     e.preventDefault();
-    const newList = this.state.list.map((item) => {
-      if(item.id === taskItem.id) {
-        const newChecklist = item.checklist.map((checklistItem) => {
-          if(checklistItem.id === checklistId) {
-            checkTask = e.target.value
-          }
-        })
-        return newChecklist;
-      }
-    })
-    return newList;
-    this.setState({ list: newList })
-  }
+      const newList = this.state.list.map((item) => {
+        if(item.id === item[indexOfTaskItem].id) {
+          const newChecklist = item.map((checklistItem) => {
+            if(checklistItem.id === checklistAmended.id) {
+              checklistItem.checkTask = value;
+            }
+            return checklistItem;
+          })
+        }
+        return newList;
+      })
+      this.setState({ list: newList })
+  };
 
   handleAmendCheckTask = (checkItemAmended) => {
     // is this slow for performance? better to pass the item so only have to map the checklist?
@@ -235,8 +264,8 @@ export default class UserInputs extends React.Component {
           checklistItem.task = checkItemAmended.task;
         }
         return checklistItem;
-      })
-      
+      });
+
       return item;
     });
     this.setState({ list: newList });
@@ -244,23 +273,27 @@ export default class UserInputs extends React.Component {
 
   handleRemoveCheckItem = (id) => {
     const newList = this.state.list.map((item) => {
-      const newChecklist = item.checklist.filter((checkItem) => checkItem.id !== id)
+      const newChecklist = item.checklist.filter(
+        (checkItem) => checkItem.id !== id
+      );
       item.checklist = newChecklist;
-      return item
-    })
+      return item;
+    });
     this.setState({ list: newList });
   };
 
   handleChecklistIsDone = (id) => {
     const newList = this.state.list.map((item) => {
       const newChecklist = item.checklist.map((checklistItem) => {
-        if(checklistItem.id === id) {
+        if (checklistItem.id === id) {
           checklistItem.isDone = !checklistItem.isDone;
         }
-        return checklistItem
-      })
+        return checklistItem;
+      });
       item.checklist = newChecklist;
-      item.progress = (newChecklist.filter(el => el.isDone).length / newChecklist.length) * 100;
+      item.progress =
+        (newChecklist.filter((el) => el.isDone).length / newChecklist.length) *
+        100;
 
       return item;
     });
@@ -268,7 +301,7 @@ export default class UserInputs extends React.Component {
   };
 
   render() {
-    // console.log(this.state.list, "state list in UserInput")
+    console.log(this.state.list, "state list in UserInput")
     const { list, mode, powerModeActive, searchValue } = this.state;
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
@@ -302,20 +335,15 @@ export default class UserInputs extends React.Component {
                     value={this.state.inputValue}
                   />
                 </form>
-        
-                  <SearchItems
-          
-                    searchValue={searchValue}
-                    handleSearch={this.handleSearch}
-                    handleClear={this.handleClear}
-                  />
-                
+
+                <SearchItems
+                  searchValue={searchValue}
+                  handleSearch={this.handleSearch}
+                  handleClear={this.handleClear}
+                />
               </ItemInputSearchContainer>
             </UserInputContainer>
-            <TaskList
-              list={searchedItems}
-              {...this}
-            />
+            <TaskList list={searchedItems} {...this} />
           </TodoContainer>
         )}
         <Mode handleMode={this.handleMode} mode={mode} />

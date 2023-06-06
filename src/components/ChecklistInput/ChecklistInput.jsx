@@ -21,7 +21,8 @@ const StyledInput = styled.input`
 `;
 
 const StyledItemSpan = styled.span`
-  width: 100%;
+  width: inherit;
+  height: inherit;
 
   margin-right: 100px;
 `;
@@ -37,6 +38,7 @@ export default class ChecklistInput extends React.Component {
   };
 
   handleClick = () => {
+    console.log("is clicked span in checklist Input")
     const isOpen = this.state.isOpen;
     const checkItemAmended = this.props.checklistItem;
     const newTask = this.state.inputValue;
@@ -50,18 +52,20 @@ export default class ChecklistInput extends React.Component {
   };
 
   render() {
-    const isOpen = this.state.isOpen;
+    const {isOpen, inputValue} = this.state;
     const checkTask = this.props.checklistItem.checkTask;
+    const checklistAmended = this.props.checklistItem;
+    const indexOfTaskItem = this.props.indexOfItem;
     return (
       <TextContainer>
-        {isOpen && (
-          <Form>
+        {(isOpen || !checkTask ) && (
+          <form onSubmit={(e) => this.props.handleChecklistSubmit(e, inputValue, indexOfTaskItem, checklistAmended)}>
             <StyledInput
               defaultValue={checkTask}
               onChange={this.handleChange}
               onBlur={this.handleClick}
             />
-          </Form>
+          </form>
         )}
         {!isOpen && (
           <StyledItemSpan onClick={this.handleClick}>

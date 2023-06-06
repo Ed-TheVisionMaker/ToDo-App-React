@@ -83,7 +83,6 @@ class TaskLine extends React.Component {
   state = {
     inputValue: "",
     isOpen: false,
-    // showChecklist: false,
   };
 
   componentDidMount() {
