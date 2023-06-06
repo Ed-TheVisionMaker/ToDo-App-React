@@ -84,7 +84,7 @@ class TaskLine extends React.Component {
   state = {
     inputValue: "",
     isOpen: false,
-    showChecklist: false,
+    // showChecklist: false,
   };
 
   componentDidMount() {
@@ -109,15 +109,11 @@ class TaskLine extends React.Component {
     }
   };
 
-  handleChecklistClick = () => {
-    this.setState((prevState) => ({ showChecklist: !prevState.showChecklist }));
-  }
-
   render() {
     const item = this.props.item;
     const { dueDate, id, isDone, task } = this.props.item;
     const isOpen = this.state.isOpen;
-    const showChecklist = this.state.showChecklist;
+    // const showChecklist = this.state.showChecklist;
     return (
       <>
         <StyledListItem key={id}>
@@ -144,7 +140,7 @@ class TaskLine extends React.Component {
                   {task}
                 </StyledItemSpan>
               )}
-              <ChecklistShow item={item} handleChecklistClick={this.handleChecklistClick} />
+              <ChecklistShow item={item} handleChecklistClick={this.props.handleChecklistClick} />
             </TextContainer>
             <RemoveItem
               id={id}
@@ -176,14 +172,14 @@ class TaskLine extends React.Component {
             />
           </ItemContainerFour>
         </StyledListItem>
-        {showChecklist && <Checklist
+        {/* {showChecklist && <Checklist
           item={item}
           handleAmendCheckTask={this.props.handleAmendCheckTask}
           handleRemoveCheckItem={this.props.handleRemoveCheckItem}
           handleChecklistIsDone={this.props.handleChecklistIsDone}
           handleChecklistSubmit={this.props.handleChecklistSubmit}
           handleChecklistClick={this.handleChecklistClick}
-        />}
+        />} */}
       </>
     );
   }

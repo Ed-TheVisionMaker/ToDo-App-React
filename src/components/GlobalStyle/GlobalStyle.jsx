@@ -25,6 +25,15 @@ body {
   min-height: 100vh;
 
   margin: 0;
+
+  // styling for modal blur attemtp:
+    -webkit-filter: blur(0);
+            filter: blur(0);
+    opacity: 1;
+    -webkit-transition: opacity 500ms ease, -webkit-filter 500ms ease;
+    transition: opacity 500ms ease, -webkit-filter 500ms ease;
+    transition: filter 500ms ease, opacity 500ms ease;
+    transition: filter 500ms ease, opacity 500ms ease, -webkit-filter 500ms ease;
 }
 
 button {

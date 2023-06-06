@@ -57,13 +57,6 @@ const TaskComplexity = styled.h3`
   margin-bottom: 10px;
 `;
 
-// const TaskValueContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   margin: 0 10px;
-// `;
-
 const TaskHeader = (props) => {
   return (
     <TaskHeaderWrapper>

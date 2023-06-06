@@ -5,18 +5,16 @@ import ChecklistLine from "../CheckListLine/CheckListLine";
 import AddChecklistItem from "../AddChecklistItem/AddChecklistItem";
 import CloseChecklist from "../CloseChecklist/CloseChecklist";
 
-const CheckListModalWrapper = styled.div`
+const ChecklistContainer = styled.div`
   position: relative;
+  
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 
-  width: 700px;
-  min-height: 100px;
+  width: inherit;
+  height: inherit;
 
   padding-top: 40px;
-  border: 1px solid var(--white);
-  border-radius: 5px;
 `;
 
 const ChecklistList = styled.ul`
@@ -36,7 +34,7 @@ const ChecklistItem = styled.li`
 
 const Checklist = (props) => {
   return (
-    <CheckListModalWrapper>
+    <ChecklistContainer>
       <AddChecklistItem
         handleChecklistSubmit={props.handleChecklistSubmit}
         item={props.item}
@@ -56,7 +54,7 @@ const Checklist = (props) => {
         })}
       </ChecklistList>
       <CloseChecklist handleChecklistClick={props.handleChecklistClick} />
-    </CheckListModalWrapper>
+    </ChecklistContainer>
   );
 };
 
