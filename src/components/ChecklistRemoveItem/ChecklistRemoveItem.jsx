@@ -28,8 +28,7 @@ const StyledRemoveSVG = styled.svg`
 
 const ChecklistRemoveItem = (props) => {
   return (
-      <StyledRemoveButton onClick={() => props.handleRemoveCheckItem(props.id)}>
-      {/* <StyledRemoveButton onClick={() => props.handleRemoveCheckItem(props.id, props.indexOfItem)}> */}
+      <StyledRemoveButton onClick={() => props.handleRemoveCheckItem(props.id, props.indexOfItem)}>
         <StyledRemoveSVG
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

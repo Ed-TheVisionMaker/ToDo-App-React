@@ -220,17 +220,17 @@ export default class UserInputs extends React.Component {
     this.setState({ list: newList });
   };
 
-  handleChecklistSubmit = (e, taskItem, newChecklistInput, value) => {
+  handleChecklistSubmit = (e, taskItem, newChecklistItem, value) => {
     e.preventDefault();
     const newList = this.state.list.map((item) => {
       if (item.id === taskItem.id) {
         const newChecklist = item.checklist.map((checklistItem) => {
-          if (checklistItem.id === newChecklistInput.id) {
+          if (checklistItem.id === newChecklistItem.id) {
             checklistItem.checkTask = value;
           }
           return checklistItem;
         });
-        item.checklist = item.newChecklist;
+        item.checklist = newChecklist;
       }
       return item;
     });
@@ -238,7 +238,6 @@ export default class UserInputs extends React.Component {
   };
 
   handleAmendCheckTask = (checkItemAmended) => {
-    // is this slow for performance? better to pass the item so only have to map the checklist?
     const newList = this.state.list.map((item) => {
       item.checklist.map((checklistItem) => {
         if (checklistItem.id === checkItemAmended.id) {
@@ -253,20 +252,12 @@ export default class UserInputs extends React.Component {
   };
 
   handleRemoveCheckItem = (id, indexOfItem) => {
-  // handleRemoveCheckItem = (id) => {
-  //   const newList = this.state.list.map((item) => {
-  //     const newChecklist = item.checklist.filter(
-  //       (checkItem) => checkItem.id !== id
-  //     );
-  //     item.checklist = newChecklist;
-  //     return item;
-  //   });
-  //   this.setState({ list: newList });
-
-    //FIXME: how do alter the state for an object in an array?
-const list = [...this.state.list];
-    list[indexOfItem].checklist =  list[indexOfItem].checklist.filter((checklistItem) => checklistItem.id !== id);
-    this.setState({ list })
+    console.log(indexOfItem, "index of item UserInputs")
+    const list = [...this.state.list];
+    list[indexOfItem].checklist = list[indexOfItem].checklist.filter(
+      (checklistItem) => checklistItem.id !== id
+    );
+    this.setState({ list });
   };
 
   handleChecklistIsDone = (id) => {
@@ -279,7 +270,7 @@ const list = [...this.state.list];
       });
       item.checklist = newChecklist;
       item.progress =
-        (newChecklist.filter((el) => el.isDone).length / newChecklist.length) *
+        (newChecklist.filter((checklistItem) => checklistItem.isDone).length / newChecklist.length) *
         100;
 
       return item;
@@ -288,7 +279,7 @@ const list = [...this.state.list];
   };
 
   render() {
-    console.log(this.state.list, "state list in UserInput")
+    // console.log(this.state.list, "state list in UserInput")
     const { list, mode, powerModeActive, searchValue } = this.state;
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
