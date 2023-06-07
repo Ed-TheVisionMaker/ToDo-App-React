@@ -54,12 +54,12 @@ export default class ChecklistInput extends React.Component {
   render() {
     const {isOpen, inputValue} = this.state;
     const checkTask = this.props.checklistItem.checkTask;
-    const checklistAmended = this.props.checklistItem;
-    const indexOfTaskItem = this.props.indexOfItem;
+    const {checklistItem, item} = this.props;
     return (
       <TextContainer>
         {(isOpen || !checkTask ) && (
-          <form onSubmit={(e) => this.props.handleChecklistSubmit(e, inputValue, indexOfTaskItem, checklistAmended)}>
+          //TODO: is this necessary having the form as the item is already submitted with AddChecklistItem?
+          <form onSubmit={(e) => this.props.handleChecklistSubmit(e, item, checklistItem, inputValue)}>
             <StyledInput
               defaultValue={checkTask}
               onChange={this.handleChange}

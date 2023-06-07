@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 import styled from "styled-components";
 
 import TaskList from "../TaskList/TaskList";
@@ -204,6 +204,10 @@ export default class UserInputs extends React.Component {
     handleClick();
   };
 
+  // FIXME: need to make this the submit and have new text added. Change handlesubmit to this, delete handlesubmit for checklist
+  // Check the conditional rendering - the array only needs to beupdated once a task is added ot the list otherwise it might be an
+  // accident and it can save performance power.
+
   handleChecklistNewItem = (item) => {
     const newCheckItem = {
       checkTask: "",
@@ -223,38 +227,22 @@ export default class UserInputs extends React.Component {
     this.setState({ list: newList });
   };
 
-
-  //FIXME
-  // submit is re-rendering - is it because it is called? Have to change how the values is submitted
-  // item[indexofTaskItem] is undefined
-
-  handleChecklistSubmit = (e, value, indexOfTaskItem, checklistAmended) => {
-    // console.log(e, "a", value, "b", indexOfTaskItem, "c", checklistAmended, "d")
-    // how do you change the state for a nested object?
-
-    // const newChecklist = this.state.item[indexOfTaskItem].checklist.map(
-    //   (checklistItem) => {
-    //     if (checklistItem.id === checklistAmended.id) {
-    //       checklistItem.checkTask = value;
-    //     }
-    //     return checklistItem;
-    //   });
-      // this.setState({ list[indexOfTaskItem] : newChecklist})
-
+  handleChecklistSubmit = (e, taskItem, newChecklistInput, value) => {
     e.preventDefault();
-      const newList = this.state.list.map((item) => {
-        if(item.id === item[indexOfTaskItem].id) {
-          const newChecklist = item.map((checklistItem) => {
-            if(checklistItem.id === checklistAmended.id) {
-              checklistItem.checkTask = value;
-            }
-            return checklistItem;
-          })
-        }
-        return newList;
-      })
-      this.setState({ list: newList })
-  };
+    const newList = this.state.list.map((item) => {
+      if(item.id === taskItem.id) {
+       const newChecklist = item.checklist.map((checklistItem) => {
+          if(checklistItem.id === newChecklistInput.id) {
+            checklistItem.checkTask = value;
+          }
+        return checklistItem;
+        })
+        item.checklist = item.newChecklist;
+      }
+      return item;
+    })
+    this.setState({ list: newList })
+  }
 
   handleAmendCheckTask = (checkItemAmended) => {
     // is this slow for performance? better to pass the item so only have to map the checklist?
@@ -271,7 +259,7 @@ export default class UserInputs extends React.Component {
     this.setState({ list: newList });
   };
 
-  handleRemoveCheckItem = (id) => {
+  handleRemoveCheckItem = (id, indexOfItem) => {
     const newList = this.state.list.map((item) => {
       const newChecklist = item.checklist.filter(
         (checkItem) => checkItem.id !== id
@@ -280,6 +268,11 @@ export default class UserInputs extends React.Component {
       return item;
     });
     this.setState({ list: newList });
+
+    //FIXME: how do alter the state for an object in an array?
+
+  // const newChecklist = this.state.list[indexOfItem].filter((checklistItem) => checklistItem.id !== id);
+  // this.setState({ list[indexOfItem]: newChecklist })
   };
 
   handleChecklistIsDone = (id) => {
@@ -301,7 +294,7 @@ export default class UserInputs extends React.Component {
   };
 
   render() {
-    console.log(this.state.list, "state list in UserInput")
+    // console.log(this.state.list, "state list in UserInput")
     const { list, mode, powerModeActive, searchValue } = this.state;
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
@@ -336,11 +329,11 @@ export default class UserInputs extends React.Component {
                   />
                 </form>
 
-                <SearchItems
+                {(this.state.list.length > 0 || this.state.searchValue) &&  (<SearchItems
                   searchValue={searchValue}
                   handleSearch={this.handleSearch}
                   handleClear={this.handleClear}
-                />
+                />)}
               </ItemInputSearchContainer>
             </UserInputContainer>
             <TaskList list={searchedItems} {...this} />

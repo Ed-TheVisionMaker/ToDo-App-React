@@ -33,8 +33,7 @@ const ChecklistItem = styled.li`
 `;
 
 const Checklist = (props) => {
-  console.log(props.indexOfItem, "indexof item in Checklist")
-  return (
+  return (  
     <ChecklistContainer>
       <AddChecklistItem
         handleChecklistNewItem={props.handleChecklistNewItem}

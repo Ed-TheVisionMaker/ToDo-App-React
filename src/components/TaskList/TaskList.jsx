@@ -99,7 +99,7 @@ export default class TaskList extends React.Component {
             <Checklist
               item={list[indexOfItem]}
               handleChecklistClose={this.handleChecklistClose}
-              indexofItem={indexOfItem}
+              indexOfItem={indexOfItem}
               {...this.props}
             />
           </CheckListModalWrapper>
