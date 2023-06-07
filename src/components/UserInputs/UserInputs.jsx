@@ -203,7 +203,7 @@ export default class UserInputs extends React.Component {
 
   handleChecklistNewItem = (item) => {
     const newCheckItem = {
-      checkTask: "",
+      checkTask: null,
       isDone: false,
       date: Date.now(),
       id: `${Math.random()} * ${Math.random()}`,
@@ -252,21 +252,21 @@ export default class UserInputs extends React.Component {
     this.setState({ list: newList });
   };
 
-  // handleRemoveCheckItem = (id, indexOfItem) => {
-  handleRemoveCheckItem = (id) => {
-    const newList = this.state.list.map((item) => {
-      const newChecklist = item.checklist.filter(
-        (checkItem) => checkItem.id !== id
-      );
-      item.checklist = newChecklist;
-      return item;
-    });
-    this.setState({ list: newList });
+  handleRemoveCheckItem = (id, indexOfItem) => {
+  // handleRemoveCheckItem = (id) => {
+  //   const newList = this.state.list.map((item) => {
+  //     const newChecklist = item.checklist.filter(
+  //       (checkItem) => checkItem.id !== id
+  //     );
+  //     item.checklist = newChecklist;
+  //     return item;
+  //   });
+  //   this.setState({ list: newList });
 
     //FIXME: how do alter the state for an object in an array?
-
-    // const newChecklist = this.state.list[indexOfItem].filter((checklistItem) => checklistItem.id !== id);
-    // this.setState({ list[indexOfItem]: newChecklist })
+const list = [...this.state.list];
+    list[indexOfItem].checklist =  list[indexOfItem].checklist.filter((checklistItem) => checklistItem.id !== id);
+    this.setState({ list })
   };
 
   handleChecklistIsDone = (id) => {

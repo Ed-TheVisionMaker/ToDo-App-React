@@ -38,15 +38,15 @@ export default class ChecklistInput extends React.Component {
   };
 
   handleClick = () => {
-    console.log("is clicked span in checklist Input")
-    const isOpen = this.state.isOpen;
+    const {isOpen, inputValue} = this.state
     const checkItemAmended = this.props.checklistItem;
-    const newTask = this.state.inputValue;
+    const checkTask = this.props.checklistItem.checkTask;
 
     if (!isOpen) this.setState({ isOpen: true });
-    if (isOpen) {
+    if (isOpen || !checkTask) {
+      console.log(checkTask, "checkTask ChekclistINput");
       this.setState({ isOpen: false });
-      checkItemAmended.checkTask = newTask;
+      checkItemAmended.checkTask = inputValue;
       this.props.handleAmendCheckTask(checkItemAmended);
     }
   };
@@ -59,7 +59,8 @@ export default class ChecklistInput extends React.Component {
       <TextContainer>
         {(isOpen || !checkTask ) && (
           //TODO: is this necessary having the form as the item is already submitted with AddChecklistItem?
-          <form onSubmit={(e) => this.props.handleChecklistSubmit(e, item, checklistItem, inputValue)}>
+          // <form onSubmit={(e) => this.props.handleChecklistSubmit(e, item, checklistItem, inputValue)}>
+          <form>
             <StyledInput
               defaultValue={checkTask}
               onChange={this.handleChange}

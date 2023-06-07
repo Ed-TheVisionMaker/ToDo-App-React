@@ -28,7 +28,7 @@ const StyledRemoveSVG = styled.svg`
 
 const RemoveItem = (props) => {
   return (
-      <StyledRemoveButton onClick={() => props.handleRemove(props.id)}>
+      <StyledRemoveButton onClick={() => props.handleRemove(props.id, props.indexOfItem)}>
         <StyledRemoveSVG
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

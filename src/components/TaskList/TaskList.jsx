@@ -51,8 +51,7 @@ export default class TaskList extends React.Component {
     showModal: false,
     indexOfItem: null,
   };
-//FIXME
-// the index of item is only showing index 0, and it is not being defined for use in the handleSubmit of the checklist
+//FIXME: the index of item is only showing index 0, and it is not being defined for use in the handleSubmit of the checklist
 
   handleChecklistClick = (item) => {
     const indexOfItem = this.props.list.indexOf(item);
