@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-// when the button is pressed a new object is create
-
 const AddToChecklist = styled.button`
   position: absolute;
   top: 10px;

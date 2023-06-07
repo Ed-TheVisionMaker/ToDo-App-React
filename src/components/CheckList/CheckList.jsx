@@ -32,28 +32,31 @@ const ChecklistItem = styled.li`
   margin-bottom: 20px;
 `;
 
-const Checklist = (props) => {
-  return (  
-    <ChecklistContainer>
-      <AddChecklistItem
-        handleChecklistNewItem={props.handleChecklistNewItem}
-        item={props.item}
-      />
-      <ChecklistList>
-        {props.item.checklist.map((checklistItem) => {
-          return (
-            <ChecklistItem key={checklistItem.id}>
-              <ChecklistLine
-                checklistItem={checklistItem}
-                {...props}
-              />
-            </ChecklistItem>
-          );
-        })}
-      </ChecklistList>
-      <CloseChecklist handleChecklistClose={props.handleChecklistClose} />
-    </ChecklistContainer>
-  );
-};
-
-export default Checklist;
+export default class Checklist extends React.Component {
+  state = {
+    newItem: false,
+  };
+  
+  render() {
+    return (
+      <ChecklistContainer>
+        <AddChecklistItem
+          handleChecklistNewItem={this.props.handleChecklistNewItem}
+          item={this.props.item}
+        />
+        <ChecklistList>
+          {this.props.item.checklist.map((checklistItem) => {
+            return (
+              <ChecklistItem key={checklistItem.id}>
+                <ChecklistLine checklistItem={checklistItem} {...this.props} />
+              </ChecklistItem>
+            );
+          })}
+        </ChecklistList>
+        <CloseChecklist
+          handleChecklistClose={this.props.handleChecklistClose}
+        />
+      </ChecklistContainer>
+    );
+  }
+}
