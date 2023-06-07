@@ -43,7 +43,9 @@ const TaskDone = styled.h3`
   margin-right: 70px;
 `;
 
-const TaskDueDate = styled.h3``;
+const TaskDueDate = styled.h3`
+  margin-bottom: 10px;
+  `;
 
 const TaskItem = styled.h3`
   margin-right: 360px;
@@ -66,6 +68,11 @@ const TaskHeader = (props) => {
       </HeaderContainerOne>
       <HeaderContainerTwo>
         <TaskDueDate>Due</TaskDueDate>
+        <SortButton
+          list={props.list}
+          handleSort={props.handleSort}
+          category={"dueDate"}
+        ></SortButton>
       </HeaderContainerTwo>
       <HeaderContainerThree>
         <TaskPriority>Priority</TaskPriority>

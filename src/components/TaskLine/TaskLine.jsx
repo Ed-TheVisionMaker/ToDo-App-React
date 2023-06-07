@@ -109,7 +109,7 @@ class TaskLine extends React.Component {
 
   render() {
     const item = this.props.item;
-    const { checklist, dueDate, id, isDone, progress, task } = this.props.item;
+    const { checklist, dueDateDisplay, id, isDone, progress, task } = this.props.item;
     const isOpen = this.state.isOpen;
     return (
       <>
@@ -148,7 +148,7 @@ class TaskLine extends React.Component {
           </ItemContainerOne>
           <ItemContainerTwo>
             <DueDate
-              dueDate={dueDate}
+              dueDateDisplay={dueDateDisplay}
               id={id}
               handleDateChange={this.props.handleDateChange}
             />

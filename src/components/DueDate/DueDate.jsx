@@ -38,11 +38,11 @@ export default class DueDate extends React.Component {
   render() {
     const showCalendar = this.state.showCalendar;
     const id = this.props.id;
-    const dueDate = this.props.dueDate;
+    const dueDateDisplay = this.props.dueDateDisplay;
     return (
       <DueDateContainer>
         <DueDateText onClick={() => this.handleClick()}>
-          {dueDate || "Date"}
+          {dueDateDisplay || "Date"}
         </DueDateText>
         {showCalendar && (
           <CalendarDisplay

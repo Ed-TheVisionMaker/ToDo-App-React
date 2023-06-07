@@ -66,7 +66,8 @@ export default class UserInputs extends React.Component {
       complexity: 0,
       powerValue: 0,
       date: Date.now(),
-      dueDate: null,
+      dueDateUnix: null,
+      dueDateDisplay: null,
       id: `${Math.random()} * ${Math.random()}`,
       progress: null,
       checklist: [],
@@ -118,30 +119,21 @@ export default class UserInputs extends React.Component {
 
   handleSort = (sortCategory, category, toggleList) => {
     const sortedList = this.state.list.sort((a, b) => {
-      if (category === "priority") {
-        if (sortCategory === "default") {
-          return a.date - b.date;
-        }
-        if (sortCategory === "ascending") {
-          return a.priority - b.priority;
-        }
-        if (sortCategory === "descending") {
-          return b.priority - a.priority;
-        }
+      if (sortCategory === "asEntered") return a.date - b.date;
+
+      if (sortCategory === "ascending") {
+        if (category === "priority") return a.priority - b.priority;
+        if (category === "complexity") return a.priority - b.priority;
+        if (category === "dueDate") return a.dueDateUnix - b.dueDateUnix;
       }
 
-      if (category === "complexity") {
-        if (sortCategory === "default") {
-          return a.date - b.date;
-        }
-        if (sortCategory === "ascending") {
-          return a.priority - b.priority;
-        }
-        if (sortCategory === "descending") {
-          return b.priority - a.priority;
-        }
+      if (sortCategory === "descending") {
+        if (category === "priority") return b.priority - a.priority;
+        if (category === "complexity") return b.priority - a.priority;
+        if (category === "dueDate") return b.dueDateUnix - a.dueDateUnix;
       }
     });
+
     toggleList();
     this.setState({ list: sortedList });
   };
@@ -190,13 +182,14 @@ export default class UserInputs extends React.Component {
       "Nov",
       "Dec",
     ];
-    const day = date.getDate();
+    const day = date.getDate().toString().padStart(2, "0");
     const month = monthArray[date.getMonth()];
     const year = date.getFullYear().toString().substring(2);
     const displayDate = day + "/" + month + "/" + year;
     const newList = this.state.list.map((item) => {
       if (item.id === id) {
-        item.dueDate = displayDate;
+        item.dueDateDisplay = displayDate;
+        item.dueDateUnix = date.getTime();
       }
       return item;
     });
@@ -230,19 +223,19 @@ export default class UserInputs extends React.Component {
   handleChecklistSubmit = (e, taskItem, newChecklistInput, value) => {
     e.preventDefault();
     const newList = this.state.list.map((item) => {
-      if(item.id === taskItem.id) {
-       const newChecklist = item.checklist.map((checklistItem) => {
-          if(checklistItem.id === newChecklistInput.id) {
+      if (item.id === taskItem.id) {
+        const newChecklist = item.checklist.map((checklistItem) => {
+          if (checklistItem.id === newChecklistInput.id) {
             checklistItem.checkTask = value;
           }
-        return checklistItem;
-        })
+          return checklistItem;
+        });
         item.checklist = item.newChecklist;
       }
       return item;
-    })
-    this.setState({ list: newList })
-  }
+    });
+    this.setState({ list: newList });
+  };
 
   handleAmendCheckTask = (checkItemAmended) => {
     // is this slow for performance? better to pass the item so only have to map the checklist?
@@ -259,7 +252,8 @@ export default class UserInputs extends React.Component {
     this.setState({ list: newList });
   };
 
-  handleRemoveCheckItem = (id, indexOfItem) => {
+  // handleRemoveCheckItem = (id, indexOfItem) => {
+  handleRemoveCheckItem = (id) => {
     const newList = this.state.list.map((item) => {
       const newChecklist = item.checklist.filter(
         (checkItem) => checkItem.id !== id
@@ -271,8 +265,8 @@ export default class UserInputs extends React.Component {
 
     //FIXME: how do alter the state for an object in an array?
 
-  // const newChecklist = this.state.list[indexOfItem].filter((checklistItem) => checklistItem.id !== id);
-  // this.setState({ list[indexOfItem]: newChecklist })
+    // const newChecklist = this.state.list[indexOfItem].filter((checklistItem) => checklistItem.id !== id);
+    // this.setState({ list[indexOfItem]: newChecklist })
   };
 
   handleChecklistIsDone = (id) => {
@@ -294,7 +288,7 @@ export default class UserInputs extends React.Component {
   };
 
   render() {
-    // console.log(this.state.list, "state list in UserInput")
+    console.log(this.state.list, "state list in UserInput")
     const { list, mode, powerModeActive, searchValue } = this.state;
     const searchedItems = list.filter((item) => {
       return item.task.includes(searchValue);
@@ -329,11 +323,13 @@ export default class UserInputs extends React.Component {
                   />
                 </form>
 
-                {(this.state.list.length > 0 || this.state.searchValue) &&  (<SearchItems
-                  searchValue={searchValue}
-                  handleSearch={this.handleSearch}
-                  handleClear={this.handleClear}
-                />)}
+                {(this.state.list.length > 0 || this.state.searchValue) && (
+                  <SearchItems
+                    searchValue={searchValue}
+                    handleSearch={this.handleSearch}
+                    handleClear={this.handleClear}
+                  />
+                )}
               </ItemInputSearchContainer>
             </UserInputContainer>
             <TaskList list={searchedItems} {...this} />
