@@ -197,11 +197,7 @@ export default class UserInputs extends React.Component {
     handleClick();
   };
 
-  // FIXME: need to make this the submit and have new text added. Change handlesubmit to this, delete handlesubmit for checklist
-  // Check the conditional rendering - the array only needs to beupdated once a task is added ot the list otherwise it might be an
-  // accident and it can save performance power.
-
-  handleChecklistNewItem = (item) => {
+  handleChecklistNewItem = (item, handleDisableAddCheckItem) => {
     const newCheckItem = {
       checkTask: null,
       isDone: false,
@@ -218,9 +214,10 @@ export default class UserInputs extends React.Component {
       return listItem;
     });
     this.setState({ list: newList });
+    handleDisableAddCheckItem();
   };
 
-  handleChecklistSubmit = (e, taskItem, newChecklistItem, value) => {
+  handleChecklistSubmit = (e, taskItem, newChecklistItem, value, handleEnableAddCheckItem) => {
     e.preventDefault();
     const newList = this.state.list.map((item) => {
       if (item.id === taskItem.id) {
@@ -235,6 +232,7 @@ export default class UserInputs extends React.Component {
       return item;
     });
     this.setState({ list: newList });
+    handleEnableAddCheckItem();
   };
 
   handleAmendCheckTask = (checkItemAmended) => {
@@ -251,13 +249,14 @@ export default class UserInputs extends React.Component {
     this.setState({ list: newList });
   };
 
-  handleRemoveCheckItem = (id, indexOfItem) => {
-    console.log(indexOfItem, "index of item UserInputs")
+  handleRemoveCheckItem = (id, indexOfItem, handleEnableAddCheckItem) => {
     const list = [...this.state.list];
     list[indexOfItem].checklist = list[indexOfItem].checklist.filter(
       (checklistItem) => checklistItem.id !== id
     );
     this.setState({ list });
+
+    if(!list[indexOfItem].checklist.length) handleEnableAddCheckItem();
   };
 
   handleChecklistIsDone = (id) => {

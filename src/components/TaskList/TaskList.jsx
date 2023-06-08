@@ -50,6 +50,7 @@ export default class TaskList extends React.Component {
   state = {
     showModal: false,
     indexOfItem: null,
+    newItem: false,
   };
 
   handleChecklistClick = (item) => {
@@ -58,28 +59,35 @@ export default class TaskList extends React.Component {
       showModal: !prevState.showModal,
       indexOfItem: indexOfItem,
     }));
+    if(item.checklist.length && item.checklist.filter((checklistItem) => checklistItem.checkTask === null).length) this.setState({ newItem: true })
   };
 
   handleChecklistClose = () => {
-    this.setState({ showModal: false, indexOfItem: null,
-     })
-  }
+    this.setState({ showModal: false, indexOfItem: null, newItem: false });
+  };
+
+  handleDisableAddCheckItem = () => {
+    this.setState({ newItem: true });
+  };
+
+  handleEnableAddCheckItem = () => {
+    this.setState({ newItem: false });
+  };
 
   render() {
-  
     const list = this.props.list;
     const { indexOfItem, showModal } = this.state;
     return (
       <div>
-        {this.props.list.length > 0 && (
+        {list.length > 0 && (
           <TaskHeader
-            list={this.props.list}
+            list={list}
             handleSort={this.props.handleSort}
           />
         )}
         <TaskListContainer>
           <TaskListItems>
-            {this.props.list.map((item) => {
+            {list.map((item) => {
               return (
                 <TaskLine
                   key={item.id}
@@ -97,6 +105,9 @@ export default class TaskList extends React.Component {
               item={list[indexOfItem]}
               handleChecklistClose={this.handleChecklistClose}
               indexOfItem={indexOfItem}
+              handleDisableAddCheckItem={this.handleDisableAddCheckItem}
+              handleEnableAddCheckItem={this.handleEnableAddCheckItem}
+              newItem={this.state.newItem}
               {...this.props}
             />
           </CheckListModalWrapper>

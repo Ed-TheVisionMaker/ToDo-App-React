@@ -8,14 +8,19 @@ const AddToChecklist = styled.button`
   margin: 0 auto;
 
   padding: 5px 10px;
-`;
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+`;
 
 export default class AddChecklistItem extends React.Component {
   render() {
-    const item = this.props.item;
+    const { handleDisableAddCheckItem, item, newItem } = this.props;
+  console.log(newItem, "newItem in AddChecklistitem")
     return (
-      <AddToChecklist onClick={() => this.props.handleChecklistNewItem(item)}>
+      <AddToChecklist disabled={newItem} onClick={() => this.props.handleChecklistNewItem(item, handleDisableAddCheckItem)}>
         Add item
       </AddToChecklist>
     );

@@ -9,13 +9,6 @@ right: 10px;
 padding: 5px 10px;
 `
 
-const RemoveSVG = styled.svg`
-  width: 30px;
-  height: 30px;
-
-  border-radius: 10px;
-`;
-
 const CloseChecklist = (props) => {
   return <CloseButton onClick={() => props.handleChecklistClose()}>Close</CloseButton>;
 };

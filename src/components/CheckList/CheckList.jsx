@@ -33,16 +33,26 @@ const ChecklistItem = styled.li`
 `;
 
 export default class Checklist extends React.Component {
-  state = {
-    newItem: false,
-  };
+  // state = {
+  //   newItem: false,
+  // };
+
+  // handleDisableAddCheckItem = () => {
+  //     this.setState({ newItem: true })
+  // }
+
+  // componentWillUnmount = () => {
+  //   console.log("checklist unmounted")
+  // }
   
   render() {
     return (
       <ChecklistContainer>
         <AddChecklistItem
+          handleDisableAddCheckItem={this.props.handleDisableAddCheckItem}
           handleChecklistNewItem={this.props.handleChecklistNewItem}
           item={this.props.item}
+          newItem={this.props.newItem}
         />
         <ChecklistList>
           {this.props.item.checklist.map((checklistItem) => {
@@ -55,6 +65,7 @@ export default class Checklist extends React.Component {
         </ChecklistList>
         <CloseChecklist
           handleChecklistClose={this.props.handleChecklistClose}
+          handleEnableAddCheckItem={this.props.handleEnableAddCheckItem}
         />
       </ChecklistContainer>
     );

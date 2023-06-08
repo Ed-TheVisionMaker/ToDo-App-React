@@ -11,7 +11,7 @@ export default class ChecklistLine extends React.Component {
   };
 
   render() {
-    const {checklistItem, indexOfItem, item} = this.props;
+    const {checklistItem, handleEnableAddCheckItem, indexOfItem, item} = this.props;
     const id = this.props.checklistItem.id;
     return (
       <>
@@ -21,10 +21,11 @@ export default class ChecklistLine extends React.Component {
           handleAmendCheckTask={this.props.handleAmendCheckTask}
           item={item}
           handleChecklistSubmit={this.props.handleChecklistSubmit}
+          handleEnableAddCheckItem={handleEnableAddCheckItem}
 
         />
         {/* <ChecklistRemoveItem id={id} handleRemoveCheckItem={this.props.handleRemoveCheckItem} /> */}
-        <ChecklistRemoveItem id={id} handleRemoveCheckItem={this.props.handleRemoveCheckItem} indexOfItem={indexOfItem} />
+        <ChecklistRemoveItem id={id} handleEnableAddCheckItem={handleEnableAddCheckItem} handleRemoveCheckItem={this.props.handleRemoveCheckItem} indexOfItem={indexOfItem} />
       </>
     );
   }

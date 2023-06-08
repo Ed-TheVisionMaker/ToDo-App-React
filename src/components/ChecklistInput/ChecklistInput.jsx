@@ -38,29 +38,42 @@ export default class ChecklistInput extends React.Component {
   };
 
   handleClick = () => {
-    const {isOpen, inputValue} = this.state
+    const { isOpen, inputValue } = this.state;
     const checkItemAmended = this.props.checklistItem;
     const checkTask = this.props.checklistItem.checkTask;
 
     if (!isOpen) this.setState({ isOpen: true });
     if (isOpen || !checkTask) {
-      console.log(checkTask, "checkTask ChekclistINput");
       this.setState({ isOpen: false });
       checkItemAmended.checkTask = inputValue;
       this.props.handleAmendCheckTask(checkItemAmended);
+      this.props.handleEnableAddCheckItem();
     }
   };
 
   render() {
-    const {isOpen, inputValue} = this.state;
+    const { isOpen, inputValue } = this.state;
     const checkTask = this.props.checklistItem.checkTask;
-    const {handleChecklistSubmit, checklistItem, item} = this.props;
+    const {
+      handleChecklistSubmit,
+      handleEnableAddCheckItem,
+      checklistItem,
+      item,
+    } = this.props;
     return (
       <TextContainer>
-        {(isOpen || !checkTask ) && (
-          //TODO: is this necessary having the form as the item is already submitted with AddChecklistItem?
-          // <form onSubmit={(e) => this.props.handleChecklistSubmit(e, item, checklistItem, inputValue)}>
-          <form onSubmit={(e) => handleChecklistSubmit(e, item, checklistItem, inputValue)} >
+        {(isOpen || !checkTask) && (
+          <form
+            onSubmit={(e) =>
+              handleChecklistSubmit(
+                e,
+                item,
+                checklistItem,
+                inputValue,
+                handleEnableAddCheckItem
+              )
+            }
+          >
             <StyledInput
               defaultValue={checkTask}
               onChange={this.handleChange}
