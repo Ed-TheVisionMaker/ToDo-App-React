@@ -1,33 +1,33 @@
 import React from "react";
 import styled from "styled-components";
 
+const CheckListCheckButton = styled.button`
+position: relative;
+
+box-sizing: border-box;
+width: 25px;
+height: 25px;
+
+margin-right: 20px;
+
+`;
+
+const CheckListCheckSvg = styled.svg`
+position: absolute;
+top: -2px;
+left: -2px;
+
+box-sizing: border-box;
+width: 25px;
+height: 25px;
+
+color: black;
+background-color: white;
+border-radius: 5px;
+`;
+
 const ChecklistCheckbox = (props) => {
   const {id, isDone} = props.checklistItem;
-
-  const CheckListCheckButton = styled.button`
-    position: relative;
-
-    box-sizing: border-box;
-    width: 25px;
-    height: 25px;
-
-    margin-right: 20px;
-
-  `;
-
-  const CheckListCheckSvg = styled.svg`
-    position: absolute;
-    top: -2px;
-    left: -2px;
-
-    box-sizing: border-box;
-    width: 25px;
-    height: 25px;
-
-    color: black;
-    background-color: white;
-    border-radius: 5px;
-  `;
   return (
     <CheckListCheckButton onClick={() => props.handleChecklistIsDone(id)}>
       {isDone && (
