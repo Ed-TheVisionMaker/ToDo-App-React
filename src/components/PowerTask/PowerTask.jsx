@@ -6,8 +6,6 @@ const PowerTaskContainer = styled.div`
   align-items: center;
 `;
 
-const PowerTaskItem = styled.h1``;
-
 const ClosePowerTaskButton = styled.button`
   height: 50px;
   margin-left: 50px;
@@ -18,7 +16,7 @@ const PowerTask = (props) => {
   const task = powerItem.task;
   return (
     <PowerTaskContainer>
-      <PowerTaskItem>{task}</PowerTaskItem>
+      <h1>{task}</h1>
       <ClosePowerTaskButton onClick={() => props.handlePowerFinished()}>
         Done
       </ClosePowerTaskButton>
