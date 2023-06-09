@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const TextContainer = styled.div`
@@ -9,7 +10,7 @@ const TextContainer = styled.div`
   padding: 5px 0 5px 10px;
 `;
 
-const StyledInput = styled.input`
+const Input = styled.input`
   width: 290px;
 
   font-size: 18px;
@@ -20,73 +21,71 @@ const StyledInput = styled.input`
   border-radius: 5px;
 `;
 
-const StyledItemSpan = styled.span`
+const ItemSpan = styled.span`
   width: inherit;
   height: inherit;
 
   margin-right: 100px;
 `;
 
-export default class ChecklistInput extends React.Component {
-  state = {
-    inputValue: "",
-    isOpen: false,
+function ChecklistInput(props) {
+  const [inputValue, setInputValue] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value)
   };
 
-  handleChange = (e) => {
-    this.setState({ inputValue: e.target.value });
-  };
+  const handleClick = () => {
+    const checkItemAmended = props.checklistItem;
+    const checkTask = props.checklistItem.checkTask;
 
-  handleClick = () => {
-    const { isOpen, inputValue } = this.state;
-    const checkItemAmended = this.props.checklistItem;
-    const checkTask = this.props.checklistItem.checkTask;
+    if (!isOpen) setIsOpen(true);
 
-    if (!isOpen) this.setState({ isOpen: true });
     if (isOpen || !checkTask) {
-      this.setState({ isOpen: false });
+      setIsOpen(false);
       checkItemAmended.checkTask = inputValue;
-      this.props.handleAmendCheckTask(checkItemAmended);
-      this.props.handleEnableAddCheckItem();
+      props.handleAmendCheckTask(checkItemAmended);
+      props.handleEnableAddCheckItem();
     }
   };
 
-  render() {
-    const { isOpen, inputValue } = this.state;
-    const checkTask = this.props.checklistItem.checkTask;
-    const {
-      handleChecklistSubmit,
-      handleEnableAddCheckItem,
-      checklistItem,
-      item,
-    } = this.props;
-    return (
-      <TextContainer>
-        {(isOpen || !checkTask) && (
-          <form
-            onSubmit={(e) =>
-              handleChecklistSubmit(
-                e,
-                item,
-                checklistItem,
-                inputValue,
-                handleEnableAddCheckItem
-              )
-            }
-          >
-            <StyledInput
-              defaultValue={checkTask}
-              onChange={this.handleChange}
-              onBlur={this.handleClick}
-            />
-          </form>
-        )}
-        {!isOpen && (
-          <StyledItemSpan onClick={this.handleClick}>
-            {checkTask}
-          </StyledItemSpan>
-        )}
-      </TextContainer>
-    );
-  }
+  const checkTask = props.checklistItem.checkTask;
+  const {
+    handleChecklistSubmit,
+    handleEnableAddCheckItem,
+    checklistItem,
+    item,
+  } = props;
+  
+  return (
+    <TextContainer>
+      {(isOpen || !checkTask) && (
+        <form
+          onSubmit={(e) =>
+            handleChecklistSubmit(
+              e,
+              item,
+              checklistItem,
+              inputValue,
+              handleEnableAddCheckItem
+            )
+          }
+        >
+          <Input
+            defaultValue={checkTask}
+            onChange={handleChange}
+            onBlur={handleClick}
+          />
+        </form>
+      )}
+      {!isOpen && (
+        <ItemSpan onClick={handleClick}>
+          {checkTask}
+        </ItemSpan>
+      )}
+    </TextContainer>
+  );
 }
+
+export default ChecklistInput;
