@@ -100,51 +100,35 @@ function SortButton(props) {
   const [isListOpen, setIsListOpen] = useState(false);
 
   const toggleList = () => {
-    // this.setState((prevState) => ({
-    //   isListOpen: !prevState.isListOpen,
-    // }));
     setIsListOpen(!isListOpen);
-
-    //look at componentDidMount in functional components;
-    //TODO: useEffect need instead of cDM and cDU
-} 
-
-export default class SortButton extends React.Component {
-  state = {
-    isListOpen: false,
   };
 
-  toggleList = () => {
-    this.setState((prevState) => ({
-      isListOpen: !prevState.isListOpen,
-    }));
-  };
+  const sortCategory = Object.keys(buttonContent);
+  const category = props.category;
 
-  componentDidMount() {
-    const category = this.props.category;
-    this.setState({ category: category });
-  }
+  return (
+    <DdWrapper>
+      <div>
+        <DdHeaderButton onClick={toggleList}>Sort</DdHeaderButton>
+      </div>
+      {isListOpen && (
+        <DdList>
+          {Object.values(buttonContent).map((content, i) => {
+            return (
+              <DdListButton
+                key={sortCategory[i]}
+                onClick={() =>
+                  props.handleSort(sortCategory[i], category, toggleList)
+                }
+              >
+                {content}
+              </DdListButton>
+            );
+          })}
+        </DdList>
+      )}
+    </DdWrapper>
+  );
+}
 
-  render() {
-    const isListOpen = this.state.isListOpen;
-    const toggleList = this.toggleList;
-    const sortCategory = Object.keys(buttonContent);
-    const category = this.props.category;
-
-    return (
-      <DdWrapper>
-        <div>
-          <DdHeaderButton onClick={toggleList}>Sort</DdHeaderButton>
-        </div>
-        {isListOpen && (
-          <DdList>
-            {Object.values(buttonContent).map((content, i) => {
-              return <DdListButton key={sortCategory[i]} onClick={() => this.props.handleSort(sortCategory[i], category, toggleList)} >{content}</DdListButton>;
-            })}
-          </DdList>
-        )}
-      </DdWrapper>
-    );
-  }
-
-  
+export default SortButton;
