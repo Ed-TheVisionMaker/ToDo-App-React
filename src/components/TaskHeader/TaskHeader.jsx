@@ -60,6 +60,7 @@ const TaskComplexity = styled.h3`
 `;
 
 const TaskHeader = (props) => {
+  const { handleSort, list } = props;
   return (
     <TaskHeaderWrapper>
       <HeaderContainerOne>
@@ -69,24 +70,24 @@ const TaskHeader = (props) => {
       <HeaderContainerTwo>
         <TaskDueDate>Due</TaskDueDate>
         <SortButton
-          list={props.list}
-          handleSort={props.handleSort}
+          list={list}
+          handleSort={handleSort}
           category={"dueDate"}
         ></SortButton>
       </HeaderContainerTwo>
       <HeaderContainerThree>
         <TaskPriority>Priority</TaskPriority>
         <SortButton
-          list={props.list}
-          handleSort={props.handleSort}
+          list={list}
+          handleSort={handleSort}
           category={"priority"}
         ></SortButton>
       </HeaderContainerThree>
       <HeaderContainerFour>
         <TaskComplexity>Complexity</TaskComplexity>
         <SortButton
-          list={props.list}
-          handleSort={props.handleSort}
+          list={list}
+          handleSort={handleSort}
           category={"complexity"}
         ></SortButton>
       </HeaderContainerFour>
