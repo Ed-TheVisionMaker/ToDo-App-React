@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Checkbox from "../Checkbox/Checkbox";
@@ -39,7 +39,7 @@ const ItemContainerFour = styled.div`
   width: 15%;
 `;
 
-const StyledListItem = styled.li`
+const ListItem = styled.li`
   display: flex;
   align-items: center;
 
@@ -57,7 +57,7 @@ const TextContainer = styled.div`
   padding: 5px 10px;
 `;
 
-const StyledInput = styled.input`
+const Input = styled.input`
   width: 290px;
 
   font-size: 18px;
@@ -70,109 +70,101 @@ const StyledInput = styled.input`
   border-radius: 5px;
 `;
 
-const StyledItemSpan = styled.span`
+const ItemSpan = styled.span`
   display: block;
   width: 290px;
 
   margin-right: 100px;
   margin-bottom: 10px;
-
 `;
 
-class TaskLine extends React.Component {
-  state = {
-    inputValue: "",
-    isOpen: false,
+function TaskLine(props) {
+  const [inputValue, setInputValue] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const item = props.item;
+  const { checklist, dueDateDisplay, id, isDone, progress } = item
+  let task = item.task
+
+  useEffect(() => {
+    setInputValue(task)
+  }, []);
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value)
   };
-
-  componentDidMount() {
-    const task = this.props.item.task;
-    this.setState({ inputValue: task });
-  }
-
-  handleChange = (e) => {
-    this.setState({ inputValue: e.target.value });
-  };
-
-  handleClick = (e) => {
-    const isOpen = this.state.isOpen;
-    const itemAmended = this.props.item;
-    const newTask = this.state.inputValue;
-
-    if (!isOpen) this.setState({ isOpen: true });
+  
+  const handleClick = (e) => {
+    if (!isOpen) setIsOpen(true);
     if (isOpen) {
-      this.setState({ isOpen: false });
-      itemAmended.task = newTask;
-      this.props.handleAmendTask(itemAmended);
+      setIsOpen(false);
+      task = inputValue;
+      props.handleAmendTask(item);
     }
   };
 
-  render() {
-    const item = this.props.item;
-    const { checklist, dueDateDisplay, id, isDone, progress, task } = this.props.item;
-    const isOpen = this.state.isOpen;
-    return (
-      <>
-        <StyledListItem key={id}>
-          <ItemContainerOne>
-            <Checkbox
-              id={id}
-              isDone={isDone}
-              handleIsDone={this.props.handleIsDone}
-            />
-            <TextContainer>
-              <ProgressBar checklist={checklist} progress={progress} />
-              {isOpen && (
-                <StyledInput
-                  id={"inputAmend"}
-                  onBlur={this.handleClick}
-                  defaultValue={task}
-                  onChange={this.handleChange}
-                  onKeyPress={(e) =>
-                    this.props.handlePressEnter(e, "inputAmend", item)
-                  }
-                />
-              )}
-              {!isOpen && (
-                <StyledItemSpan onClick={this.handleClick}>
-                  {task}
-                </StyledItemSpan>
-              )}
-              <ChecklistShow item={item} handleChecklistClick={this.props.handleChecklistClick} />
-            </TextContainer>
-            <RemoveItem
-              id={id}
-              handleChange={this.props.handleChange}
-              handleRemove={this.props.handleRemove}
-            />
-          </ItemContainerOne>
-          <ItemContainerTwo>
-            <DueDate
-              dueDateDisplay={dueDateDisplay}
-              id={id}
-              handleDateChange={this.props.handleDateChange}
-            />
-          </ItemContainerTwo>
-          <ItemContainerThree>
-            <Dropdown
+  return (
+    <>
+      <ListItem key={id}>
+        <ItemContainerOne>
+          <Checkbox
+            id={id}
+            isDone={isDone}
+            handleIsDone={props.handleIsDone}
+          />
+          <TextContainer>
+            <ProgressBar checklist={checklist} progress={progress} />
+            {isOpen && (
+              <Input
+                id={"inputAmend"}
+                onBlur={this.handleClick}
+                defaultValue={task}
+                onChange={this.handleChange}
+                onKeyPress={(e) =>
+                  props.handlePressEnter(e, "inputAmend", item)
+                }
+              />
+            )}
+            {!isOpen && (
+              <ItemSpan onClick={handleClick}>{task}</ItemSpan>
+            )}
+            <ChecklistShow
               item={item}
-              handleTaskValues={this.props.handleTaskValues}
-              id={id}
-              category={"priority"}
+              handleChecklistClick={props.handleChecklistClick}
             />
-          </ItemContainerThree>
-          <ItemContainerFour>
-            <Dropdown
-              item={item}
-              handleTaskValues={this.props.handleTaskValues}
-              id={id}
-              category={"complexity"}
-            />
-          </ItemContainerFour>
-        </StyledListItem>
-      </>
-    );
-  }
-}
+          </TextContainer>
+          <RemoveItem
+            id={id}
+            handleChange={props.handleChange}
+            handleRemove={props.handleRemove}
+          />
+        </ItemContainerOne>
+        <ItemContainerTwo>
+          <DueDate
+            dueDateDisplay={dueDateDisplay}
+            id={id}
+            handleDateChange={props.handleDateChange}
+          />
+        </ItemContainerTwo>
+        <ItemContainerThree>
+          <Dropdown
+            item={item}
+            handleTaskValues={props.handleTaskValues}
+            id={id}
+            category={"priority"}
+          />
+        </ItemContainerThree>
+        <ItemContainerFour>
+          <Dropdown
+            item={item}
+            handleTaskValues={props.handleTaskValues}
+            id={id}
+            category={"complexity"}
+          />
+        </ItemContainerFour>
+      </ListItem>
+    </>
+  );
+};
 
 export default TaskLine;
