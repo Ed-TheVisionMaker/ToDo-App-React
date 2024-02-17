@@ -56,7 +56,7 @@ function UserInputs() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newItem = {
-      task: this.state.inputValue,
+      task: inputValue,
       isDone: false,
       priority: 0,
       complexity: 0,
