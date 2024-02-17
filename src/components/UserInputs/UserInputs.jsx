@@ -1,10 +1,10 @@
-import { createContext, useContext, useState } from "react";
-import styled from "styled-components";
+import { createContext, useContext, useState } from 'react';
+import styled from 'styled-components';
 
-import TaskList from "../TaskList/TaskList";
-import SearchItems from "../SearchItems/SearchItems";
-import PowerMode from "../PowerMode/PowerMode";
-import PowerTask from "../PowerTask/PowerTask";
+import TaskList from '../TaskList/TaskList';
+import SearchItems from '../SearchItems/SearchItems';
+import PowerMode from '../PowerMode/PowerMode';
+import PowerTask from '../PowerTask/PowerTask';
 
 const TodoContainer = styled.div`
   width: 100%;
@@ -12,20 +12,17 @@ const TodoContainer = styled.div`
 
 const UserInputContainer = styled.div`
   display: flex;
-
   margin-bottom: 50px;
 `;
 
 const PowerModeContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-
   width: 30%;
 `;
 
 const ItemInputSearchContainer = styled.div`
   width: 70%;
-
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -33,15 +30,14 @@ const ItemInputSearchContainer = styled.div`
 
 const TaskInput = styled.input`
   width: 350px;
-
   padding: 5px 10px;
   font-size: 18px;
 `;
 
 function UserInputs() {
   const [list, setList] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [searchValue, setSearchValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   // const [sortCategory, setSortCategory] = useState("default");
   const [powerModeActive, setPowerModeActive] = useState(false);
 
@@ -50,7 +46,7 @@ function UserInputs() {
   };
 
   const handleBlur = (e) => {
-    e.target.value = "";
+    e.target.value = '';
   };
 
   const handleSubmit = (e) => {
@@ -69,7 +65,7 @@ function UserInputs() {
       checklist: [],
     };
     const newList = [...list, newItem];
-    setInputValue("");
+    setInputValue('');
     setList(newList);
   };
 
@@ -100,11 +96,11 @@ function UserInputs() {
 
   const handleTaskValues = (taskId, n, category) => {
     const newList = list.map((item) => {
-      if (item.id === taskId && category === "priority") {
+      if (item.id === taskId && category === 'priority') {
         item.priority = n;
         item.powerValue = item.priority + item.complexity;
       }
-      if (item.id === taskId && category === "complexity") {
+      if (item.id === taskId && category === 'complexity') {
         item.complexity = n;
         item.powerValue = item.complexity + item.priority;
       }
@@ -115,18 +111,18 @@ function UserInputs() {
 
   const handleSort = (sortCategory, category, toggleList) => {
     const sortedList = list.sort((a, b) => {
-      if (sortCategory === "asEntered") return a.date - b.date;
+      if (sortCategory === 'asEntered') return a.date - b.date;
 
-      if (sortCategory === "ascending") {
-        if (category === "priority") return a.priority - b.priority;
-        if (category === "complexity") return a.priority - b.priority;
-        if (category === "dueDate") return a.dueDateUnix - b.dueDateUnix;
+      if (sortCategory === 'ascending') {
+        if (category === 'priority') return a.priority - b.priority;
+        if (category === 'complexity') return a.priority - b.priority;
+        if (category === 'dueDate') return a.dueDateUnix - b.dueDateUnix;
       }
 
-      if (sortCategory === "descending") {
-        if (category === "priority") return b.priority - a.priority;
-        if (category === "complexity") return b.priority - a.priority;
-        if (category === "dueDate") return b.dueDateUnix - a.dueDateUnix;
+      if (sortCategory === 'descending') {
+        if (category === 'priority') return b.priority - a.priority;
+        if (category === 'complexity') return b.priority - a.priority;
+        if (category === 'dueDate') return b.dueDateUnix - a.dueDateUnix;
       }
     });
 
@@ -139,115 +135,118 @@ function UserInputs() {
   };
 
   const handleClear = () => {
-    setSearchValue("");
-    };
+    setSearchValue('');
+  };
 
-   const handlePowerSort = () => {
-      const sortedList = list.sort(
-        (a, b) => b.powerValue - a.powerValue
-      );
-      setList(sortedList);
-    };
+  const handlePowerSort = () => {
+    const sortedList = list.sort((a, b) => b.powerValue - a.powerValue);
+    setList(sortedList);
+  };
 
-    const handleShowPowerTask = () => {
-      setPowerModeActive(true);
-    };
-  
-    const handlePowerFinished = () => {
-      setPowerModeActive(false);
-    };
+  const handleShowPowerTask = () => {
+    setPowerModeActive(true);
+  };
 
-    const handleDateChange = (id, date, handleClick) => {
-      const monthArray = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
-      const day = date.getDate().toString().padStart(2, "0");
-      const month = monthArray[date.getMonth()];
-      const year = date.getFullYear().toString().substring(2);
-      const displayDate = day + "/" + month + "/" + year;
-      const newList = list.map((item) => {
-        if (item.id === id) {
-          item.dueDateDisplay = displayDate;
-          item.dueDateUnix = date.getTime();
-        }
-        return item;
-      });
-      setList(newList);
-      handleClick();
-    };
+  const handlePowerFinished = () => {
+    setPowerModeActive(false);
+  };
+
+  const handleDateChange = (id, date, handleClick) => {
+    const monthArray = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = monthArray[date.getMonth()];
+    const year = date.getFullYear().toString().substring(2);
+    const displayDate = day + '/' + month + '/' + year;
+    const newList = list.map((item) => {
+      if (item.id === id) {
+        item.dueDateDisplay = displayDate;
+        item.dueDateUnix = date.getTime();
+      }
+      return item;
+    });
+    setList(newList);
+    handleClick();
+  };
 
   const handleChecklistNewItem = (item, handleDisableAddCheckItem) => {
-      const newCheckItem = {
-        checkTask: null,
-        isDone: false,
-        date: Date.now(),
-        id: `${Math.random()} * ${Math.random()}`,
-      };
-  
-      const newChecklist = [...item.checklist, newCheckItem];
-  
-      const newList = list.map((listItem) => {
-        if (listItem.id === item.id) {
-          listItem.checklist = newChecklist;
-        }
-        return listItem;
-      });
-      setList(newList);
-      handleDisableAddCheckItem();
+    const newCheckItem = {
+      checkTask: null,
+      isDone: false,
+      date: Date.now(),
+      id: `${Math.random()} * ${Math.random()}`,
     };
 
-    const handleChecklistSubmit = (e, taskItem, newChecklistItem, value, handleEnableAddCheckItem) => {
-      e.preventDefault();
-      const newList = list.map((item) => {
-        if (item.id === taskItem.id) {
-          const newChecklist = item.checklist.map((checklistItem) => {
-            if (checklistItem.id === newChecklistItem.id) {
-              checklistItem.checkTask = value;
-            }
-            return checklistItem;
-          });
-          item.checklist = newChecklist;
-        }
-        return item;
-      });
-      setList(newList);
-      handleEnableAddCheckItem();
-    };
+    const newChecklist = [...item.checklist, newCheckItem];
 
-    const handleAmendCheckTask = (checkItemAmended) => {
-      const newList = list.map((item) => {
-        item.checklist.map((checklistItem) => {
-          if (checklistItem.id === checkItemAmended.id) {
-            checklistItem.task = checkItemAmended.task;
+    const newList = list.map((listItem) => {
+      if (listItem.id === item.id) {
+        listItem.checklist = newChecklist;
+      }
+      return listItem;
+    });
+    setList(newList);
+    handleDisableAddCheckItem();
+  };
+
+  const handleChecklistSubmit = (
+    e,
+    taskItem,
+    newChecklistItem,
+    value,
+    handleEnableAddCheckItem
+  ) => {
+    e.preventDefault();
+    const newList = list.map((item) => {
+      if (item.id === taskItem.id) {
+        const newChecklist = item.checklist.map((checklistItem) => {
+          if (checklistItem.id === newChecklistItem.id) {
+            checklistItem.checkTask = value;
           }
           return checklistItem;
         });
-  
-        return item;
-      });
-      setList(newList);
-    };
+        item.checklist = newChecklist;
+      }
+      return item;
+    });
+    setList(newList);
+    handleEnableAddCheckItem();
+  };
 
-    
- const handleRemoveCheckItem = (id, indexOfItem, handleEnableAddCheckItem) => {
+  const handleAmendCheckTask = (checkItemAmended) => {
+    const newList = list.map((item) => {
+      item.checklist.map((checklistItem) => {
+        if (checklistItem.id === checkItemAmended.id) {
+          checklistItem.task = checkItemAmended.task;
+        }
+        return checklistItem;
+      });
+
+      return item;
+    });
+    setList(newList);
+  };
+
+  const handleRemoveCheckItem = (id, indexOfItem, handleEnableAddCheckItem) => {
     const list = [...this.state.list];
     list[indexOfItem].checklist = list[indexOfItem].checklist.filter(
       (checklistItem) => checklistItem.id !== id
     );
     this.setState({ list });
 
-    if(!list[indexOfItem].checklist.length) handleEnableAddCheckItem();
+    if (!list[indexOfItem].checklist.length) handleEnableAddCheckItem();
   };
 
   const handleChecklistIsDone = (id) => {
@@ -260,7 +259,8 @@ function UserInputs() {
       });
       item.checklist = newChecklist;
       item.progress =
-        (newChecklist.filter((checklistItem) => checklistItem.isDone).length / newChecklist.length) *
+        (newChecklist.filter((checklistItem) => checklistItem.isDone).length /
+          newChecklist.length) *
         100;
 
       return item;
@@ -275,10 +275,7 @@ function UserInputs() {
   return (
     <>
       {powerModeActive && (
-        <PowerTask
-          list={list}
-          handlePowerFinished={handlePowerFinished}
-        />
+        <PowerTask list={list} handlePowerFinished={handlePowerFinished} />
       )}
       {!powerModeActive && (
         <TodoContainer>
@@ -294,10 +291,10 @@ function UserInputs() {
             <ItemInputSearchContainer>
               <form onSubmit={handleSubmit}>
                 <TaskInput
-                  id={"inputTask"}
+                  id={'inputTask'}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="add item"
+                  placeholder='add item'
                   value={inputValue}
                 />
               </form>
@@ -311,12 +308,23 @@ function UserInputs() {
               )}
             </ItemInputSearchContainer>
           </UserInputContainer>
-          <TaskList list={searchedItems} {...this} />
+          <TaskList
+            list={searchedItems}
+            handleAmendTask={handleAmendTask}
+            handleDateChange={handleDateChange}
+            handleChecklistNewItem={handleChecklistNewItem}
+            handleChecklistSubmit={handleChecklistSubmit}
+            handleAmendCheckTask={handleAmendCheckTask}
+            handleRemoveCheckItem={handleRemoveCheckItem}
+            handleChecklistIsDone={handleChecklistIsDone}
+            handleRemove={handleRemove}
+            handleIsDone={handleIsDone}
+          />
         </TodoContainer>
       )}
     </>
   );
-  };
+}
 
 export default UserInputs;
 
@@ -358,209 +366,209 @@ export default UserInputs;
 //     this.setState({ inputValue: "", list: newList });
 //   };
 
-  // handleAmendTask = (itemAmended) => {
-  //   const newList = this.state.list.map((item) => {
-  //     if (item.id === itemAmended.id) {
-  //       item.task = itemAmended.task;
-  //     }
-  //     return item;
-  //   });
-  //   this.setState({ list: newList });
-  // };
+// handleAmendTask = (itemAmended) => {
+//   const newList = this.state.list.map((item) => {
+//     if (item.id === itemAmended.id) {
+//       item.task = itemAmended.task;
+//     }
+//     return item;
+//   });
+//   this.setState({ list: newList });
+// };
 
-  // handleRemove = (id) => {
-  //   const newList = this.state.list.filter((item) => item.id !== id);
-  //   this.setState({ list: newList });
-  // };
+// handleRemove = (id) => {
+//   const newList = this.state.list.filter((item) => item.id !== id);
+//   this.setState({ list: newList });
+// };
 
-  // handleIsDone = (id) => {
-  //   const newList = this.state.list.map((item) => {
-  //     if (item.id === id) {
-  //       item.isDone = !item.isDone;
-  //     }
-  //     return item;
-  //   });
-  //   this.setState({ list: newList });
-  // };
+// handleIsDone = (id) => {
+//   const newList = this.state.list.map((item) => {
+//     if (item.id === id) {
+//       item.isDone = !item.isDone;
+//     }
+//     return item;
+//   });
+//   this.setState({ list: newList });
+// };
 
-  // handleTaskValues = (taskId, n, category) => {
-  //   const newList = this.state.list.map((item) => {
-  //     if (item.id === taskId && category === "priority") {
-  //       item.priority = n;
-  //       item.powerValue = item.priority + item.complexity;
-  //     }
-  //     if (item.id === taskId && category === "complexity") {
-  //       item.complexity = n;
-  //       item.powerValue = item.complexity + item.priority;
-  //     }
-  //     return item;
-  //   });
-  //   this.setState({ list: newList });
-  // };
+// handleTaskValues = (taskId, n, category) => {
+//   const newList = this.state.list.map((item) => {
+//     if (item.id === taskId && category === "priority") {
+//       item.priority = n;
+//       item.powerValue = item.priority + item.complexity;
+//     }
+//     if (item.id === taskId && category === "complexity") {
+//       item.complexity = n;
+//       item.powerValue = item.complexity + item.priority;
+//     }
+//     return item;
+//   });
+//   this.setState({ list: newList });
+// };
 
-  // handleSort = (sortCategory, category, toggleList) => {
-  //   const sortedList = this.state.list.sort((a, b) => {
-  //     if (sortCategory === "asEntered") return a.date - b.date;
+// handleSort = (sortCategory, category, toggleList) => {
+//   const sortedList = this.state.list.sort((a, b) => {
+//     if (sortCategory === "asEntered") return a.date - b.date;
 
-  //     if (sortCategory === "ascending") {
-  //       if (category === "priority") return a.priority - b.priority;
-  //       if (category === "complexity") return a.priority - b.priority;
-  //       if (category === "dueDate") return a.dueDateUnix - b.dueDateUnix;
-  //     }
+//     if (sortCategory === "ascending") {
+//       if (category === "priority") return a.priority - b.priority;
+//       if (category === "complexity") return a.priority - b.priority;
+//       if (category === "dueDate") return a.dueDateUnix - b.dueDateUnix;
+//     }
 
-  //     if (sortCategory === "descending") {
-  //       if (category === "priority") return b.priority - a.priority;
-  //       if (category === "complexity") return b.priority - a.priority;
-  //       if (category === "dueDate") return b.dueDateUnix - a.dueDateUnix;
-  //     }
-  //   });
+//     if (sortCategory === "descending") {
+//       if (category === "priority") return b.priority - a.priority;
+//       if (category === "complexity") return b.priority - a.priority;
+//       if (category === "dueDate") return b.dueDateUnix - a.dueDateUnix;
+//     }
+//   });
 
-  //   toggleList();
-  //   this.setState({ list: sortedList });
-  // };
+//   toggleList();
+//   this.setState({ list: sortedList });
+// };
 
-  // handleSearch = (e) => {
-  //   this.setState({ searchValue: e.target.value });
-  // };
+// handleSearch = (e) => {
+//   this.setState({ searchValue: e.target.value });
+// };
 
-  // handleClear = () => {
-  //   this.setState({ searchValue: "" });
-  // };
+// handleClear = () => {
+//   this.setState({ searchValue: "" });
+// };
 
-  // handlePowerSort = () => {
-  //   const sortedList = this.state.list.sort(
-  //     (a, b) => b.powerValue - a.powerValue
-  //   );
-  //   this.setState({ list: sortedList });
-  // };
+// handlePowerSort = () => {
+//   const sortedList = this.state.list.sort(
+//     (a, b) => b.powerValue - a.powerValue
+//   );
+//   this.setState({ list: sortedList });
+// };
 
-  // handleShowPowerTask = () => {
-  //   this.setState({ powerModeActive: true });
-  // };
+// handleShowPowerTask = () => {
+//   this.setState({ powerModeActive: true });
+// };
 
-  // handlePowerFinished = () => {
-  //   this.setState({ powerModeActive: false });
-  // };
+// handlePowerFinished = () => {
+//   this.setState({ powerModeActive: false });
+// };
 
-  // handleMode = () => {
-  //   const mode = this.state.mode;
-  //   if (mode === "simple") this.setState({ mode: "detailed" });
-  //   if (mode === "detailed") this.setState({ mode: "simple" });
-  // };
+// handleMode = () => {
+//   const mode = this.state.mode;
+//   if (mode === "simple") this.setState({ mode: "detailed" });
+//   if (mode === "detailed") this.setState({ mode: "simple" });
+// };
 
-  // handleDateChange = (id, date, handleClick) => {
-  //   const monthArray = [
-  //     "Jan",
-  //     "Feb",
-  //     "Mar",
-  //     "Apr",
-  //     "May",
-  //     "Jun",
-  //     "Jul",
-  //     "Aug",
-  //     "Sep",
-  //     "Oct",
-  //     "Nov",
-  //     "Dec",
-  //   ];
-  //   const day = date.getDate().toString().padStart(2, "0");
-  //   const month = monthArray[date.getMonth()];
-  //   const year = date.getFullYear().toString().substring(2);
-  //   const displayDate = day + "/" + month + "/" + year;
-  //   const newList = this.state.list.map((item) => {
-  //     if (item.id === id) {
-  //       item.dueDateDisplay = displayDate;
-  //       item.dueDateUnix = date.getTime();
-  //     }
-  //     return item;
-  //   });
-  //   this.setState({ list: newList });
-  //   handleClick();
-  // };
+// handleDateChange = (id, date, handleClick) => {
+//   const monthArray = [
+//     "Jan",
+//     "Feb",
+//     "Mar",
+//     "Apr",
+//     "May",
+//     "Jun",
+//     "Jul",
+//     "Aug",
+//     "Sep",
+//     "Oct",
+//     "Nov",
+//     "Dec",
+//   ];
+//   const day = date.getDate().toString().padStart(2, "0");
+//   const month = monthArray[date.getMonth()];
+//   const year = date.getFullYear().toString().substring(2);
+//   const displayDate = day + "/" + month + "/" + year;
+//   const newList = this.state.list.map((item) => {
+//     if (item.id === id) {
+//       item.dueDateDisplay = displayDate;
+//       item.dueDateUnix = date.getTime();
+//     }
+//     return item;
+//   });
+//   this.setState({ list: newList });
+//   handleClick();
+// };
 
-  // handleChecklistNewItem = (item, handleDisableAddCheckItem) => {
-  //   const newCheckItem = {
-  //     checkTask: null,
-  //     isDone: false,
-  //     date: Date.now(),
-  //     id: `${Math.random()} * ${Math.random()}`,
-  //   };
+// handleChecklistNewItem = (item, handleDisableAddCheckItem) => {
+//   const newCheckItem = {
+//     checkTask: null,
+//     isDone: false,
+//     date: Date.now(),
+//     id: `${Math.random()} * ${Math.random()}`,
+//   };
 
-  //   const newChecklist = [...item.checklist, newCheckItem];
+//   const newChecklist = [...item.checklist, newCheckItem];
 
-  //   const newList = this.state.list.map((listItem) => {
-  //     if (listItem.id === item.id) {
-  //       listItem.checklist = newChecklist;
-  //     }
-  //     return listItem;
-  //   });
-  //   this.setState({ list: newList });
-  //   handleDisableAddCheckItem();
-  // };
+//   const newList = this.state.list.map((listItem) => {
+//     if (listItem.id === item.id) {
+//       listItem.checklist = newChecklist;
+//     }
+//     return listItem;
+//   });
+//   this.setState({ list: newList });
+//   handleDisableAddCheckItem();
+// };
 
-  // handleChecklistSubmit = (e, taskItem, newChecklistItem, value, handleEnableAddCheckItem) => {
-  //   e.preventDefault();
-  //   const newList = this.state.list.map((item) => {
-  //     if (item.id === taskItem.id) {
-  //       const newChecklist = item.checklist.map((checklistItem) => {
-  //         if (checklistItem.id === newChecklistItem.id) {
-  //           checklistItem.checkTask = value;
-  //         }
-  //         return checklistItem;
-  //       });
-  //       item.checklist = newChecklist;
-  //     }
-  //     return item;
-  //   });
-  //   this.setState({ list: newList });
-  //   handleEnableAddCheckItem();
-  // };
+// handleChecklistSubmit = (e, taskItem, newChecklistItem, value, handleEnableAddCheckItem) => {
+//   e.preventDefault();
+//   const newList = this.state.list.map((item) => {
+//     if (item.id === taskItem.id) {
+//       const newChecklist = item.checklist.map((checklistItem) => {
+//         if (checklistItem.id === newChecklistItem.id) {
+//           checklistItem.checkTask = value;
+//         }
+//         return checklistItem;
+//       });
+//       item.checklist = newChecklist;
+//     }
+//     return item;
+//   });
+//   this.setState({ list: newList });
+//   handleEnableAddCheckItem();
+// };
 
-  // handleAmendCheckTask = (checkItemAmended) => {
-  //   const newList = this.state.list.map((item) => {
-  //     item.checklist.map((checklistItem) => {
-  //       if (checklistItem.id === checkItemAmended.id) {
-  //         checklistItem.task = checkItemAmended.task;
-  //       }
-  //       return checklistItem;
-  //     });
+// handleAmendCheckTask = (checkItemAmended) => {
+//   const newList = this.state.list.map((item) => {
+//     item.checklist.map((checklistItem) => {
+//       if (checklistItem.id === checkItemAmended.id) {
+//         checklistItem.task = checkItemAmended.task;
+//       }
+//       return checklistItem;
+//     });
 
-  //     return item;
-  //   });
-  //   this.setState({ list: newList });
-  // };
+//     return item;
+//   });
+//   this.setState({ list: newList });
+// };
 
-  // handleRemoveCheckItem = (id, indexOfItem, handleEnableAddCheckItem) => {
-  //   const list = [...this.state.list];
-  //   list[indexOfItem].checklist = list[indexOfItem].checklist.filter(
-  //     (checklistItem) => checklistItem.id !== id
-  //   );
-  //   this.setState({ list });
+// handleRemoveCheckItem = (id, indexOfItem, handleEnableAddCheckItem) => {
+//   const list = [...this.state.list];
+//   list[indexOfItem].checklist = list[indexOfItem].checklist.filter(
+//     (checklistItem) => checklistItem.id !== id
+//   );
+//   this.setState({ list });
 
-  //   if(!list[indexOfItem].checklist.length) handleEnableAddCheckItem();
-  // };
+//   if(!list[indexOfItem].checklist.length) handleEnableAddCheckItem();
+// };
 
-  // handleChecklistIsDone = (id) => {
-  //   const newList = this.state.list.map((item) => {
-  //     const newChecklist = item.checklist.map((checklistItem) => {
-  //       if (checklistItem.id === id) {
-  //         checklistItem.isDone = !checklistItem.isDone;
-  //       }
-  //       return checklistItem;
-  //     });
-  //     item.checklist = newChecklist;
-  //     item.progress =
-  //       (newChecklist.filter((checklistItem) => checklistItem.isDone).length / newChecklist.length) *
-  //       100;
+// handleChecklistIsDone = (id) => {
+//   const newList = this.state.list.map((item) => {
+//     const newChecklist = item.checklist.map((checklistItem) => {
+//       if (checklistItem.id === id) {
+//         checklistItem.isDone = !checklistItem.isDone;
+//       }
+//       return checklistItem;
+//     });
+//     item.checklist = newChecklist;
+//     item.progress =
+//       (newChecklist.filter((checklistItem) => checklistItem.isDone).length / newChecklist.length) *
+//       100;
 
-  //     return item;
-  //   });
-  //   this.setState({ list: newList });
-  // };
+//     return item;
+//   });
+//   this.setState({ list: newList });
+// };
 
-  // render() {
-    // console.log(this.state.list, "state list in UserInput")
-    // const { list, mode, powerModeActive, searchValue } = this.state;
+// render() {
+// console.log(this.state.list, "state list in UserInput")
+// const { list, mode, powerModeActive, searchValue } = this.state;
 //     const searchedItems = list.filter((item) => {
 //       return item.task.includes(searchValue);
 //     });
@@ -611,4 +619,4 @@ export default UserInputs;
 //     );
 //   }
 // }
-// // 
+// //

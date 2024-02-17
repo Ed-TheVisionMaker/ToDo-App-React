@@ -117,9 +117,9 @@ function TaskLine(props) {
             {isOpen && (
               <Input
                 id={"inputAmend"}
-                onBlur={this.handleClick}
+                onBlur={handleClick}
                 defaultValue={task}
-                onChange={this.handleChange}
+                onChange={handleChange}
                 onKeyPress={(e) =>
                   props.handlePressEnter(e, "inputAmend", item)
                 }
