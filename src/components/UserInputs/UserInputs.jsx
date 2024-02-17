@@ -319,6 +319,8 @@ function UserInputs() {
             handleChecklistIsDone={handleChecklistIsDone}
             handleRemove={handleRemove}
             handleIsDone={handleIsDone}
+            handleTaskValues={handleTaskValues}
+            handleSort={handleSort}
           />
         </TodoContainer>
       )}
