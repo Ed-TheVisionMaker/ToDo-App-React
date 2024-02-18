@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import TaskList from '../TaskList/TaskList';
@@ -110,25 +110,25 @@ function UserInputs() {
   };
 
   const handleSort = (sortCategory, category, toggleList) => {
-    const sortedList = list.sort((a, b) => {
+    const sortedList = [...list].sort((a, b) => {
       if (sortCategory === 'asEntered') return a.date - b.date;
 
       if (sortCategory === 'ascending') {
         if (category === 'priority') return a.priority - b.priority;
-        if (category === 'complexity') return a.priority - b.priority;
+        if (category === 'complexity') return a.complexity - b.complexity;
         if (category === 'dueDate') return a.dueDateUnix - b.dueDateUnix;
       }
 
       if (sortCategory === 'descending') {
         if (category === 'priority') return b.priority - a.priority;
-        if (category === 'complexity') return b.priority - a.priority;
+        if (category === 'complexity') return b.complexity - a.complexity;
         if (category === 'dueDate') return b.dueDateUnix - a.dueDateUnix;
       }
     });
-
     toggleList();
     setList(sortedList);
   };
+
 
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
@@ -139,7 +139,7 @@ function UserInputs() {
   };
 
   const handlePowerSort = () => {
-    const sortedList = list.sort((a, b) => b.powerValue - a.powerValue);
+    const sortedList = [...list].sort((a, b) => b.powerValue - a.powerValue);
     setList(sortedList);
   };
 
