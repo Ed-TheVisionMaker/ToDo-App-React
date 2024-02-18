@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 import ActivatePowerMode from "../ActivatePowerMode/ActivatePowerMode";
@@ -8,31 +9,21 @@ const PowerButton = styled.button`
   margin-right: 30px;
 `;
 
-export default class PowerMode extends React.Component {
-  state = {
-    isSelected: false,
+function PowerMode(props) {
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handlePowerMode = () => {
+    setIsSelected(!isSelected);
+    props.handlePowerSort();
   };
-
-  handlePowerMode = () => {
-    this.setState((prevState) => ({
-      isSelected: !prevState.isSelected,
-    }));
-
-    this.props.handlePowerSort();
-  };
-
-
-  render() {
-    const isSelected = this.state.isSelected;
-    return (
-      <>
-        {isSelected && (
-          <ActivatePowerMode handleShowPowerTask={this.props.handleShowPowerTask} />
-        )}
-        <PowerButton onClick={() => this.handlePowerMode()}>
-          Power Mode
-        </PowerButton>
-      </>
-    );
-  }
+  return (
+    <>
+      {isSelected && (
+        <ActivatePowerMode handleShowPowerTask={props.handleShowPowerTask} />
+      )}
+      <PowerButton onClick={() => handlePowerMode()}>Power Mode</PowerButton>
+    </>
+  );
 }
+
+export default PowerMode;

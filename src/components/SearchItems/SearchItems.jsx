@@ -20,15 +20,18 @@ const ClearButton = styled.button`
   padding: 5px;
 `;
 
-
-
 const SearchItems = (props) => {
-    return (
+  const { handleClear, handleSearch, searchValue } = props;
+  return (
     <SearchContainer>
-        <SearchInput onChange={(e) => props.handleSearch(e)} placeholder={"search list"} value={props.searchValue} />
-        <ClearButton onClick={() => props.handleClear()}>Clear</ClearButton>
-      </SearchContainer>
-    );
+      <SearchInput
+        onChange={(e) => handleSearch(e)}
+        placeholder={"search list"}
+        value={searchValue}
+      />
+      <ClearButton onClick={() => handleClear()}>Clear</ClearButton>
+    </SearchContainer>
+  );
 };
 
 export default SearchItems;

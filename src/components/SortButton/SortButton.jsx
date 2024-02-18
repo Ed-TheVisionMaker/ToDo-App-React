@@ -1,7 +1,8 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
-const DdWrapperStyled = styled.div`
+const DdWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -10,15 +11,13 @@ const DdWrapperStyled = styled.div`
   border: 0;
 `;
 
-const DdHeaderButtonStyled = styled.button`
+const DdHeaderButton = styled.button`
   padding: 5px 10px;
   border-radius: 5px;
   border: 1px solid var(--white);
 `;
 
-const DdHeaderTitleStyled = styled.div``;
-
-const DdListStyled = styled.div`
+const DdList = styled.div`
   position: absolute;
   top: 36px;
   left: 20px;
@@ -97,105 +96,39 @@ const buttonContent = {
   ),
 };
 
-export default class SortButton extends React.Component {
-  state = {
-    isListOpen: false,
+function SortButton(props) {
+  const [isListOpen, setIsListOpen] = useState(false);
+
+  const toggleList = () => {
+    setIsListOpen(!isListOpen);
   };
 
-  toggleList = () => {
-    this.setState((prevState) => ({
-      isListOpen: !prevState.isListOpen,
-    }));
-  };
+  const sortCategory = Object.keys(buttonContent);
+  const category = props.category;
 
-  componentDidMount() {
-    const category = this.props.category;
-    this.setState({ category: category });
-  }
-
-  render() {
-    const isListOpen = this.state.isListOpen;
-    const toggleList = this.toggleList;
-    const sortCategory = Object.keys(buttonContent);
-    const category = this.props.category;
-
-    return (
-      <DdWrapperStyled>
-        <DdHeaderTitleStyled>
-          <DdHeaderButtonStyled onClick={toggleList}>Sort</DdHeaderButtonStyled>
-        </DdHeaderTitleStyled>
-        {isListOpen && (
-          <DdListStyled>
-            {Object.values(buttonContent).map((content, i) => {
-              return <DdListButton key={sortCategory[i]} onClick={() => this.props.handleSort(sortCategory[i], category, toggleList)} >{content}</DdListButton>;
-            })}
-          </DdListStyled>
-        )}
-      </DdWrapperStyled>
-    );
-  }
-
-  // render() {
-  //   const isListOpen = this.state.isListOpen;
-  //   const category = this.props.category;
-  //   const toggleList = this.toggleList;
-  //   return (
-  //     <DdWrapperStyled>
-  //       <DdHeaderTitleStyled>
-  //         <DdHeaderButtonStyled onClick={toggleList}>Sort</DdHeaderButtonStyled>
-  //       </DdHeaderTitleStyled>
-  //       {isListOpen && (
-  //         <DdListStyled>
-  //           <DdListButton
-  //             onClick={() =>
-  //               this.props.handleSort("default", category, toggleList)
-  //             }
-  //           >
-  //             Default
-  //           </DdListButton>
-  //           <DdListButton
-  //             onClick={() =>
-  //               this.props.handleSort("ascending", category, toggleList)
-  //             }
-  //           >
-  //             <DdListSVG
-  //               xmlns="http://www.w3.org/2000/svg"
-  //               fill="none"
-  //               viewBox="0 0 24 24"
-  //               strokeWidth="1.5"
-  //               stroke="currentColor"
-  //               className="w-6 h-6"
-  //             >
-  //               <path
-  //                 strokeLinecap="round"
-  //                 strokeLinejoin="round"
-  //                 d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5"
-  //               />
-  //             </DdListSVG>
-  //           </DdListButton>
-  //           <DdListButton
-  //             onClick={() =>
-  //               this.props.handleSort("descending", category, toggleList)
-  //             }
-  //           >
-  //             <DdListSVG
-  //               xmlns="http://www.w3.org/2000/svg"
-  //               fill="none"
-  //               viewBox="0 0 24 24"
-  //               strokeWidth="1.5"
-  //               stroke="currentColor"
-  //               className="w-6 h-6"
-  //             >
-  //               <path
-  //                 strokeLinecap="round"
-  //                 strokeLinejoin="round"
-  //                 d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"
-  //               />
-  //             </DdListSVG>
-  //           </DdListButton>
-  //         </DdListStyled>
-  //       )}
-  //     </DdWrapperStyled>
-  //   );
-  // }
+  return (
+    <DdWrapper>
+      <div>
+        <DdHeaderButton onClick={toggleList}>Sort</DdHeaderButton>
+      </div>
+      {isListOpen && (
+        <DdList>
+          {Object.values(buttonContent).map((content, i) => {
+            return (
+              <DdListButton
+                key={sortCategory[i]}
+                onClick={() =>
+                  props.handleSort(sortCategory[i], category, toggleList)
+                }
+              >
+                {content}
+              </DdListButton>
+            );
+          })}
+        </DdList>
+      )}
+    </DdWrapper>
+  );
 }
+
+export default SortButton;

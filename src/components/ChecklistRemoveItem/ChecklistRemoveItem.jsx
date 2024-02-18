@@ -29,6 +29,7 @@ const RemoveSVG = styled.svg`
 const ChecklistRemoveItem = (props) => {
   const { handleEnableAddCheckItem, handleRemoveCheckItem, id, indexOfItem } =
     props;
+    console.log(props, "props");
   return (
     <RemoveButton
       onClick={() =>

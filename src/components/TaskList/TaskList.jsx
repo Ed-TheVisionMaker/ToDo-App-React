@@ -93,7 +93,17 @@ export default class TaskList extends React.Component {
                   key={item.id}
                   item={item}
                   handleChecklistClick={this.handleChecklistClick}
-                  {...this.props}
+                  list={list}
+                  handleSort={this.props.handleSort}
+                  handleIsDone={this.props.handleIsDone}
+                  handleChange={this.props.handleChange}
+                  handleRemove={this.props.handleRemove}
+                  // handleAmendTask={handleAmendTask}
+                  // handleChecklistClose={this.handleChecklistClose}
+                  handleDateChange={this.props.handleDateChange}
+                  handleTaskValues={this.props.handleTaskValues}
+                  handlePressEnter={this.props.handlePressEnter}
+
                 />
               );
             })}

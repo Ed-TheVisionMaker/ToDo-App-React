@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 import CalendarDisplay from "../CalendarDisplay/CalendarDisplay";
@@ -6,7 +7,7 @@ import CalendarDisplay from "../CalendarDisplay/CalendarDisplay";
 const DueDateContainer = styled.div`
   position: relative;
 
-  color: var(--white)
+  color: var(--white);
 `;
 
 const DueDateText = styled.div`
@@ -25,33 +26,29 @@ const DueDateText = styled.div`
     cursor: pointer;
   }
 `;
+function DueDate(props) {
+  const [showCalendar, setShowCalendar] = useState(false);
 
-export default class DueDate extends React.Component {
-  state = {
-    showCalendar: false,
+  const handleClick = () => {
+    setShowCalendar(!showCalendar);
   };
 
-  handleClick = () => {
-    this.setState((prevState) => ({ showCalendar: !prevState.showCalendar }));
-  };
+  const { dueDateDisplay, handleDateChange, id } = props;
 
-  render() {
-    const showCalendar = this.state.showCalendar;
-    const id = this.props.id;
-    const dueDateDisplay = this.props.dueDateDisplay;
-    return (
-      <DueDateContainer>
-        <DueDateText onClick={() => this.handleClick()}>
-          {dueDateDisplay || "Date"}
-        </DueDateText>
-        {showCalendar && (
-          <CalendarDisplay
-            id={id}
-            handleDateChange={this.props.handleDateChange}
-            handleClick={this.handleClick}
-          />
-        )}
-      </DueDateContainer>
-    );
-  }
+  return (
+    <DueDateContainer>
+      <DueDateText onClick={() => handleClick()}>
+        {dueDateDisplay || "Date"}
+      </DueDateText>
+      {showCalendar && (
+        <CalendarDisplay
+          id={id}
+          handleDateChange={handleDateChange}
+          handleClick={handleClick}
+        />
+      )}
+    </DueDateContainer>
+  );
 }
+
+export default DueDate;
