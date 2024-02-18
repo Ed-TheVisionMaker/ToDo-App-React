@@ -240,11 +240,12 @@ function UserInputs() {
   };
 
   const handleRemoveCheckItem = (id, indexOfItem, handleEnableAddCheckItem) => {
-    const list = [...this.state.list];
-    list[indexOfItem].checklist = list[indexOfItem].checklist.filter(
+    const newList = [...list];
+    console.log(newList[indexOfItem].checklist);
+    newList[indexOfItem].checklist = list[indexOfItem].checklist.filter(
       (checklistItem) => checklistItem.id !== id
     );
-    this.setState({ list });
+    setList(newList);
 
     if (!list[indexOfItem].checklist.length) handleEnableAddCheckItem();
   };

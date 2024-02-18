@@ -33,7 +33,6 @@ const ChecklistItem = styled.li`
 `;
 
 const Checklist = (props) => {
-  console.log(props, "props in checklist");
   const { handleChecklistNewItem, handleDisableAddCheckItem, item, newItem } =
     props;
   return (
